@@ -1,1 +1,5 @@
-streamlit 
+streamlit
+tmdbv3api
+pandas
+numpy
+scikit-surprise
