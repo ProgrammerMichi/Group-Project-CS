@@ -1,4 +1,3 @@
-print("michihausen")
+import streamlit as st
 
-
-print("i werd nöd hello schribe du michi")
+st.write ("hooray we connected ananana sikim")
