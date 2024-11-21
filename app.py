@@ -10,8 +10,7 @@ from APIConnection import TMDbAPIClient
 with st.sidebar:
     selected = option_menu(
         menu_title = "Select Category"
-        options = ["Genre", "Rating", "Actors","Length", "Keywords", "Recommendation", "Popular", "Title"]
-    )
+        options = ["Genre", "Rating", "Actors","Length", "Keywords", "Recommendation", "Popular", "Title"])
 
 if selected == "Genre":
     st.write(f"Genre")
@@ -28,24 +27,24 @@ if selected == "Length":
 if selected == "Keywords":
     st.write(f"Keywords")
 
-if selected == "Recommendation"
+if selected == "Recommendation":
     st.write(f"Recommendation")
 
-if selected == "Popular"
+if selected == "Popular":
     st.write(f"Popular")
 
-if selected == "Title"
-user_input = st.text_input(value = None)
-if user_input:
-    # Initialize the TMDB API client with the API key
-    testrun = TMDbAPIClient("eb7ed2a4be7573ea9c99867e37d0a4ab")
-    search_query = str(user_input)
+if selected == "Title":
+    user_input = st.text_input(value = None)
+    if user_input:
+        # Initialize the TMDB API client with the API key
+        testrun = TMDbAPIClient("eb7ed2a4be7573ea9c99867e37d0a4ab")
+        search_query = str(user_input)
     
-    # Get the movies based on the search query
-    movies = testrun.search_movie_title(search_query)
+        # Get the movies based on the search query
+        movies = testrun.search_movie_title(search_query)
     
-    # Display the movie titles
-    for movie in movies:
-        st.write(f"{movie['title']}")
+        # Display the movie titles
+        for movie in movies:
+            st.write(f"{movie['title']}")
 
 
