@@ -9,8 +9,9 @@ from APIConnection import TMDbAPIClient
 
 with st.sidebar:
     selected = option_menu(
-        menu_title = "Select Category"
-        options = ["Genre", "Rating", "Actors","Length", "Keywords", "Recommendation", "Popular", "Title"])
+        menu_title = "Select Category",
+        options = ["Genre", "Rating", "Actors","Length", "Keywords", "Recommendation", "Popular", "Title"]
+        )
 
 if selected == "Genre":
     st.write(f"Genre")
