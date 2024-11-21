@@ -11,7 +11,11 @@ from APIConnection import TMDBAPIClient
     # from dotenv import load_dotenv
     # load_dotenv()
 
+user_input = st.text_input("With my Infinite knowledge I shall find a Movie that contains in its name the word you enter", value = None)
+if user_input:
+    testrun = TMDBAPIClient(eb7ed2a4be7573ea9c99867e37d0a4ab)
+    search_query = str(user_input)
+    movies = testrun.search_movie_title(search_query)
+    return st.write(for movie in movies: print(f"Title: {movie["title"]}"))
 
-
-
-st.write ("hooray we connected anana sikim")
+st.write ("this updated")
