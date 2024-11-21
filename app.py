@@ -7,7 +7,7 @@ from tmdbv3api import TMDb, Movie, Genre
 #import os
 from APIConnection import TMDbAPIClient
 
-with st.sidebar:
+with st.selectbox:
     selected = option_menu(
         menu_title = "Select Category",
         options = ["Genre", "Rating", "Actors","Length", "Keywords", "Recommendation", "Popular", "Title"]
