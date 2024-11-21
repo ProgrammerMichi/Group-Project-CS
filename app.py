@@ -76,7 +76,7 @@ class TMDbAPIClient:
 user_input = st.text_input("With my Infinite knowledge I shall find a Movie that contains in its name the word you enter", value = None)
 if user_input:
     # Initialize the TMDB API client with the API key
-    testrun = TMDBAPIClient("eb7ed2a4be7573ea9c99867e37d0a4ab")
+    testrun = TMDbAPIClient("eb7ed2a4be7573ea9c99867e37d0a4ab")
     search_query = str(user_input)
     
     # Get the movies based on the search query
