@@ -1,9 +1,8 @@
 import streamlit as st
-from tmdbv3api import TMDb, Movie, Genre
-import pandas
-import numpy
-import surprise
-import os
+#import pandas
+#import numpy
+#import surprise
+#import os
 from APIConnection import TMDBAPIClient
 
 #This code will check whether code runs locally or on Streamlit, to decide whether .env file should be loaded, hopefully
