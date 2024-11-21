@@ -1,4 +1,5 @@
 import streamlit as st
+from streamlit_option_menu import option_menu
 from tmdbv3api import TMDb, Movie, Genre
 #import pandas
 #import numpy
@@ -6,12 +7,8 @@ from tmdbv3api import TMDb, Movie, Genre
 #import os
 from APIConnection import TMDbAPIClient
 
-st.selectbox("Choose Category", options= ["Title", "Genre", "Actor","Length", "Keywords", "Recommendation", "Popular"])
-
-#This code will check whether code runs locally or on Streamlit, to decide whether .env file should be loaded, hopefully
-# if os.getenv("STREAMLIT_SERVER") is None:
-    # from dotenv import load_dotenv
-    # load_dotenv()
+st.selectbox("Select Category", options= ["Genre", "Rating", "Actor","Length", "Keywords", "Recommendation", "Popular", "Title"])
+selected = option_menu
 
 user_input = st.text_input("With my Infinite knowledge I shall find a Movie that contains in its name the word you enter", value = None)
 if user_input:
