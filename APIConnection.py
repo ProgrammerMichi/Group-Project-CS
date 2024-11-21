@@ -1,14 +1,16 @@
-#This is the connection to the TMDB API
+#This is the connection point between code and the TMDB API
 
 from tmdbv3api import TMDb, Movie, Genre
-#Initializing API Key
 
 
+#Temporary placeholder
 API_KEY = 20
 
 class TMDbAPIClient:
     def __init__(self, api_key=None):
         self.tmdb = TMDb()
+
+        #The API_Key should be either implemented through an environment variable or streamlit/github secrets
         self.tmdb.api_key = API_KEY
         self.movie_api = Movie()
         self.genre_api = Genre()
