@@ -7,32 +7,8 @@ from tmdbv3api import TMDb, Movie, Genre
 #import os
 from APIConnection import TMDbAPIClient
 
-with st.selectbox:
-    selected = option_menu(
-        menu_title = "Select Category",
-        options = ["Genre", "Rating", "Actors","Length", "Keywords", "Recommendation", "Popular", "Title"]
-        )
-
-if selected == "Genre":
-    st.write(f"Genre")
-
-if selected == "Rating":
-    st.write(f"Rating")
-
-if selected == "Actors":
-    st.write(f"Actors")
-
-if selected == "Length":
-    st.write(f"Length")
-
-if selected == "Keywords":
-    st.write(f"Keywords")
-
-if selected == "Recommendation":
-    st.write(f"Recommendation")
-
-if selected == "Popular":
-    st.write(f"Popular")
+st.selectbox: ("Select Category", 
+               options = ["Genre", "Rating", "Actors","Length", "Keywords", "Recommendation", "Popular", "Title"])
 
 if selected == "Title":
     user_input = st.text_input(value = None)
