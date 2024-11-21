@@ -1,27 +1,40 @@
 #This is the connection to the TMDB API
 
-from tmdbv3api import TMDb, Movie
+from tmdbv3api import TMDb, Movie, Genre
+#Initializing API Key
+
+
+tmdb.api_key = "eb7ed2a4be7573ea9c99867e37d0a4ab"
 
 class TMDbAPIClient:
-    def __init__(self, api_key):
+    def __init__(self, api_key=None):
         self.tmdb = TMDb()
-        self.tmdb.api_key = api_key
+        self.tmdb.api_key = eb7ed2a4be7573ea9c99867e37d0a4ab
         self.movie_api = Movie()
+        self.genre_api = Genre()
 
 
     def search_movie_title(self, query):
-        #Looks for a movie depending on title
+        #Looks for a movie title based on query
         return self.movie_api.search(query)
     
     
-    def search_movie_genre(self, movie_genre ):
-        #Looks for a movie depending on genre
-        return 
+    def get_genres(self, movie_genre ):
+        #Looks for genres in API
+        genres = self.genre_api.popular()
+        return genres
     
     
-    def search_movie_actor(self, movie_actor):
-        #Looks for a movie depending on actor
-        return
+    def get_movie_by_genres(self, genre_id, page=1)
+        #Looks for movies according to genre
+        movies = self.movie_api.discover(page=page, with_genres=genre_id)
+        return movies
+    
+    
+    def search_movie_actors(self, movie_actor):
+        #Gets actors of a movie based on movie id
+        movie_details = self.movie_api.details(movie_id)
+        return movie_details.get("cast",[])
     
 
     def search_movie_length(self, movie_length):
