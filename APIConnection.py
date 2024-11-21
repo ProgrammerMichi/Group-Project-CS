@@ -27,7 +27,7 @@ class TMDbAPIClient:
     
     def get_genres(self):
         #Looks for genres in API
-        genres = self.genre_api.popular()
+        genres = self.movie_api.genres()
         return genres
     
     
