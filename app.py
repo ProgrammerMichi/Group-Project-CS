@@ -16,7 +16,7 @@ if selected:
 
 if selected == "Genre":
     st.write(f"wos")
-    selgen = st.selectbox("Choose Genre", options= [Instance.movie_list()]        
+    selgen = st.selectbox("Choose Genre", options= [Instance.movie_list()])        
     ])
 
 
