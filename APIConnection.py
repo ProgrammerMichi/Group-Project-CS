@@ -1,17 +1,16 @@
-#This is the connection point between code and the TMDB API
-
+#This module is the connection point between code and the TMDB API
 from tmdbv3api import TMDb, Movie, Genre
 
+tmdb = TMDb()
+tmdb.api_key = "eb7ed2a4be7573ea9c99867e37d0a4ab"
 
-#Temporary placeholder
-API_KEY = 20
 
 class TMDbAPIClient:
     def __init__(self, api_key=None):
         self.tmdb = TMDb()
 
         #The API_Key should be either implemented through an environment variable or streamlit/github secrets
-        self.tmdb.api_key = API_KEY
+        self.tmdb.api_key = api_key
         self.movie_api = Movie()
         self.genre_api = Genre()
 
@@ -49,7 +48,7 @@ class TMDbAPIClient:
         
     def search_movie_by_keywords(self, keyword):
         #Looks for a movie depending on keywords
-        return self.movie_api.search(keyword)
+        return self.movie_api.keywords(keyword)
     
     
     def get_movie_details(self, movie_id):
@@ -65,3 +64,4 @@ class TMDbAPIClient:
     def get_popular_movie(self):
         #List of most popular films
         return self.movie_api.popular()
+
