@@ -8,7 +8,12 @@ from tmdbv3api import TMDb, Movie, Genre
 from APIConnection import TMDbAPIClient
 
 selected = st.selectbox("Select Category", options= ["Genre", "Rating", "Actor","Length", "Keywords", "Recommendation", "Popular", "Title"])
-st.write(selected)
+if selected:
+    st.write(selected)
+    # Initialize the TMDB API client with the API key
+    Instance = TMDbAPIClient("eb7ed2a4be7573ea9c99867e37d0a4ab")
+
+
 if selected == "Genre":
     st.write(f"Genre")
 
@@ -33,12 +38,10 @@ if selected == "Popular":
 if selected == "Title":
     user_input = st.text_input("With my Infinite knowledge I shall find a Movie that contains in its name the word you enter", value = None)
     if user_input:
-        # Initialize the TMDB API client with the API key
-        testrun = TMDbAPIClient("eb7ed2a4be7573ea9c99867e37d0a4ab")
         search_query = str(user_input)
-    
+
         # Get the movies based on the search query
-        movies = testrun.search_movie_title(search_query)
+        movies = Instance.search_movie_title(search_query)
     
         # Display the movie titles
         for movie in movies:
