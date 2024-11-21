@@ -7,10 +7,35 @@ from tmdbv3api import TMDb, Movie, Genre
 #import os
 from APIConnection import TMDbAPIClient
 
-st.selectbox("Select Category", options= ["Genre", "Rating", "Actor","Length", "Keywords", "Recommendation", "Popular", "Title"])
-selected = option_menu
+with st.sidebar:
+    selected = option_menu(
+        menu_title = "Select Category"
+        options = ["Genre", "Rating", "Actors","Length", "Keywords", "Recommendation", "Popular", "Title"]
+    )
 
-user_input = st.text_input("With my Infinite knowledge I shall find a Movie that contains in its name the word you enter", value = None)
+if selected == "Genre":
+    st.write(f"Genre")
+
+if selected == "Rating":
+    st.write(f"Rating")
+
+if selected == "Actors":
+    st.write(f"Actors")
+
+if selected == "Length":
+    st.write(f"Length")
+
+if selected == "Keywords":
+    st.write(f"Keywords")
+
+if selected == "Recommendation"
+    st.write(f"Recommendation")
+
+if selected == "Popular"
+    st.write(f"Popular")
+
+if selected == "Title"
+user_input = st.text_input(value = None)
 if user_input:
     # Initialize the TMDB API client with the API key
     testrun = TMDbAPIClient("eb7ed2a4be7573ea9c99867e37d0a4ab")
