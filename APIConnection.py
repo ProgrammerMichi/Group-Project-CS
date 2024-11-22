@@ -1,5 +1,6 @@
 #This module is the connection point between code and the TMDB API
-from tmdbv3api import TMDb, Movie, Genre
+import streamlit as st
+from tmdbv3api import TMDb, Movie, Genre, Discover
 
 tmdb = TMDb()
 tmdb.api_key = "eb7ed2a4be7573ea9c99867e37d0a4ab"
@@ -18,6 +19,7 @@ class TMDbAPIClient:
         self.tmdb.api_key = api_key
         self.movie_api = Movie()
         self.genre_api = Genre()
+        self.discover_api = Discover()
 
 
     def search_movie_title(self, query):
@@ -43,9 +45,9 @@ class TMDbAPIClient:
         return None
     
     
-    def get_movie_by_genre_id(self, genre_id, page=1):
+    def get_movie_by_genre_id(self, genre_name, page=1):
         #Looks for movies according to genre id
-        genre_id = self.get_genre_id()
+        genre_id = self.get_genre_id(genre_name)
         movies = self.discover_api.discover_movies({"with_genres": genre_id})
         return movies
         
@@ -83,4 +85,6 @@ class TMDbAPIClient:
     def get_popular_movie(self):
         #List of most popular films
         return self.movie_api.popular()
+
+
 

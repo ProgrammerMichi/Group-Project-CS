@@ -1,6 +1,6 @@
 import streamlit as st
 from streamlit_option_menu import option_menu
-from tmdbv3api import TMDb, Movie, Genre
+from tmdbv3api import TMDb, Movie, Genre, Discover
 #import pandas
 #import numpy
 #import surprise
@@ -14,13 +14,14 @@ if selected:
 
 
 if selected == "Genre":
-    genrelist = Instance.get_genres(any)
-    selgen = st.selectbox("Choose Genre", options= genrelist)
+    genrelist = testuser.get_genres(any)
+    selgen = str("Action")
     if selgen:
-        genreid = Instance.get_genre_id(selgen)
-        moviesbygenre = Instance.get_movie_by_genre_id("genreid")
-        for i in moviesbygenre:
-            st.write(i)
+        genreid = testuser.get_genre_id(selgen)
+        print(genreid)
+        moviesbygenre = testuser.get_movie_by_genre_id(selgen)
+        for movie in moviesbygenre:
+            print(f"{movie["title"]}")
         
 
 if selected == "Rating":
