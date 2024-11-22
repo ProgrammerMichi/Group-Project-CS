@@ -57,7 +57,7 @@ class TMDbAPIClient:
             "language": language
         })
 
-        english_movies = [movie for movie in movies if "title" in movie and movie ["title"] == "en"]
+        english_movies = [movie for movie in movies if "title" in movie and movie ["title"] == "de"]
                 
         return english_movies
         
