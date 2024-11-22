@@ -45,7 +45,7 @@ class TMDbAPIClient:
         return None
     
     
-    def get_movie_by_genre_id(self, genre_name, page=1, language = "en"):
+    def get_movie_by_genre_id(self, genre_name, page=1,):
         #Looks for movies according to genre id
         genre_id = self.get_genre_id(genre_name)
         
@@ -54,7 +54,7 @@ class TMDbAPIClient:
             "with_genres": genre_id,
             "sort_by": "vote_average.desc",
             "page": page,
-            "with_original_language": language,
+        
         })
         return movies
         
