@@ -58,7 +58,7 @@ class TMDbAPIClient:
         })
 
         english_movies = [movie for movie in movies 
-                          if "title" in movie and movie ["original language"] == "en"]
+                          if hasattr(movie, "title") and movie.original language == "en"]
                 
         return english_movies
         
