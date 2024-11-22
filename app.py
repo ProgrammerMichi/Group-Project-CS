@@ -9,13 +9,11 @@ from APIConnection import TMDbAPIClient
 
 selected = st.selectbox("Select Category", options= ["Genre", "Rating", "Actor","Length", "Keywords", "Recommendation", "Popular", "Title"])
 if selected:
-    st.write(selected)
     # Initialize the TMDB API client with the API key
     Instance = TMDbAPIClient("eb7ed2a4be7573ea9c99867e37d0a4ab")
 
 
 if selected == "Genre":
-    st.write(f"wos")
     genrelist = Instance.get_genres(any)
     selgen = st.selectbox("Choose Genre", options= genrelist)        
     
