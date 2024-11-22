@@ -1,7 +1,7 @@
 import streamlit as st
 
 # Tab Title
-st.set_page_config(page_title="Statistics", page_icon="🎞️")
+st.set_page_config(page_title="Statistics", page_icon="📊")
 
 
 # Title & Intro
