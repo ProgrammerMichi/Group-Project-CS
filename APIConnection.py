@@ -55,7 +55,7 @@ class TMDbAPIClient:
             "page": page,
             "with_original_language": "en",
             "sort_by": "vote_average.desc",
-            "vote_count.gte" : 1000
+            "vote_count.gte" : 0
     
         })
         return movies
