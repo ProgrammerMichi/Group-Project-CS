@@ -10,14 +10,10 @@ import pandas as pd
 import numpy as np
 
 # Tab Title
-st.set_page_config(page_title="Movie Recommender", page_icon=":computer:")
+st.set_page_config(page_title="Movie Recommender", page_icon="🎞️")
 
 # Title & Intro
-st.title("The Best Movie Recommender!")
-st.write("""
-Welcome to our application! Here's a movie recommender app for your next watch/es :)
-""")
-st.subheader("Now give us some insights on what you prefer.")
+st.title("🎞️ Movie Recommender")
 
 
 selected = st.selectbox("Select Category", options= ["Genre", "Rating", "Actor","Length", "Keywords", "Recommendation", "Popular", "Title"])
