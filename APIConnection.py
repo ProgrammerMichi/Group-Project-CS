@@ -56,8 +56,13 @@ class TMDbAPIClient:
             "page": page,
             "with_original_language": language
         })
-
-        return movies
+        english_movies = []
+        for movie in movies:
+            if "with_original_language" == "en":
+                english_movies.append(movie)
+            else:
+                continue
+        return english_movies
         
     
     
