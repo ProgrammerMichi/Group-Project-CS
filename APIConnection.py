@@ -56,7 +56,9 @@ class TMDbAPIClient:
             "page": page,
             "with_original_language": language,
         })
-        return movies
+        english_movies = [movie for movie in movies if 'title' in movie and isinstance(movie['title'], str)]
+
+    return english_movies
         
     
     
