@@ -54,13 +54,10 @@ class TMDbAPIClient:
             "with_genres": genre_id,
             "sort_by": "vote_average.desc",
             "page": page,
-            "language": language
+            "title": language
         })
 
-        english_movies = [movie for movie in movies 
-                          if "title" in movie and movie ["original language"] == "en"]
-                
-        return english_movies
+        return movies
         
     
     
