@@ -9,7 +9,6 @@ from APIConnection import TMDbAPIClient
 
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
 
 # Tab Title
 st.set_page_config(page_title="Movie Recommender", page_icon=":computer:")
