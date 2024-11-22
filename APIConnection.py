@@ -69,8 +69,10 @@ class TMDbAPIClient:
     
     def search_movie_by_actors(self, actorname, page = 1):
         #Get Actor ID
-        actor_id = self.get_actor_id(actorname)
-        if not actor_id:
+        actor = self.person_api.search(actorname)
+        if actor:
+            actor_id = actor[0]["id"]
+        if not actor:
             return []
 
         #Get movie based on Actor ID
