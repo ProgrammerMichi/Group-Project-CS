@@ -1,6 +1,6 @@
 #This module is the connection point between code and the TMDB API
 import streamlit as st
-from tmdbv3api import TMDb, Movie, Genre, Discover
+from tmdbv3api import TMDb, Movie, Genre, Discover, Person
 
 tmdb = TMDb()
 tmdb.api_key = "eb7ed2a4be7573ea9c99867e37d0a4ab"
@@ -19,6 +19,7 @@ class TMDbAPIClient:
         self.tmdb.api_key = api_key
         self.movie_api = Movie()
         self.genre_api = Genre()
+        self.person_api = Person()
         self.discover_api = Discover()
 
 
