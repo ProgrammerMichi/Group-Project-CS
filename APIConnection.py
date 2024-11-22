@@ -62,11 +62,25 @@ class TMDbAPIClient:
         
     
     
-    def search_movie_actors(self, movie_id):
+    def search_actors(self, movie_id):
         #Gets actors of a movie based on movie id
         movie_details = self.movie_api.details(movie_id)
         return movie_details.get("cast",[])
     
+    def search_movie_by_actors(self, actorname, page = 1):
+        #Get Actor ID
+        actor_id = self.get_actor_id(actorname)
+        if not actor_id:
+            return []
+
+        #Get movie based on Actor ID
+        actormovies = self.discover_api.discover_movies({
+            "with_cast": actor_id,
+            "sort_by": "vote_average_desc.",
+            "page": page,
+            "with_original_language": "en"
+        })
+        return actormovies
 
     def search_movie_length(self, min_length, max_length):
         #Looks for a movie depending on length

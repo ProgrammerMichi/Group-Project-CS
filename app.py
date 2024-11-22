@@ -42,7 +42,17 @@ if selected == "Rating":
     st.write(f"Rating")
 
 if selected == "Actors":
-    st.write(f"Actors")
+    actor = st.write_input("Write an actor whose movies you want to look for")
+    if actor: 
+        moviefound = Instance.search_movie_by_actors(actor)
+        if moviefound:
+            for movie in moviefound:
+                st.write(moviefound)
+        else: 
+            st.write("Couldn't find movies for this actor")
+
+
+        
 
 if selected == "Length":
     st.write(f"Length")
