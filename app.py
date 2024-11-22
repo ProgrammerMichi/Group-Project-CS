@@ -13,7 +13,6 @@ import numpy as np
 # Tab Title
 st.set_page_config(page_title="Movie Recommender", page_icon=":computer:")
 st.title("The Best Movie Recommender!")
-st.sidebar.success("Select a page above")
 
 # Title & Intro
 st.write("""
