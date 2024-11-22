@@ -41,7 +41,7 @@ if selected == "Genre":
 if selected == "Rating":
     st.write(f"Rating")
 
-if selected == "Actors":
+if selected == "Actor":
     actor = st.write_input("Write an actor whose movies you want to look for")
     if actor: 
         moviefound = Instance.search_movie_by_actors(actor)
