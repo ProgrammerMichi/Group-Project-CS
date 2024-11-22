@@ -52,7 +52,6 @@ class TMDbAPIClient:
 
         movies = self.discover_api.discover_movies({
             "with_genres": genre_id,
-            "sort_by": "vote_average.desc",
             "page": page,
         
         })
