@@ -34,11 +34,21 @@ class TMDbAPIClient:
         genre_names = [genre["name"] for genre in genres]
         return genre_names
     
+    def get_genre_id(self, genre_name):
+        #Gets Genre id belonging to a certain genre
+        genres = self.genre_api.movie_list()
+        for genre in genres:
+            if genre["name"].lower() == genre_name.lower():
+                return genre["id"]
+        return None
     
-    def get_movie_by_genres(self, genre_id, page=1):
-        #Looks for movies according to genre
-        movies = self.movie_api.discover(page=page, with_genres=genre_id)
+    
+    def get_movie_by_genreid(self, genre_id, page=1):
+        #Looks for movies according to genre id
+        genre_id = self.get_genre_id()
+        movies = self.discover_api.discover_movies({"with_genres": genre_id})
         return movies
+        
     
     
     def search_movie_actors(self, movie_id):
