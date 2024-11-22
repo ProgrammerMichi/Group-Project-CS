@@ -82,7 +82,6 @@ class TMDbAPIClient:
             "sort_by": "vote_average_desc.",
             "page": page,
             "with_original_language": "en"
-            "vote_gount.gte": 1000
         })
         return actormovies
 
