@@ -54,8 +54,9 @@ class TMDbAPIClient:
             "with_genres": genre_id,
             "page": page,
             "with_original_language": "en",
-            "sort_by": "vote_average.desc"
-        
+            "sort_by": "vote_average.desc",
+            "vote_count.gte" : 1000
+    
         })
         return movies
         
