@@ -1,6 +1,6 @@
 import streamlit as st
 from streamlit_option_menu import option_menu
-from tmdbv3api import TMDb, Movie, Genre, Discover
+from tmdbv3api import TMDb, Movie, Genre, Discover, Person
 #import pandas
 #import numpy
 #import surprise
@@ -47,7 +47,7 @@ if selected == "Actor":
         moviefound = Instance.search_movie_by_actors(actor)
         if moviefound:
             for movie in moviefound:
-                st.write(moviefound)
+                st.write(f"{movie["title"]}")
         else: 
             st.write("Couldn't find movies for this actor")
 
