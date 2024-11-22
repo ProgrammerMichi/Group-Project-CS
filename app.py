@@ -17,8 +17,8 @@ if selected == "Genre":
     genrelist = Instance.get_genres(any)
     selgen = st.selectbox("Choose Genre", options= genrelist)
     if selgen:
-        Instance.get_genre_id(selgen)
-        moviesbygenre = Instance.get_movie_by_genre_id
+        genreid = Instance.get_genre_id(selgen)
+        moviesbygenre = Instance.get_movie_by_genre_id("genreid")
         for i in moviesbygenre:
             st.write(i)
         
