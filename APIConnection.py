@@ -48,7 +48,7 @@ class TMDbAPIClient:
     def get_movie_by_genre_id(self, genre_name, page=1, language = "en"):
         #Looks for movies according to genre id
         genre_id = self.get_genre_id(genre_name)
-        movies = self.discover_api.discover_movies({"with_genres": genre_id})
+        
 
         movies = self.discover_api.discover_movies({
             "with_genres": genre_id,
