@@ -14,12 +14,12 @@ if selected:
 
 
 if selected == "Genre":
-    genrelist = testuser.get_genres(any)
+    genrelist = Instance.get_genres(any)
     selgen = str("Action")
     if selgen:
-        genreid = testuser.get_genre_id(selgen)
+        genreid = Instance.get_genre_id(selgen)
         print(genreid)
-        moviesbygenre = testuser.get_movie_by_genre_id(selgen)
+        moviesbygenre = Instance.get_movie_by_genre_id(selgen)
         for movie in moviesbygenre:
             print(f"{movie["title"]}")
         
