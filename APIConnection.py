@@ -49,6 +49,12 @@ class TMDbAPIClient:
         #Looks for movies according to genre id
         genre_id = self.get_genre_id(genre_name)
         movies = self.discover_api.discover_movies({"with_genres": genre_id})
+
+        movies = self.discover_api.discover_movies({
+            "with_genres": genre_id,
+            "sort_by": "vote_average.desc",
+            "page": page
+        })
         return movies
         
     
