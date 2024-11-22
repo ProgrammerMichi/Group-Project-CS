@@ -29,11 +29,9 @@ class TMDbAPIClient:
     
     
     def get_genres(self, movie_genre):
-        #Looks for genres in API
+        #Create a list with only genre names
         genre_api = Genre()
         genres = genre_api.movie_list()
-
-        #Create a list with only genre names
         genre_names = [genre["name"] for genre in genres]
         return genre_names
     
@@ -69,14 +67,14 @@ class TMDbAPIClient:
         return movie_details.get("cast",[])
     
     def search_movie_by_actors(self, actorname, page = 1):
-        #Get Actor ID
+        #Gets Actor ID
         actor = self.person_api.search(actorname)
         if actor:
             actor_id = actor[0]["id"]
         if not actor:
             return []
 
-        #Get movie based on Actor ID
+        #Gets movie based on Actor ID
         actormovies = self.discover_api.discover_movies({
             "with_cast": actor_id,
             "sort_by": "vote_average_desc.",

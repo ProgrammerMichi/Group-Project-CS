@@ -22,11 +22,11 @@ st.subheader("Now give us some insights on what you prefer.")
 
 selected = st.selectbox("Select Category", options= ["Genre", "Rating", "Actor","Length", "Keywords", "Recommendation", "Popular", "Title"])
 if selected:
-    # Initialize the TMDB API client with the API key
     Instance = TMDbAPIClient("eb7ed2a4be7573ea9c99867e37d0a4ab")
 
 
 if selected == "Genre":
+    #This gives a list of movies according to which genre has been picked
     genrelist = Instance.get_genres(any)
 
     selgen = st.selectbox("Choose Genre", options = genrelist)
@@ -41,6 +41,7 @@ if selected == "Rating":
     st.write(f"Rating")
 
 if selected == "Actor":
+    #This gives a list of Films according to the actor entered
     actor = st.text_input("Write an actor whose movies you want to look for")
     if actor: 
         moviefound = Instance.search_movie_by_actors(actor)
@@ -49,9 +50,7 @@ if selected == "Actor":
                 st.write(f"{movie["title"]}")
         else: 
             st.write("Couldn't find movies for this actor")
-
-
-        
+      
 
 if selected == "Length":
     st.write(f"Length")
