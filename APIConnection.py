@@ -53,6 +53,7 @@ class TMDbAPIClient:
         movies = self.discover_api.discover_movies({
             "with_genres": genre_id,
             "page": page,
+            "with_original_language": "en"
         
         })
         return movies
