@@ -6,7 +6,6 @@ from tmdbv3api import TMDb, Movie, Genre, Discover, Person
 #import surprise
 #import os
 from APIConnection import TMDbAPIClient
-
 import pandas as pd
 import numpy as np
 
