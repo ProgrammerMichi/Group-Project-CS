@@ -7,6 +7,22 @@ from tmdbv3api import TMDb, Movie, Genre, Discover
 #import os
 from APIConnection import TMDbAPIClient
 
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Tab Title
+st.set_page_config(page_title="Movie Recommender", page_icon=":computer:")
+st.title("The Best Movie Recommender!")
+st.sidebar.success("Select a page above")
+
+# Title & Intro
+st.write("""
+Welcome to our application! Here's a movie recommender app for your next watch/es :)
+""")
+st.subheader("Now give us some insights on what you prefer.")
+
+
 selected = st.selectbox("Select Category", options= ["Genre", "Rating", "Actor","Length", "Keywords", "Recommendation", "Popular", "Title"])
 if selected:
     # Initialize the TMDB API client with the API key
