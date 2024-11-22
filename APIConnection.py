@@ -57,12 +57,9 @@ class TMDbAPIClient:
             "language": language
         })
 
-        english_movies = []
-        for movie in movies:
-            if "title" in movie and movie["title"]:
-                english_movies.append(movie)
+        english_movies = [movie for movie in movies if "title" in move and movie ["title"]]
                 
-        return return english_movies
+        return english_movies
         
     
     
