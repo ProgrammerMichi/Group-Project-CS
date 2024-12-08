@@ -44,8 +44,6 @@ with col3:
         if title_input:
             global search_query
             search_query = str(title_input)
-            
-
 
 with col4:
     keywords_check = st.checkbox("Keywords")
