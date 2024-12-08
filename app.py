@@ -15,7 +15,7 @@ st.set_page_config(page_title="Movie Recommender", page_icon="🎞️")
 # Title & Intro
 st.title("🎞️ Movie Recommender")
 Instance = TMDbAPIClient("eb7ed2a4be7573ea9c99867e37d0a4ab")
-
+st.write("hello!")
 col1, col2, col3, col4, col5 = st.columns(5)
 with col1:
     genre_check = st.checkbox("Genre")
