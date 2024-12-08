@@ -58,8 +58,8 @@ with col7:
 
 
     
-
-if genre_check:
+with col1:
+    if genre_check:
         if selgen != "Select":
             moviesbygenre = Instance.get_movie_by_genre_id(selgen)
         
@@ -68,7 +68,7 @@ if genre_check:
                 
 
 
-if actor_check:
+    if actor_check:
         if selactor: 
             moviefound = Instance.search_movie_by_actors(selactor)
             if moviefound:
@@ -77,11 +77,11 @@ if actor_check:
             else: 
                 st.write("Couldn't find movies for this actor")
 
-if title_check:
-    if title_input:
-        movies = Instance.search_movie_title(search_query)
-        for movie in movies:
-            st.write(f"{movie['title']}")
+    if title_check:
+        if title_input:
+            movies = Instance.search_movie_title(search_query)
+            for movie in movies:
+                st.write(f"{movie['title']}")
 
 
 selected = st.selectbox("Select Category", options= ["Genre", "Rating", "Actor","Length", "Keywords", "Recommendation", "Popular", "Title"])
