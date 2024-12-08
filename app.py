@@ -22,7 +22,9 @@ with col1:
     if genre_check:
         #This gives a list of movies according to which genre has been picked
         genrelist = ["Select"]
-        genrelist.append(Instance.get_genres(any))
+        gl = Instance.get_genres(any).list
+            for i in gl:
+            genrelist.append(i)
         selgen = st.selectbox("Choose Genre", options = genrelist)
 
 
