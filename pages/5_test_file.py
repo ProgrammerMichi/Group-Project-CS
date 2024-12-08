@@ -64,7 +64,7 @@ with col1:
 
           # Display movies and poster with st.container():
 for movie in movies:
-    with st.container()
+    with st.container():
         col8, col9, col19, col11, col12 = st.columns(5)
         cols=[col8,col9,coll0,col11,col12]
             for i in range(0,5):
