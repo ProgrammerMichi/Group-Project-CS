@@ -54,17 +54,18 @@ with col5:
 
 with col7:
     leftbox = col7.container(border=True, height=200)
-    
-        
+    l1, l2 = leftbox.columns(2)
+    with l1:
+        leftbox.write ("Ratings")
+    with l2:
+        leftbox.write("Apply")
 
     col7_1, col7_2 = leftbox.columns(2)
 
     with col7_1:
-        leftbox.write ("Ratings")
         minrating = st.number_input("Minimum Rating", min_value=0, max_value=100)
 
     with col7_2:
-        leftbox.write("Apply")
         st.number_input("Maximum Rating", min_value=minrating, max_value=100)
     
 with col8:
