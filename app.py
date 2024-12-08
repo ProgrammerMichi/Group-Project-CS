@@ -53,7 +53,7 @@ with col5:
             search_query = str(title_input)
 
 with col7:
-    box = col.conatiner(height=100)
+    box = col7.conatiner(height=100)
     box.title("Additional Filters")
     st.write ("test")
     
