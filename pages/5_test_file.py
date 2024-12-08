@@ -15,3 +15,7 @@ st.markdown(
     f'''<a href="{app_path}/{page}" target="_self">here</a>''',
     unsafe_allow_html=True
 )
+
+url = "https://groupemichi.streamlit.app"
+st.write("get started [here](%s)" % url)
+st.markdown("get started [here](%s)" % url)
