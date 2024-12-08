@@ -71,12 +71,8 @@ with col7:
     
 with col8:
     rightbox = col8.container(border=True, height=200)
-    r1, r2 = rightbox.columns(2)
-    with r1:
-        st.write ("Length")
-    with r2:
-        st.checkbox("Apply")
-    
+    rightbox.write("Length")
+
     col8_1, col8_2 = rightbox.columns(2)
 
     with col8_1:
