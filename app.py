@@ -53,11 +53,11 @@ with col5:
             search_query = str(title_input)
 
 with col7:
-    leftbox = col7.container(border=True, height=200)
+    leftbox = col7.container(border=True, height=150)
     leftbox.write ("Ratings")
 
 with col8:
-    rightbox = col8.container(border=True, height=200)
+    rightbox = col8.container(border=True, height=150)
     rightbox.write("Length")
     
 alt1, alt2 = st.columns([2,17])
