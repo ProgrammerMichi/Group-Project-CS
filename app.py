@@ -20,8 +20,8 @@ col1, col2, col3, col4, col5 = st.columns(5)
 with col1:
     genre_check = st.checkbox("Genre")
     if genre_check:
-    #This gives a list of movies according to which genre has been picked
-    genrelist = Instance.get_genres(any)
+        #This gives a list of movies according to which genre has been picked
+        genrelist = Instance.get_genres(any)
 
     selgen = st.selectbox("Choose Genre", options = genrelist)
     if selgen:
