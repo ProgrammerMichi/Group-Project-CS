@@ -51,7 +51,7 @@ with col4:
 with col5:
     relate_check = st.checkbox("Similar")
 
-left_column, right_column = st.columns([3,1])
+left_column, right_column = st.columns([20,1])
 with right_column:
     st.write ("test")
 
