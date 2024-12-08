@@ -56,7 +56,7 @@ with col7:
     box = col7.conatiner(border=True)
     st.write ("test")
     
-alt1, alt2 = st.columns([2,17])
+#alt1, alt2 = st.columns([2,17])
 
 with alt2:
     if genre_check:
