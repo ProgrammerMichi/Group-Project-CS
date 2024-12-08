@@ -76,7 +76,7 @@ with col8:
     with r1:
         rightbox.write("Length")
     with r2:
-        st.checkbox("Apply")
+        st.checkbox("Aply")
 
     col8_1, col8_2 = rightbox.columns(2)
 
