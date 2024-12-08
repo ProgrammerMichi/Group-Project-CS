@@ -70,7 +70,7 @@ with col7:
         st.number_input("Maximum Rating", min_value=minrating, max_value=100)
     
 with col8:
-    rightbox = col8.container(border=True, height=200)
+    rightbox = col8.container(border=True, height=150)
     rightbox.write("Length")
 
     col8_1, col8_2 = rightbox.columns(2)
