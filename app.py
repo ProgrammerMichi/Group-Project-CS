@@ -39,7 +39,14 @@ with col2:
 
 with col3:
     title_check = st.checkbox("Title")
-    
+    if title_check:
+        title_input = st.text_input("With my Infinite knowledge I shall find a Movie that contains in its name the word you enter", value = None)
+            if title_input:
+                search_query = str(title_input)
+                movies = Instance.search_movie_title(search_query)
+                for movie in movies:
+                    st.write(f"{movie['title']}")
+
 
 with col4:
     keywords_check = st.checkbox("Keywords")
@@ -98,15 +105,6 @@ if selected == "Popular":
     st.write(f"Popular1")
 
 if selected == "Title":
-    title_input = st.text_input("With my Infinite knowledge I shall find a Movie that contains in its name the word you enter", value = None)
-    if title_input:
-        search_query = str(title_input)
-
-        # Get the movies based on the search query
-        movies = Instance.search_movie_title(search_query)
-    
-        # Display the movie titles
-        for movie in movies:
-            st.write(f"{movie['title']}")
+    st.write("moin")
 
 
