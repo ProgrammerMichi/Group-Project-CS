@@ -1,4 +1,11 @@
 import streamlit as st
+pip install streamlit-extras
+from streamlit_extras.switch_page_button import switch_page
+
+def example():
+    want_to_contribute = st.button("I want to contribute!")
+    if want_to_contribute:
+        switch_page("Ratings")
 
 if st.button("Get started"):
     st.switch_page("app.py")
@@ -18,4 +25,5 @@ st.markdown(
 
 url = "https://groupemichi.streamlit.app"
 st.write("get started [here](%s)" % url)
-st.markdown("get started [here](%s)" % url)
+
+
