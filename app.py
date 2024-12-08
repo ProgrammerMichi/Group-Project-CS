@@ -21,7 +21,8 @@ with col1:
     genre_check = st.checkbox("Genre")
     if genre_check:
         #This gives a list of movies according to which genre has been picked
-        genrelist = Instance.get_genres(any)
+        genrelist = ["Select"]
+        genrelist.append(Instance.get_genres(any))
         selgen = st.selectbox("Choose Genre", options = genrelist)
 
 
