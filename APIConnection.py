@@ -2,8 +2,7 @@
 import streamlit as st
 from tmdbv3api import TMDb, Movie, Genre, Discover, Person
 
-tmdb = TMDb()
-tmdb.api_key = "eb7ed2a4be7573ea9c99867e37d0a4ab"
+
 
 
 #This code, in the future, should check whether code runs locally or on Streamlit, to decide whether .env file should be loaded, hopefully
@@ -12,7 +11,7 @@ tmdb.api_key = "eb7ed2a4be7573ea9c99867e37d0a4ab"
     # load_dotenv()
 
 class TMDbAPIClient:
-    def __init__(self, api_key=None):
+    def __init__(self, api_key="eb7ed2a4be7573ea9c99867e37d0a4ab"):
         self.tmdb = TMDb()
 
         #The API_Key should be either implemented through an environment variable or streamlit/github secrets
