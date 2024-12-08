@@ -55,7 +55,7 @@ with col5:
 with col7:
     leftbox = col7.container(border=True, height=150)
     leftbox.write ("Ratings")
-    col7_1, col7_2 = st.columns()
+    col7_1, col7_2 = st.columns(2)
     with col7_1:
         st.number_input("Minimum Rating")
     
