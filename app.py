@@ -27,6 +27,8 @@ with col1:
      
 with col2:
     actor_check = st.checkbox("Actor")
+    if actor_check:
+        selactor = st.text_input("Write an actor whose movies you want to look for")
 with col3:
     title_check = st.checkbox("Title")
 with col4:
@@ -42,7 +44,13 @@ if selgen:
         for movie in moviesbygenre:
             st.write(f"{movie["title"]}")
 
-
+if selactor: 
+        moviefound = Instance.search_movie_by_actors(selactor)
+        if moviefound:
+            for movie in moviefound:
+                st.write(f"{movie["title"]}")
+        else: 
+            st.write("Couldn't find movies for this actor")
 
 
 selected = st.selectbox("Select Category", options= ["Genre", "Rating", "Actor","Length", "Keywords", "Recommendation", "Popular", "Title"])
@@ -57,14 +65,8 @@ if selected == "Rating":
 
 if selected == "Actor":
     #This gives a list of Films according to the actor entered
-    actor = st.text_input("Write an actor whose movies you want to look for")
-    if actor: 
-        moviefound = Instance.search_movie_by_actors(actor)
-        if moviefound:
-            for movie in moviefound:
-                st.write(f"{movie["title"]}")
-        else: 
-            st.write("Couldn't find movies for this actor")
+    
+    
       
 
 if selected == "Length":
