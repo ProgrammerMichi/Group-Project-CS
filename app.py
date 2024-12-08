@@ -22,7 +22,7 @@ st.markdown("**hello!**")
 col0, col1, col2, col3, col4, col5, col6, col7, col8 = st.columns([2,2,2,2,2,2,1,3,3])
 
 with col1:
-    genre_check = st.checkbox("**Genre**")
+    genre_check = st.checkbox("Genre")
     if genre_check:
         #This gives a list of movies according to which genre has been picked
         genrelist = ["Select"]
@@ -54,11 +54,11 @@ with col5:
 
 with col7:
     leftbox = col7.container(border=True, height=200)
-    leftbox.write ("test")
+    leftbox.write ("Ratings")
 
 with col8:
     rightbox = col8.container(border=True, height=200)
-    rightbox.write("testovic")
+    rightbox.write("Length")
     
 alt1, alt2 = st.columns([2,17])
 
