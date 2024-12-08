@@ -51,11 +51,13 @@ with col5:
         if title_input:
             global search_query
             search_query = str(title_input)
+
+with col7:
+    st.write ("test")
     
 
-left_column, right_column = st.columns([40,1])
-with right_column:
-    st.write ("test")
+
+    
 
 if genre_check:
         if selgen != "Select":
