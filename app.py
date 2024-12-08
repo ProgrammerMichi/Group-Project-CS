@@ -14,9 +14,13 @@ st.set_page_config(page_title="Movie Recommender", page_icon="🎞️")
 
 # Title & Intro
 st.title("🎞️ Movie Recommender")
+
 Instance = TMDbAPIClient("eb7ed2a4be7573ea9c99867e37d0a4ab")
+
 st.write("hello!")
+
 col1, col2, col3, col4, col5 = st.columns(5)
+
 with col1:
     genre_check = st.checkbox("Genre")
     if genre_check:
@@ -32,10 +36,24 @@ with col2:
     actor_check = st.checkbox("Actor")
     if actor_check:
         selactor = st.text_input("Choose Actor")
+
 with col3:
     title_check = st.checkbox("Title")
+    if title_check:
+        title_input = st.text_input("With my Infinite knowledge I shall find a Movie that contains in its name the word you enter", value = None)
+    if title_input:
+        search_query = str(title_input)
+
+        # Get the movies based on the search query
+        movies = Instance.search_movie_title(search_query)
+    
+        # Display the movie titles
+        for movie in movies:
+            st.write(f"{movie['title']}")
+
 with col4:
     keywords_check = st.checkbox("Keywords")
+
 with col5:
     relate_check = st.checkbox("Similar")
 
@@ -90,15 +108,6 @@ if selected == "Popular":
     st.write(f"Popular1")
 
 if selected == "Title":
-    user_input = st.text_input("With my Infinite knowledge I shall find a Movie that contains in its name the word you enter", value = None)
-    if user_input:
-        search_query = str(user_input)
-
-        # Get the movies based on the search query
-        movies = Instance.search_movie_title(search_query)
-    
-        # Display the movie titles
-        for movie in movies:
-            st.write(f"{movie['title']}")
+    st.write("wos")
 
 
