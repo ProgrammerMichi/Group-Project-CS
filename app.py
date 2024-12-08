@@ -19,7 +19,7 @@ Instance = TMDbAPIClient("eb7ed2a4be7573ea9c99867e37d0a4ab")
 
 st.write("hello!")
 
-col0, col1, col2, col3, col4, col5, col6, col7 = st.columns([2,2,2,2,2,2,1,6])
+col0, col1, col2, col3, col4, col5, col6, col7, col8 = st.columns([2,2,2,2,2,2,1,3,3])
 
 with col1:
     genre_check = st.checkbox("Genre")
@@ -53,8 +53,12 @@ with col5:
             search_query = str(title_input)
 
 with col7:
-    box = col7.container(border=True, height=200)
-    box.write ("test")
+    leftbox = col7.container(border=True, height=200)
+    leftbox.write ("test")
+
+with col8:
+    rightbox = col8.container(broder=True, height=200)
+    rightbox.write("testovic")
     
 alt1, alt2 = st.columns([2,17])
 
