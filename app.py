@@ -38,18 +38,20 @@ with col2:
         selactor = st.text_input("Choose Actor")
 
 with col3:
+    keywords_check = st.checkbox("Keywords")
+    
+
+with col4:
+    relate_check = st.checkbox("Similar")
+
+with col5:
     title_check = st.checkbox("Title")
     if title_check:
         title_input = st.text_input("Write the Title", value = None)
         if title_input:
             global search_query
             search_query = str(title_input)
-
-with col4:
-    keywords_check = st.checkbox("Keywords")
-
-with col5:
-    relate_check = st.checkbox("Similar")
+    
 
 left_column, right_column = st.columns([40,1])
 with right_column:
