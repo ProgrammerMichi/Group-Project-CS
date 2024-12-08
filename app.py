@@ -31,13 +31,13 @@ with col1:
 with col2:
     actor_check = st.checkbox("Actor")
     if actor_check:
-        selactor = st.text_input("Write an actor whose movies you want to look for")
+        selactor = st.text_input("Choose Actor")
 with col3:
     title_check = st.checkbox("Title")
 with col4:
     keywords_check = st.checkbox("Keywords")
 with col5:
-    relate_check = st.checkbox("Based on other Movie")
+    relate_check = st.checkbox("Similar")
 
 left_column, right_column = st.columns([3,1])
 
