@@ -54,7 +54,7 @@ with col5:
 
 with col7:
     box = col7.conatiner(border=True)
-    st.write ("test")
+    container.write ("test")
     
 #alt1, alt2 = st.columns([2,17])
 
