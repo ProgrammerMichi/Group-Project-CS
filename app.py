@@ -24,11 +24,7 @@ with col1:
         genrelist = Instance.get_genres(any)
 
     selgen = st.selectbox("Choose Genre", options = genrelist)
-    if selgen:
-        moviesbygenre = Instance.get_movie_by_genre_id(selgen,)
-        
-        for movie in moviesbygenre:
-            st.write(f"{movie["title"]}") 
+     
 with col2:
     actor_check = st.checkbox("Actor")
 with col3:
@@ -39,6 +35,12 @@ with col5:
     relate_check = st.checkbox("Based on other Movie")
 
 left_column, right_column = st.columns([3,1])
+
+if selgen:
+        moviesbygenre = Instance.get_movie_by_genre_id(selgen,)
+        
+        for movie in moviesbygenre:
+            st.write(f"{movie["title"]}")
 
 
 
