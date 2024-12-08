@@ -42,6 +42,7 @@ with col3:
     if title_check:
         title_input = st.text_input("Write Title", value = None)
         if title_input:
+            global search_query
             search_query = str(title_input)
 
 
