@@ -22,10 +22,7 @@ with col1:
     if genre_check:
         #This gives a list of movies according to which genre has been picked
         genrelist = Instance.get_genres(any)
-
-        selgen = st.selectbox("Choose Genre", options = genrelist)
-    else:
-        st.write("nothing selected")
+selgen = st.selectbox("Choose Genre", options = genrelist)
 
 
 with col2:
@@ -46,8 +43,7 @@ if selgen:
         
         for movie in moviesbygenre:
             st.write(f"{movie["title"]}")
-else:
-    pass
+
 
 if selactor: 
         moviefound = Instance.search_movie_by_actors(selactor)
@@ -56,7 +52,7 @@ if selactor:
                 st.write(f"{movie["title"]}")
         else: 
             st.write("Couldn't find movies for this actor")
-else: pass
+
 
 
 selected = st.selectbox("Select Category", options= ["Genre", "Rating", "Actor","Length", "Keywords", "Recommendation", "Popular", "Title"])
