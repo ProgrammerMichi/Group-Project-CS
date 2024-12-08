@@ -59,10 +59,10 @@ with col7:
     col7_1, col7_2 = leftbox.columns(2)
 
     with col7_1:
-        st.number_input("Minimum Rating", min_value=0, max_value=100)
+        minrating = st.number_input("Minimum Rating", min_value=0, max_value=100)
 
     with col7_2:
-        st.number_input("Maximum Rating", min_value=0, max_value=100)
+        st.number_input("Maximum Rating", min_value=0, max_value=minrating)
     
 with col8:
     rightbox = col8.container(border=True, height=200)
@@ -71,10 +71,10 @@ with col8:
     col8_1, col8_2 = rightbox.columns(2)
 
     with col8_1:
-        st.number_input("Minimum Length (in min)", min_value=0)
+        minlength = st.number_input("Minimum Length (in min)", min_value=0)
 
     with col8_2:
-        st.number_input("Maximum Length (in min)", min_value=0)
+        st.number_input("Maximum Length (in min)", min_value=minlength)
     
 alt1, alt2 = st.columns([2,17])
 with alt2:
