@@ -40,7 +40,7 @@ with col5:
 left_column, right_column = st.columns([3,1])
 
 if genre_check:
-        if selgen:
+        if selgen != "Select":
             moviesbygenre = Instance.get_movie_by_genre_id(selgen)
         
             for movie in moviesbygenre:
