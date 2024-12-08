@@ -40,7 +40,7 @@ def fetch_movies_by_genre(genre_id):
         return []
 
 # Streamlit UI
-col1 = st.columns([1])
+col0, col1 = st.columns([1,1])
 
 with col1:
     genre_check = st.checkbox("Genre")
