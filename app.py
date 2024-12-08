@@ -53,7 +53,7 @@ with col5:
             search_query = str(title_input)
 
 with col7:
-    leftbox = col7.container(border=True, height=150)
+    leftbox = col7.container(border=True, height=200)
 
     l1, l2 = leftbox.columns(2)
     with l1:
@@ -70,7 +70,7 @@ with col7:
         st.number_input("Maximum Rating", min_value=minrating, max_value=100)
     
 with col8:
-    rightbox = col8.container(border=True, height=150)
+    rightbox = col8.container(border=True, height=200)
 
     r1, r2 = rightbox.columns(2)
     with r1:
