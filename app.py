@@ -54,7 +54,7 @@ with col5:
 
 with col7:
     leftbox = col7.container(border=True, height=200)
-    l1, l2 = leftbox.columns([4,1])
+    l1, l2 = leftbox.columns([1,1])
     with l1:
         leftbox.write ("Ratings")
     with l2:
