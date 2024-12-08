@@ -81,10 +81,10 @@ with col8:
     col8_1, col8_2 = rightbox.columns(2)
 
     with col8_1:
-        minlength = st.number_input("Minimum Length \n (in min)", min_value=0)
+        minlength = st.number_input("Minimum Length (in min)", min_value=0)
 
     with col8_2:
-        st.number_input("Maximum Length \n (in min)", min_value=minlength)
+        st.number_input("Maximum Length (in min)", min_value=minlength)
     
 alt1, alt2 = st.columns([2,17])
 with alt2:
