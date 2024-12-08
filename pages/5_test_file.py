@@ -40,9 +40,9 @@ def fetch_movies_by_genre(genre_id):
         return []
 
 # Streamlit UI
-col0, col1 = st.columns([1,1])
+col0 = st.columns([1])
 
-with col1:
+with col0:
     genre_check = st.checkbox("Genre")
     if genre_check:
         # Fetch genres dynamically from TMDb API
