@@ -47,7 +47,7 @@ if selgen:
         for movie in moviesbygenre:
             st.write(f"{movie["title"]}")
 else:
-    continue
+    pass
 
 if selactor: 
         moviefound = Instance.search_movie_by_actors(selactor)
@@ -56,7 +56,7 @@ if selactor:
                 st.write(f"{movie["title"]}")
         else: 
             st.write("Couldn't find movies for this actor")
-else: continue
+else: pass
 
 
 selected = st.selectbox("Select Category", options= ["Genre", "Rating", "Actor","Length", "Keywords", "Recommendation", "Popular", "Title"])
