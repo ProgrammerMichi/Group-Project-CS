@@ -17,7 +17,7 @@ st.title("🎞️ Movie Recommender")
 
 Instance = TMDbAPIClient("eb7ed2a4be7573ea9c99867e37d0a4ab")
 
-st.markdown("*hello!*")
+st.markdown("**hello!**")
 
 col0, col1, col2, col3, col4, col5, col6, col7, col8 = st.columns([2,2,2,2,2,2,1,3,3])
 
