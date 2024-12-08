@@ -14,15 +14,11 @@ st.set_page_config(page_title="Movie Recommender", page_icon="🎞️")
 
 # Title & Intro
 st.title("🎞️ Movie Recommender")
+Instance = TMDbAPIClient("eb7ed2a4be7573ea9c99867e37d0a4ab")
 
 genre_check = st.checkbox("Genre")
 
-selected = st.selectbox("Select Category", options= ["Genre", "Rating", "Actor","Length", "Keywords", "Recommendation", "Popular", "Title"])
-if selected:
-    Instance = TMDbAPIClient("eb7ed2a4be7573ea9c99867e37d0a4ab")
-
-
-if selected == "Genre":
+if genre_check:
     #This gives a list of movies according to which genre has been picked
     genrelist = Instance.get_genres(any)
 
@@ -31,7 +27,15 @@ if selected == "Genre":
         moviesbygenre = Instance.get_movie_by_genre_id(selgen,)
         
         for movie in moviesbygenre:
-            st.write(f"{movie["title"]}")
+            st.write(f"{movie["title"]}") 
+
+selected = st.selectbox("Select Category", options= ["Genre", "Rating", "Actor","Length", "Keywords", "Recommendation", "Popular", "Title"])
+
+    
+
+
+if selected == "Genre":
+   st.write("nüme")
         
 
 if selected == "Rating":
