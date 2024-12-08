@@ -2,12 +2,6 @@
 import streamlit as st
 from tmdbv3api import TMDb, Movie, Genre, Discover, Person
 
-
-#This code, in the future, should check whether code runs locally or on Streamlit, to decide whether .env file should be loaded, hopefully
-# if os.getenv("STREAMLIT_SERVER") is None:
-    # from dotenv import load_dotenv
-    # load_dotenv()
-
 class TMDbAPIClient:
     def __init__(self, api_key="eb7ed2a4be7573ea9c99867e37d0a4ab"):
         self.tmdb = TMDb()
