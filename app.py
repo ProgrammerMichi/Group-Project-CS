@@ -42,8 +42,11 @@ with col3:
     if title_check:
         title_input = st.text_input("Write Title", value = None)
         if title_input:
-            global search_query
             search_query = str(title_input)
+            if title_check:
+                moviesbytitle = Instance.search_movie_title(search_query)
+                for movie in moviesbytitle:
+                    st.write(f"{movie['title']}")
 
 
 with col4:
@@ -72,10 +75,7 @@ if actor_check:
             else: 
                 st.write("Couldn't find movies for this actor")
 
-if title_check:
-    moviesbytitle = Instance.search_movie_title(search_query)
-    for movie in moviesbytitle:
-                st.write(f"{movie['title']}")
+
 
 
 
