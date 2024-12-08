@@ -99,8 +99,8 @@ if selected == "Popular":
 
 if selected == "Title":
     title_input = st.text_input("With my Infinite knowledge I shall find a Movie that contains in its name the word you enter", value = None)
-    if title_input_input:
-        search_query = str(title_input_input)
+    if title_input:
+        search_query = str(title_input)
 
         # Get the movies based on the search query
         movies = Instance.search_movie_title(search_query)
