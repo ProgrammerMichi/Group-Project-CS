@@ -1,6 +1,6 @@
 import streamlit as st
 
-if st.button("Home"):
+if st.button("Get started"):
     st.switch_page("app.py")
 if st.button("Rate our Recommendations"):
     st.switch_page("pages/1_Ratings.py")
