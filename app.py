@@ -22,7 +22,7 @@ st.markdown("**hello!**")
 col0, col1, col2, col3, col4, col5, col6, col7, col8 = st.columns([2,2,2,2,2,2,1,3,3])
 
 with col1:
-    genre_check = st.checkbox("Genre")
+    genre_check = st.checkbox("**Genre**")
     if genre_check:
         #This gives a list of movies according to which genre has been picked
         genrelist = ["Select"]
