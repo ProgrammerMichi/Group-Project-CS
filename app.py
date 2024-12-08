@@ -15,7 +15,7 @@ st.set_page_config(page_title="Movie Recommender", page_icon="🎞️")
 # Title & Intro
 st.title("🎞️ Movie Recommender")
 
-
+genre_check = st.checkbox("Genre")
 
 selected = st.selectbox("Select Category", options= ["Genre", "Rating", "Actor","Length", "Keywords", "Recommendation", "Popular", "Title"])
 if selected:
