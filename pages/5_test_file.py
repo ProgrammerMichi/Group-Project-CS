@@ -67,8 +67,8 @@ for movie in movies:
     cols=[col8,col9,coll0,col11,col12]
     for i in range(0,5):
         with cols[i]:
-    st.markdown(f"**{movie['title']}**")
-    st.image(movie["poster_url"], width=150)
+            st.markdown(f"**{movie['title']}**")
+            st.image(movie["poster_url"], width=150)
 
 
 
