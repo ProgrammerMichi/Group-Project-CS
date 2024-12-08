@@ -15,8 +15,9 @@ st.set_page_config(page_title="Movie Recommender", page_icon="🎞️")
 # Title & Intro
 st.title("🎞️ Movie Recommender")
 
+genrecheck = st.checkbox(Genre)
 
-selected = st.selectbox("Select Category", options= ["Genre", "Rating", "Actor","Length", "Keywords", "Recommendation", "Popular", "Title"])
+#selected = st.selectbox("Select Category", options= ["Genre", "Rating", "Actor","Length", "Keywords", "Recommendation", "Popular", "Title"])
 if selected:
     Instance = TMDbAPIClient("eb7ed2a4be7573ea9c99867e37d0a4ab")
 
