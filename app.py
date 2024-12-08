@@ -40,12 +40,11 @@ with col2:
 with col3:
     title_check = st.checkbox("Title")
     if title_check:
-        title_input = st.text_input("With my Infinite knowledge I shall find a Movie that contains in its name the word you enter", value = None)
+        title_input = st.text_input("Write the Title", value = None)
         if title_input:
+            global search_query
             search_query = str(title_input)
-            movies = Instance.search_movie_title(search_query)
-            for movie in movies:
-                st.write(f"{movie['title']}")
+            
 
 
 with col4:
@@ -74,6 +73,11 @@ if actor_check:
             else: 
                 st.write("Couldn't find movies for this actor")
 
+if title_check:
+    if title_input:
+        movies = Instance.search_movie_title(search_query)
+        for movie in movies:
+            st.write(f"{movie['title']}")
 
 
 selected = st.selectbox("Select Category", options= ["Genre", "Rating", "Actor","Length", "Keywords", "Recommendation", "Popular", "Title"])
