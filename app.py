@@ -52,6 +52,8 @@ with col5:
     relate_check = st.checkbox("Similar")
 
 left_column, right_column = st.columns([3,1])
+with right_column:
+    st.write ("test")
 
 if genre_check:
         if selgen != "Select":
