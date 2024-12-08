@@ -53,7 +53,7 @@ with col5:
             search_query = str(title_input)
 
 with col7:
-    box = col7.container(border=True)
+    box = col7.container(border=True, height=200)
     box.write ("test")
     
 alt1, alt2 = st.columns([2,17])
