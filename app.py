@@ -65,7 +65,7 @@ if selected == "Rating":
 
 if selected == "Actor":
     #This gives a list of Films according to the actor entered
-    
+    st.write("nah")
     
       
 
