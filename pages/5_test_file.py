@@ -8,34 +8,62 @@ from tmdbv3api import TMDb, Movie, Genre, Discover, Person
 from APIConnection import TMDbAPIClient
 import pandas as pd
 import numpy as np
+import requests  # To make API calls
 
 
-Instance = TMDbAPIClient("eb7ed2a4be7573ea9c99867e37d0a4ab")
+API_KEY = 'eb7ed2a4be7573ea9c99867e37d0a4ab'
+BASE_URL = 'https://api.themoviedb.org/3'
 
 
-def fetch_poster(movie_id):
-    url = "https://api.themoviedb.org/3/movie/{}?api_key=eb7ed2a4be7573ea9c99867e37d0a4ab&language=en-US".format(movie_id)
-    data = requests.get(url)
-    data = data.json()
-    poster_path = data['poster_path']
-    full_path = "https://image.tmdb.org/t/p/w500/" + poster_path
-    return full_path
+# Function to fetch movies and posters by genre
+def fetch_movies_by_genre(genre_id):
+    url = f"{BASE_URL}/discover/movie"
+    params = {
+        "api_key": API_KEY,
+        "with_genres": genre_id,
+        "sort_by": "popularity.desc",
+        "language": "en-US",
+        "page": 1,
+    }
+    response = requests.get(url, params=params)
+    if response.status_code == 200:
+        data = response.json()
+        return [
+            {
+                "title": movie["title"],
+                "poster_url": f"https://image.tmdb.org/t/p/w500{movie['poster_path']}"
+            }
+            for movie in data.get("results", [])
+            if movie.get("poster_path")  # Ensure the movie has a poster
+        ]
+    else:
+        return []
 
-
-col0, col1, col2, col3, col4, col5, col6, col7, col8 = st.columns([2,2,2,2,2,2,1,3,3])
-
+# Streamlit UI
 with col1:
     genre_check = st.checkbox("Genre")
     if genre_check:
-        # This gives a list of movies according to which genre has been picked
-        genrelist = ["Select"]
-        gl = list(Instance.get_genres(any))
-    for i in gl:
-        index = movies[movies['title'] == movie].index[0]
-        movie_id = movies.iloc[i[0]].movie_id
-        genrelist.append(i)
-        genrelist.append(fetch_poster(movie_id))
-        selgen = st.selectbox("Choose Genre", options = genrelist)
+        # Fetch genres dynamically from TMDb API
+        genrelist = [{"id": 0, "name": "Select"}]
+        genres = requests.get(f"{BASE_URL}/genre/movie/list", params={"api_key": API_KEY}).json()
+        if genres.get("genres"):
+            genrelist.extend(genres["genres"])  # Add TMDb genres to the list
+
+        # Display genre selection dropdown
+        selgen = st.selectbox("Choose Genre", options=[g["name"] for g in genrelist])
+
+        if selgen != "Select":
+            # Get selected genre ID
+            selected_genre_id = next(g["id"] for g in genrelist if g["name"] == selgen)
+
+            # Fetch movies and posters for the selected genre
+            movies = fetch_movies_by_genre(selected_genre_id)
+
+            # Display movies and posters
+            for movie in movies:
+                st.markdown(f"**{movie['title']}**")
+                st.image(movie["poster_url"], width=150)
+
 
 
 # options to switch pages      
