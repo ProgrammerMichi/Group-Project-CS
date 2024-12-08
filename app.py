@@ -19,7 +19,7 @@ Instance = TMDbAPIClient("eb7ed2a4be7573ea9c99867e37d0a4ab")
 
 st.write("hello!")
 
-col0, col1, col2, col3, col4, col5, col6, col7 = st.columns([3,2,2,2,2,2,1,6])
+col0, col1, col2, col3, col4, col5, col6, col7 = st.columns([2,2,2,2,2,2,1,6])
 
 with col1:
     genre_check = st.checkbox("Genre")
@@ -55,7 +55,7 @@ with col5:
 with col7:
     st.write ("test")
     
-alt1, alt2 = st.columns([3,17])
+alt1, alt2 = st.columns([2,17])
 
 with alt2:
     if genre_check:
