@@ -40,7 +40,7 @@ with col2:
 with col3:
     title_check = st.checkbox("Title")
     if title_check:
-        title_input = st.text_input("With my Infinite knowledge I shall find a Movie that contains in its name the word you enter", value = None)
+        title_input = st.text_input("Write Title", value = None)
         if title_input:
             search_query = str(title_input)
 
