@@ -10,7 +10,7 @@ import pandas as pd
 import numpy as np
 
 # Tab Title
-st.set_page_config(page_title="Movie Recommender", page_icon="🎞️")
+st.set_page_config(page_title="Movie Recommender", page_icon="🎞️", layout="wide")
 
 # Title & Intro
 st.title("🎞️ Movie Recommender")
