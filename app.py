@@ -57,7 +57,7 @@ with col7:
     leftbox.write ("test")
 
 with col8:
-    rightbox = col8.container(broder=True, height=200)
+    rightbox = col8.container(border=True, height=200)
     rightbox.write("testovic")
     
 alt1, alt2 = st.columns([2,17])
