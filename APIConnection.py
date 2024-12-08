@@ -6,7 +6,6 @@ class TMDbAPIClient:
     def __init__(self, api_key="eb7ed2a4be7573ea9c99867e37d0a4ab"):
         self.tmdb = TMDb()
 
-        #The API_Key should be either implemented through an environment variable or streamlit/github secrets
         self.tmdb.api_key = api_key
         self.movie = Movie()
         self.genre = Genre()
