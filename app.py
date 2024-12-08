@@ -45,10 +45,10 @@ with col3:
             search_query = str(title_input)
 
             # Get the movies based on the search query
-            moviesbytitle = Instance.search_movie_title(search_query)
+            movies = Instance.search_movie_title(search_query)
     
             # Display the movie titles
-            for movie in moviesbytitle:
+            for movie in movies:
                 st.write(f"{movie['title']}")
 
 with col4:
