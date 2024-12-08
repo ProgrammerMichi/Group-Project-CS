@@ -55,7 +55,10 @@ with col5:
 with col7:
     leftbox = col7.container(border=True, height=150)
     leftbox.write ("Ratings")
-
+    col7_1, col7_2 = st.columns()
+    with col7_1:
+        st.number_input("Minimum Rating")
+    
 with col8:
     rightbox = col8.container(border=True, height=150)
     rightbox.write("Length")
