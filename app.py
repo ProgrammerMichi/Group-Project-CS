@@ -62,7 +62,7 @@ with col7:
         minrating = st.number_input("Minimum Rating", min_value=0, max_value=100)
 
     with col7_2:
-        st.number_input("Maximum Rating", min_value=0, max_value=minrating)
+        st.number_input("Maximum Rating", min_value=minrating, max_value=100)
     
 with col8:
     rightbox = col8.container(border=True, height=200)
