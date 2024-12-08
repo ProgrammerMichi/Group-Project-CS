@@ -61,11 +61,10 @@ with col1:
             # Fetch movies and posters for the selected genre
             movies = fetch_movies_by_genre(selected_genre_id)
 
-          # Display movies and posters
-        with st.container():
-            for movie in movies:
-                st.markdown(f"**{movie['title']}**")
-                st.image(movie["poster_url"], width=150)
+          # Display movies and poster with st.container():
+for movie in movies:
+    st.markdown(f"**{movie['title']}**")
+    st.image(movie["poster_url"], width=150)
 
 
 
