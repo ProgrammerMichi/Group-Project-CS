@@ -32,11 +32,11 @@ with col1:
         recommended_movie_names = []
         recommended_movie_posters = []
     for i in gl:
-            genrelist.append(i)
-            movie_id = movies.iloc[i[0]].movie_id
-            recommended_movie_posters.append(fetch_poster(movie_id))
-            recommended_movie_names.append(movies.iloc[i[0]].title)
+        genrelist.append(i)
         selgen = st.selectbox("Choose Genre", options = genrelist)
+        movie_id = movies.iloc[i[0]].movie_id
+        recommended_movie_posters.append(fetch_poster(movie_id))
+        recommended_movie_names.append(movies.iloc[i[0]].title)
         
 
 # v1
