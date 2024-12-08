@@ -16,8 +16,8 @@ st.set_page_config(page_title="Movie Recommender", page_icon="🎞️")
 st.title("🎞️ Movie Recommender")
 Instance = TMDbAPIClient("eb7ed2a4be7573ea9c99867e37d0a4ab")
 
-genre_check = st.checkbox("Genre")
-actor_check = st.checkbox("Actor")
+genre_check = st.checkbox("Genre") actor_check = st.checkbox("Actor")
+
 title_check = st.checkbox("Title")
 keywords_check = st.checkbox("Keywords")
 relate_check = st.checkbox("Based on other Movie")
