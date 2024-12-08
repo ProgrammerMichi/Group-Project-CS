@@ -1,5 +1,4 @@
 import streamlit as st
-pip install streamlit-extras
 from streamlit_extras.switch_page_button import switch_page
 
 def example():
