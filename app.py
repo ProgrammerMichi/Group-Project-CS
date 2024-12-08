@@ -17,24 +17,9 @@ st.title("🎞️ Movie Recommender")
 Instance = TMDbAPIClient("eb7ed2a4be7573ea9c99867e37d0a4ab")
 
 col1, col2, col3, col4, col5 = st.columns(5)
-
 with col1:
     genre_check = st.checkbox("Genre")
-
-with col2:
-    actor_check = st.checkbox("Actor")
-
-with col3:
-    title_check = st.checkbox("Title")
-
-with col4:
-    keywords_check = st.checkbox("Keywords")
-
-with col5:
-    relate_check = st.checkbox("Based on other Movie")
-
-
-if genre_check:
+    if genre_check:
     #This gives a list of movies according to which genre has been picked
     genrelist = Instance.get_genres(any)
 
@@ -44,6 +29,19 @@ if genre_check:
         
         for movie in moviesbygenre:
             st.write(f"{movie["title"]}") 
+with col2:
+    actor_check = st.checkbox("Actor")
+with col3:
+    title_check = st.checkbox("Title")
+with col4:
+    keywords_check = st.checkbox("Keywords")
+with col5:
+    relate_check = st.checkbox("Based on other Movie")
+
+left_column, right_column = st.columns([3,1])
+
+
+
 
 selected = st.selectbox("Select Category", options= ["Genre", "Rating", "Actor","Length", "Keywords", "Recommendation", "Popular", "Title"])
 
