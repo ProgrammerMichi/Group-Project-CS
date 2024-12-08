@@ -1,10 +1,5 @@
 import streamlit as st
 
-if st.button("Rate our recommendations"):
-    st.switch_page("Ratings.py")
-
-st.page_link("Ratings.py", label="Rate our recommendations!", icon="🏠")
-
 app_path = 'https://groupemichi.streamlit.app'
 page_file_path = 'pages/Ratings.py'
 page = page_file_path.split('/')[1][0:-3]  # get "1_Ratings.py"
