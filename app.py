@@ -53,14 +53,14 @@ with col5:
             search_query = str(title_input)
 
 with col7:
-    leftbox = col7.container(border=True, height=150)
+    leftbox = col7.container(border=True, height=200)
     leftbox.write ("Ratings")
     col7_1, col7_2 = leftbox.columns(2)
     with col7_1:
         st.number_input("Minimum Rating")
     
 with col8:
-    rightbox = col8.container(border=True, height=150)
+    rightbox = col8.container(border=True, height=200)
     rightbox.write("Length")
     
 alt1, alt2 = st.columns([2,17])
