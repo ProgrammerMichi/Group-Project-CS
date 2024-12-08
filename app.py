@@ -19,7 +19,7 @@ Instance = TMDbAPIClient("eb7ed2a4be7573ea9c99867e37d0a4ab")
 
 st.markdown("**hello!**")
 
-col0, col1, col2, col3, col4, col5, col7, col8 = st.columns([2,2,2,2,2,2,3,3])
+col0, col1, col2, col3, col4, col5, col6, col7 = st.columns([2,2,2,2,2,2,3,3])
 
 with col1:
     genre_check = st.checkbox("Genre")
@@ -52,8 +52,8 @@ with col5:
             global search_query
             search_query = str(title_input)
 
-with col7:
-    leftbox = col7.container(border=True, height=200)
+with col6:
+    leftbox = col6.container(border=True, height=200)
 
     l1, l2 = leftbox.columns(2)
     with l1:
@@ -61,16 +61,16 @@ with col7:
     with l2:
         st.checkbox("Apply Ratings")
 
-    col7_1, col7_2 = leftbox.columns(2)
+    col6_1, col6_2 = leftbox.columns(2)
 
-    with col7_1:
+    with col6_1:
         minrating = st.number_input("Minimum Rating", min_value=0, max_value=100)
 
-    with col7_2:
+    with col6_2:
         st.number_input("Maximum Rating", min_value=minrating, max_value=100)
     
-with col8:
-    rightbox = col8.container(border=True, height=200)
+with col7:
+    rightbox = col7.container(border=True, height=200)
 
     r1, r2 = rightbox.columns(2)
     with r1:
@@ -78,12 +78,12 @@ with col8:
     with r2:
         st.checkbox("Apply Length")
 
-    col8_1, col8_2 = rightbox.columns(2)
+    col7_1, col7_2 = rightbox.columns(2)
 
-    with col8_1:
+    with col7_1:
         minlength = st.number_input("Minimum Length (in min)", min_value=0)
 
-    with col8_2:
+    with col7_2:
         st.number_input("Maximum Length (in min)", min_value=minlength)
     
 alt1, alt2 = st.columns([2,17])
