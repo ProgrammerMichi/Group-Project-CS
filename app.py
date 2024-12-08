@@ -58,7 +58,7 @@ with col7:
     with l1:
         st.write ("Ratings")
     with l2:
-        st.write("Apply")
+        st.checkbox("Apply")
 
     col7_1, col7_2 = leftbox.columns(2)
 
