@@ -54,7 +54,6 @@ with col5:
 
 with col7:
     box = col7.conatiner
-    box.title("Additional Filters")
     st.write ("test")
     
 alt1, alt2 = st.columns([2,17])
