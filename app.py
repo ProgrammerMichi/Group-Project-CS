@@ -59,7 +59,7 @@ with col7:
     with l1:
         st.write ("Ratings")
     with l2:
-        st.checkbox("Apply")
+        st.checkbox("Apply Ratings")
 
     col7_1, col7_2 = leftbox.columns(2)
 
@@ -76,7 +76,7 @@ with col8:
     with r1:
         st.write("Length")
     with r2:
-        st.checkbox("Apply")
+        st.checkbox("Apply Length")
 
     col8_1, col8_2 = rightbox.columns(2)
 
