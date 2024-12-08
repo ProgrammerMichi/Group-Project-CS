@@ -58,7 +58,7 @@ if selected == "Recommendation":
     st.write(f"Recommendation")
 
 if selected == "Popular":
-    st.write(f"Popular")
+    st.write(f"Popular1")
 
 if selected == "Title":
     user_input = st.text_input("With my Infinite knowledge I shall find a Movie that contains in its name the word you enter", value = None)
