@@ -54,7 +54,11 @@ with col5:
 
 with col7:
     leftbox = col7.container(border=True, height=200)
-    leftbox.write ("Ratings")
+    l1, l2 = leftbox.columns([4,1])
+    with l1:
+        leftbox.write ("Ratings")
+    with l2:
+        leftbox.checkbox("Apply")
 
     col7_1, col7_2 = leftbox.columns(2)
 
