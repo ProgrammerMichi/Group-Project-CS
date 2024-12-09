@@ -142,7 +142,7 @@ if returnmovies:
     for movie in returnmovies:
         movielisting = st.container(border= True, height = 326)
         movie_id = str(movie["id"])
-        lc1, lc2, lc3, lc4, lc5, lc6, lc7, lc8 = movielisting.columns(8)
+        lc1, lc2, lc3, lc4, lc5, lc6, lc7, lc8 = movielisting.columns([1,1,3,1,1,1,1,1])
 
         with lc1:
             poster_url = Instance.fetch_poster(movie_id)
