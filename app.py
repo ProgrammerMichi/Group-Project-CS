@@ -125,7 +125,7 @@ def findmovie():
 
 returnmovies = findmovie()
 if returnmovies:
-    slidercount = 0
+    slidercount = 3
     for movie in returnmovies:
         movielisting = st.container(border= True, height = 350)
         lc1, lc2, lc3, lc4, lc5 = movielisting.columns([1.3,1.5,3.1,2,2])
