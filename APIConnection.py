@@ -1,7 +1,7 @@
 #This module is the connection point between code and the TMDB API
 import streamlit as st
 import requests
-from tmdbv3api import TMDb, Movie, Genre, Discover, Person, Search
+from tmdbv3api import TMDb, Movie, Genre, Discover, Person, Search, Keyword
 
 class TMDbAPIClient:
     def __init__(self, api_key="eb7ed2a4be7573ea9c99867e37d0a4ab"):
@@ -12,6 +12,7 @@ class TMDbAPIClient:
         self.person = Person()
         self.discover = Discover()
         self.search = Search()
+        self.keyword = Keyword()
 
 
     def fetch_poster(self, movie_id):
