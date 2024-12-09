@@ -132,16 +132,16 @@ if returnmovies:
             st.image(poster_url, caption=movie["title"], use_column_width=True)
 
         with lc2:
-            st.write(f"**{movie["title"]}**")
+            st.write("**{movie["title"]}**")
             
         with lc3:
-            st.write(f"**Actors:**")
+            st.write("**Actors:**")
             st.write(Instance.search_actors(movie_id))
         
         with lc4:
             st.write("**Movie Length**")
-            st.write("Release Date")
+            st.write("**Release Date**")
 
         with lc5:
-            st.write("Movie Rating")
-            st.write("Personal Rating")
+            st.write("**Movie Rating**")
+            st.write("**Personal Rating**")
