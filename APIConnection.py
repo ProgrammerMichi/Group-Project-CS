@@ -13,8 +13,8 @@ class TMDbAPIClient:
         self.discover = Discover()
 
 
-    def fetch_poster(movie["id"]):
-        url = "https://api.themoviedb.org/3/movie/{}?api_key=eb7ed2a4be7573ea9c99867e37d0a4ab&language=en-US".format(movie["id"])
+    def fetch_poster(movie_id):
+        url = "https://api.themoviedb.org/3/movie/{}?api_key=eb7ed2a4be7573ea9c99867e37d0a4ab&language=en-US".format(movie_id)
         data = requests.get(url)
         data = data.json()
         poster_path = data['poster_path']
