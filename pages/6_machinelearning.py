@@ -16,47 +16,6 @@ st.title("🎞️ Movie Recommender with Ratings")
 # Initialize TMDB API Client
 Instance = TMDbAPIClient("eb7ed2a4be7573ea9c99867e37d0a4ab")
 
-# UI Components
-col1, col2, col3, col4, col5, col6, col7, col8 = st.columns([2, 2, 2, 2, 2, 3, 3, 3])
-
-with col1:
-    genre_check = st.checkbox("Genre")
-    if genre_check:
-        genre_list = ["Select"] + [genre["name"] for genre in Instance.get_genres()]
-        sel_gen = st.selectbox("Choose Genre", options=genre_list)
-
-with col2:
-    actor_check = st.checkbox("Actor")
-    if actor_check:
-        sel_actor = st.text_input("Choose Actor")
-
-with col3:
-    keyword_check = st.checkbox("Keywords")
-    if keyword_check:
-        sel_keywords = st.text_input("Enter Keywords")
-
-with col4:
-    relate_check = st.checkbox("Similar")
-
-with col5:
-    sel_order = st.selectbox("Order of Movies by Ratings", ["Descending", "Ascending"])
-
-with col6:
-    rating_check = st.checkbox("Apply Ratings")
-    sel_min_rating = st.number_input("Minimum Rating", min_value=0.0, max_value=10.0, step=0.1, format="%.1f")
-    sel_max_rating = st.number_input("Maximum Rating", min_value=0.0, max_value=10.0, value=10.0, step=0.1, format="%.1f")
-    sel_min_votes = st.number_input("Minimum Amount of Ratings", min_value=0, value=1000)
-
-with col7:
-    length_check = st.checkbox("Apply Length")
-    sel_min_length = st.number_input("Minimum Length (in min)", min_value=0)
-    sel_max_length = st.number_input("Maximum Length (in min)", min_value=0)
-
-with col8:
-    date_check = st.checkbox("Apply Date")
-    sel_rel_after = st.date_input("Released After:")
-    sel_rel_before = st.date_input("Released Before:")
-
 # Placeholder for movie ratings
 if "user_ratings" not in st.session_state:
     st.session_state["user_ratings"] = {}
@@ -122,7 +81,46 @@ def find_movies():
     movies_found = Instance.discover.discover_movies(search_parameters)
     return movies_found
 
+# UI Components
+col1, col2, col3, col4, col5, col6, col7, col8 = st.columns([2, 2, 2, 2, 2, 3, 3, 3])
 
+with col1:
+    genre_check = st.checkbox("Genre")
+    if genre_check:
+        genre_list = ["Select"] + [genre["name"] for genre in Instance.get_genres()]
+        sel_gen = st.selectbox("Choose Genre", options=genre_list)
+
+with col2:
+    actor_check = st.checkbox("Actor")
+    if actor_check:
+        sel_actor = st.text_input("Choose Actor")
+
+with col3:
+    keyword_check = st.checkbox("Keywords")
+    if keyword_check:
+        sel_keywords = st.text_input("Enter Keywords")
+
+with col4:
+    relate_check = st.checkbox("Similar")
+
+with col5:
+    sel_order = st.selectbox("Order of Movies by Ratings", ["Descending", "Ascending"])
+
+with col6:
+    rating_check = st.checkbox("Apply Ratings")
+    sel_min_rating = st.number_input("Minimum Rating", min_value=0.0, max_value=10.0, step=0.1, format="%.1f")
+    sel_max_rating = st.number_input("Maximum Rating", min_value=0.0, max_value=10.0, value=10.0, step=0.1, format="%.1f")
+    sel_min_votes = st.number_input("Minimum Amount of Ratings", min_value=0, value=1000)
+
+with col7:
+    length_check = st.checkbox("Apply Length")
+    sel_min_length = st.number_input("Minimum Length (in min)", min_value=0)
+    sel_max_length = st.number_input("Maximum Length (in min)", min_value=0)
+
+with col8:
+    date_check = st.checkbox("Apply Date")
+    sel_rel_after = st.date_input("Released After:")
+    sel_rel_before = st.date_input("Released Before:")
 
 # Display Movies and Ratings
 return_movies = find_movies()
