@@ -156,4 +156,4 @@ if returnmovies:
         with lc5:
             st.write("**TMDB Movie Rating**")
             st.slider("**Your Personal Rating**",min_value=1, max_value=10, key = slidercount)
-            slidercount += 1
+        slidercount += 1
