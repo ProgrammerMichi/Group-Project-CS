@@ -32,6 +32,7 @@ class TMDbAPIClient:
         return None
     
     
+    
     def get_movie_by_genre_id(self, genre_name, page=1,):
         #Looks for movies according to genre id
         genre_id = self.get_genre_id(genre_name)
@@ -54,14 +55,17 @@ class TMDbAPIClient:
         movie_details = self.movie.details(movie_id)
         return movie_details.get("cast",[])
     
-    def search_movie_by_actors(self, actorname, page = 1):
+    def search_actor_id(self, actorname):
         #Gets Actor ID
         actor = self.person.search(actorname)
         if actor:
             actor_id = actor[0]["id"]
+            return actor_id
         if not actor:
-            return []
-
+            return("no actors found")
+        
+    def search_movie_by_actor_id(self,actorname, page = 1):
+        actor_id = self.search_actor_id(actorname)
         #Gets movie based on Actor ID
         actormovies = self.discover.discover_movies({
             "with_cast": actor_id,
