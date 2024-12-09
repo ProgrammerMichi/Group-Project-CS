@@ -141,7 +141,7 @@ returnmovies = findmovie()
 if returnmovies:
     cols = st.columns(5)
     for movie in returnmovies:
-        movie_id = int(movie["id"])
+        movie_id = str(movie["id"])
         st.write(movie_id)
         st.write(f"{movie["title"]}, {movie["id"]}")
         poster_url = Instance.fetch_poster(movie_id)
