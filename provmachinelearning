@@ -2,6 +2,7 @@ import streamlit as st
 from tmdbv3api import TMDb, Discover, Movie, Genre, Person
 from surprise import Dataset, Reader, SVD, accuracy
 from surprise.model_selection import train_test_split
+import sqlite3
 import pandas as pd
 import numpy as np
 from APIConnection import TMDbAPIClient
@@ -22,6 +23,41 @@ if "ratings" not in st.session_state:
     st.session_state.ratings = []
 if "model" not in st.session_state:
     st.session_state.model = None
+if "user_id" not in st.session_state:
+    st.session_state.user_id = 1  # Beispiel: Benutzer-ID 1
+
+# SQLite-Datenbank einrichten
+conn = sqlite3.connect("movie_recommender.db")
+c = conn.cursor()
+c.execute("""
+CREATE TABLE IF NOT EXISTS ratings (
+    user_id INTEGER,
+    movie_id INTEGER,
+    rating REAL,
+    PRIMARY KEY (user_id, movie_id)
+)
+""")
+conn.commit()
+conn.close()
+
+# Funktionen für Datenbankoperationen
+def save_rating(user_id, movie_id, rating):
+    conn = sqlite3.connect("movie_recommender.db")
+    c = conn.cursor()
+    c.execute("""
+    INSERT OR REPLACE INTO ratings (user_id, movie_id, rating) 
+    VALUES (?, ?, ?)
+    """, (user_id, movie_id, rating))
+    conn.commit()
+    conn.close()
+
+def get_ratings_by_user(user_id):
+    conn = sqlite3.connect("movie_recommender.db")
+    c = conn.cursor()
+    c.execute("SELECT movie_id, rating FROM ratings WHERE user_id = ?", (user_id,))
+    ratings = c.fetchall()
+    conn.close()
+    return ratings
 
 # Spalten für die Filter
 col1, col2, col3, col4, col5, col6, col7, col8 = st.columns([2, 2, 2, 2, 2, 3, 3, 3])
@@ -29,7 +65,6 @@ col1, col2, col3, col4, col5, col6, col7, col8 = st.columns([2, 2, 2, 2, 2, 3, 3
 with col1:
     genre_check = st.checkbox("Genre")
     if genre_check:
-        # Dies gibt eine Liste von Genres für Filme zurück
         genrelist = ["Select"]
         gl = list(Instance.get_genres("movie"))  # Argument "movie" hinzugefügt
         for i in gl:
@@ -90,75 +125,27 @@ def findmovie():
 
     # Abrufen der Ergebnisse
     moviesfound = Instance.discover.discover_movies(search_parameters)
-
-    # Gib nur die Filmliste aus "results" zurück
     if isinstance(moviesfound, dict) and "results" in moviesfound:
         return moviesfound["results"]  # Nur die Liste der Filme
     else:
         return []  # Leere Liste zurückgeben, falls keine Ergebnisse vorhanden sind
 
 # Filme anzeigen und bewerten
-movies = findmovie()
-
-# Sicherstellen, dass `movies` eine Liste ist
-if not isinstance(movies, list):
-    st.write("Fehler: Unerwartetes Datenformat für Filme")
-else:
-    # Iteriere über die ersten 10 Filme
-    for movie in movies[:10]:
-        if isinstance(movie, dict) and "title" in movie and "vote_average" in movie:
-            st.write(f"**{movie['title']}** (Rating: {movie['vote_average']})")
-        else:
-            st.write("Fehler: Unerwartetes Datenformat", movie)
-
-# Daten vorbereiten
-if st.button("Daten vorbereiten"):
-    if not st.session_state.ratings:
-        st.write("Es wurden noch keine Bewertungen abgegeben. Bitte bewerten Sie zuerst einige Filme!")
+if st.button("Suche starten"):
+    movies = findmovie()
+    if not isinstance(movies, list):
+        st.write("Fehler: Unerwartetes Datenformat für Filme")
     else:
-        ratings_df = pd.DataFrame(st.session_state.ratings)
-        st.write("Gesammelte Bewertungen:")
-        st.write(ratings_df)
+        for movie in movies[:10]:
+            if isinstance(movie, dict) and "title" in movie and "vote_average" in movie:
+                st.write(f"**{movie['title']}** (Rating: {movie['vote_average']})")
+                rating = st.slider(f"Bewertung für '{movie['title']}'", 1, 5, key=f"rate_{movie['id']}")
+                if st.button(f"Speichern für '{movie['title']}'", key=f"save_{movie['id']}"):
+                    save_rating(st.session_state.user_id, movie["id"], rating)
+                    st.write("Bewertung gespeichert!")
 
-        # Daten für Surprise vorbereiten
-        reader = Reader(rating_scale=(1, 5))
-        data = Dataset.load_from_df(ratings_df[["user_id", "movie_id", "rating"]], reader)
-        st.write("Daten sind bereit für das Training!")
-
-# Modell trainieren
-if st.button("Modell trainieren"):
-    if not st.session_state.ratings:
-        st.write("Es wurden noch keine Bewertungen abgegeben. Bitte bewerten Sie zuerst einige Filme!")
-    else:
-        ratings_df = pd.DataFrame(st.session_state.ratings)
-        reader = Reader(rating_scale=(1, 5))
-        data = Dataset.load_from_df(ratings_df[["user_id", "movie_id", "rating"]], reader)
-        trainset, testset = train_test_split(data, test_size=0.2)
-
-        model = SVD()
-        model.fit(trainset)
-
-        predictions = model.test(testset)
-        rmse = accuracy.rmse(predictions)
-        st.write(f"Das Modell wurde trainiert. RMSE: {rmse:.2f}")
-        st.session_state.model = model
-        st.write("Das Modell wurde gespeichert und kann für Empfehlungen verwendet werden.")
-
-# Empfehlungen anzeigen
-if st.button("Empfehlungen anzeigen"):
-    if "model" not in st.session_state or st.session_state.model is None:
-        st.write("Bitte trainiere zuerst das Modell!")
-    else:
-        st.write("Empfehlungen basierend auf Ihren Bewertungen:")
-
-        all_movie_ids = [movie["id"] for movie in movies]
-        predictions = []
-        for movie_id in all_movie_ids:
-            pred = st.session_state.model.predict(uid=1, iid=movie_id)
-            predictions.append((movie_id, pred.est))
-
-        predictions.sort(key=lambda x: x[1], reverse=True)
-        for movie_id, pred_rating in predictions[:5]:
-            movie = next((m for m in movies if m["id"] == movie_id), None)
-            if movie:
-                st.write(f"**{movie['title']}** (Vorhergesagte Bewertung: {pred_rating:.2f})")
+# Gespeicherte Bewertungen anzeigen
+st.write("Ihre gespeicherten Bewertungen:")
+user_ratings = get_ratings_by_user(st.session_state.user_id)
+for movie_id, rating in user_ratings:
+    st.write(f"Film-ID: {movie_id}, Bewertung: {rating}")
