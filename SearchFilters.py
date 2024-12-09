@@ -46,20 +46,20 @@ def findmovie(self, x):
         rel_after = selrel_after
         rel_before = selrel_before
 
-    moviesfound = Instance.discover.movie(
-        sort_by: "vote_average.desc",
-        with_genres: str(Instance.get_genre_id(genre))
-        with_cast: str(Instance.person.search(actor))
-        with_keywords: str(keywords)
-        vote_average.gte: str(min_rating)
-        vote_average.gte: str(max_rating)
-        vote_count.gte: str(min_votes)
-        with_runtime.gte: str(min_length)
-        with_runtime.lte: str(max_length)
-        primary_release_date.gte: str(rel_after)
-        primary_release_date.lte: str(rel_before)
-    )
-    
+    moviesfound = Instance.discover.movie({
+        "sort_by": "vote_average.desc",
+        "with_genres": str(Instance.get_genre_id(genre))
+        "with_cast": str(Instance.person.search(actor))
+        "with_keywords": str(keywords)
+        "vote_average.gte": str(min_rating)
+        "vote_average.gte": str(max_rating)
+        "vote_count.gte": str(min_votes)
+        "with_runtime.gte": str(min_length)
+        "with_runtime.lte": str(max_length)
+        "primary_release_date.gte": str(rel_after)
+        "primary_release_date.lte": str(rel_before)
+        })
+
     returnmovies = []
     if moviesfound:
         for movie in moviesfound:
