@@ -125,7 +125,7 @@ def findmovie():
 
 returnmovies = findmovie()
 if returnmovies:
-    mcount = 0
+    slidercount = 0
     for movie in returnmovies:
         movielisting = st.container(border= True, height = 350)
         lc1, lc2, lc3, lc4, lc5 = movielisting.columns([1.3,1.5,3.1,2,2])
@@ -155,5 +155,5 @@ if returnmovies:
 
         with lc5:
             st.write("**TMDB Movie Rating**")
-            st.slider("**Your Personal Rating**",min_value=1, max_value=10, key = mcount)
-            mcount += 1
+            st.slider("**Your Personal Rating**",min_value=1, max_value=10, key = slidercount)
+            slidercount += 1
