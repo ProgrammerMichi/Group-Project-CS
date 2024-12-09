@@ -154,4 +154,6 @@ if returnmovies:
         with lc3:
             st.write(f"**Actors:**")
             st.write(Instance.search_actors(movie_id))
-            
+        
+        with lc4:
+            st.write("testo")
