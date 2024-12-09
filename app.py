@@ -53,7 +53,7 @@ with col5:
             search_query = str(title_input)
 
 with col6:
-    leftbox = col6.container(border=True, height=250)
+    leftbox = col6.container(border=True, height=260)
 
     l1, l2 = leftbox.columns(2)
     with l1:
