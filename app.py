@@ -107,28 +107,27 @@ with col8:
 
 
     
-alt1, alt2 = st.columns([2,17])
-with alt2:
-    if genre_check:
-        if selgen != "Select":
-            moviesbygenre = Instance.get_movie_by_genre_id(selgen)
-        
-            for movie in moviesbygenre:
-                st.write(f"{movie["title"]}")
+
+
+if genre_check:
+    if selgen != "Select":
+        moviesbygenre = Instance.get_movie_by_genre_id(selgen)            
+        for movie in moviesbygenre:
+            st.write(f"{movie["title"]}")
                 
 
 
-    if actor_check:
-        if selactor: 
-            moviefound = Instance.search_movie_by_actors(selactor)
-            if moviefound:
-                for movie in moviefound:
-                    st.write(f"{movie["title"]}")
-            else: 
-                st.write("Couldn't find movies for this actor")
+if actor_check:     
+    if selactor:
+        moviefound = Instance.search_movie_by_actors(selactor)
+        if moviefound:
+            for movie in moviefound:
+                st.write(f"{movie["title"]}")
+        else: 
+            st.write("Couldn't find movies for this actor")
 
-    if title_check:
-        if title_input:
-            movies = Instance.search_movie_title(search_query)
-            for movie in movies:
-                st.write(f"{movie['title']}")
+if title_check:
+   if title_input:
+        movies = Instance.search_movie_title(search_query)
+        for movie in movies:
+            st.write(f"{movie['title']}")
