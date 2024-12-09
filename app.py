@@ -64,7 +64,7 @@ with col6:
         selmin_rating = st.number_input("Minimum Rating", min_value=0.0, max_value=10.0)
 
     with col6_2:
-        selmax_rating = st.number_input("Maximum Rating", min_value=0.0, max_value=10.0, value = 10)
+        selmax_rating = st.number_input("Maximum Rating", min_value=0.0, max_value=10, value = 10)
 
 selmin_votes = leftbox.number_input("Minimum Amount of Ratings", min_value=0, value= 1000)
     
