@@ -65,7 +65,7 @@ with col1:
 for movie in movies:
     with st.container():
         col8, col9, col10, col11, col12 = st.columns(5)
-        cols = [col8,col9,coll0,col11,col12]
+        cols = [col8,col9,col10,col11,col12]
         for i in range(0,5):
             with cols[i]:
                 st.markdown(f"**{movie['title']}**")
