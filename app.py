@@ -132,7 +132,7 @@ if returnmovies:
                 poster_url = Instance.fetch_poster(movie_id)
             except Exception: 
                 st.write(st.write("No Poster Found"))
-            if poster_url:
+            else:
                 st.image(poster_url, caption=movie["title"], use_column_width=True)
 
                 
