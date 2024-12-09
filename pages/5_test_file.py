@@ -41,7 +41,6 @@ def fetch_movies_by_genre(genre_id):
 
 # Streamlit UI
 col0, col1, col2, col3, col4, col5, col6, col7 = st.columns([2,2,2,2,2,2,3,3])
-col8, col9, col19, col11, col12 = st.columns(5)
 
 with col1:
     genre_check = st.checkbox("Genre")
@@ -65,7 +64,7 @@ with col1:
           # Display movies and poster with st.container():
 for movie in movies:
     with st.container():
-        col8, col9, col19, col11, col12 = st.columns(5)
+        col8, col9, col10, col11, col12 = st.columns(5)
         cols=[col8,col9,coll0,col11,col12]
         for i in range(0,5):
             with cols[i]:
