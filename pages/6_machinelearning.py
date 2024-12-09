@@ -1,143 +1,132 @@
+# Adding functionality for users to rate movies and consider ratings in recommendations
 import streamlit as st
-from streamlit_option_menu import option_menu
-from tmdbv3api import TMDb, Movie, Genre, Discover, Person
-#import pandas
-#import numpy
-#import surprise
-#import os
-from APIConnection import TMDbAPIClient
 import pandas as pd
 import numpy as np
+from streamlit_option_menu import option_menu
+from tmdbv3api import TMDb, Movie, Genre, Discover, Person
+from APIConnection import TMDbAPIClient
 
 # Tab Title
 st.set_page_config(page_title="Movie Recommender", page_icon="🎞️", layout="wide")
 
 # Title & Intro
-st.title("🎞️ Movie Recommender")
+st.title("🎞️ Movie Recommender with Ratings")
 
+# Initialize TMDB API Client
 Instance = TMDbAPIClient("eb7ed2a4be7573ea9c99867e37d0a4ab")
 
-st.markdown("**hello!**")
+# Placeholder for movie ratings
+if "user_ratings" not in st.session_state:
+    st.session_state["user_ratings"] = {}
 
-col1, col2, col3, col4, col5, col6, col7, col8 = st.columns([2,2,2,2,2,3,3,3])
+# Function to add a rating for a movie
+def rate_movie(movie_id, movie_title):
+    with st.form(f"rate_movie_form_{movie_id}"):
+        st.write(f"Rate '{movie_title}':")
+        rating = st.slider("Rating (1-5 stars)", 1, 5, value=3)
+        submit = st.form_submit_button("Submit Rating")
+        if submit:
+            st.session_state["user_ratings"][movie_id] = {
+                "title": movie_title,
+                "rating": rating,
+            }
+            st.success(f"Thank you for rating '{movie_title}'!")
+
+# Function to apply user ratings to future recommendations
+def adjust_recommendations_with_ratings(movies):
+    if not st.session_state["user_ratings"]:
+        return movies  # If no ratings exist, return movies as is
+
+    # Adjust the scores based on similarity to rated movies
+    rated_movies = st.session_state["user_ratings"]
+    adjusted_movies = []
+
+    for movie in movies:
+        similarity_score = 1  # Default similarity score
+        for rated_id, details in rated_movies.items():
+            if movie["id"] == int(rated_id):
+                similarity_score += details["rating"] * 0.2  # Boost for rated movies
+        adjusted_movies.append((similarity_score, movie))
+
+    # Sort movies by adjusted score in descending order
+    adjusted_movies.sort(key=lambda x: x[0], reverse=True)
+    return [movie for _, movie in adjusted_movies]
+
+# Function to find movies based on filters
+def find_movies():
+    search_parameters = {}
+    if genre_check and sel_gen != "Select":
+        search_parameters["with_genres"] = str(Instance.get_genre_id(sel_gen))
+    if actor_check and sel_actor:
+        sel_actor_id = Instance.person.search(sel_actor)
+        search_parameters["with_cast"] = str(sel_actor_id[0].id)
+    if keyword_check and sel_keywords:
+        search_parameters["with_keywords"] = str(sel_keywords.lower())
+    if sel_order == "Descending":
+        search_parameters["sort_by"] = "vote_average.desc"
+    else:
+        search_parameters["sort_by"] = "vote_average.asc"
+    if rating_check:
+        search_parameters["vote_average.gte"] = str(sel_min_rating)
+        search_parameters["vote_average.lte"] = str(sel_max_rating)
+        search_parameters["vote_count.gte"] = str(sel_min_votes)
+    if length_check:
+        search_parameters["with_runtime.gte"] = str(sel_min_length)
+        search_parameters["with_runtime.lte"] = str(sel_max_length)
+    if date_check:
+        search_parameters["primary_release_date.gte"] = str(sel_rel_after)
+        search_parameters["primary_release_date.lte"] = str(sel_rel_before)
+
+    movies_found = Instance.discover.discover_movies(search_parameters)
+    return movies_found
+
+# UI Components
+col1, col2, col3, col4, col5, col6, col7, col8 = st.columns([2, 2, 2, 2, 2, 3, 3, 3])
 
 with col1:
     genre_check = st.checkbox("Genre")
     if genre_check:
-        #This gives a list of movies according to which genre has been picked
-        genrelist = ["Select"]
-        gl = list(Instance.get_genres(any))
-        for i in gl:
-            genrelist.append(i)
-        selgen = st.selectbox("Choose Genre", options = genrelist)
-
+        genre_list = ["Select"] + [genre["name"] for genre in Instance.get_genres()]
+        sel_gen = st.selectbox("Choose Genre", options=genre_list)
 
 with col2:
     actor_check = st.checkbox("Actor")
     if actor_check:
-        selactor = st.text_input("Choose Actor")
+        sel_actor = st.text_input("Choose Actor")
 
 with col3:
     keyword_check = st.checkbox("Keywords")
     if keyword_check:
-        selkeywords = st.text_input("Enter Keywords")
-    
+        sel_keywords = st.text_input("Enter Keywords")
 
 with col4:
     relate_check = st.checkbox("Similar")
 
 with col5:
-    selorder = st.selectbox("Order of Movies by Ratings", ["Descending", "Ascending"])
+    sel_order = st.selectbox("Order of Movies by Ratings", ["Descending", "Ascending"])
 
 with col6:
-    leftbox = col6.container(border=True, height=275)
+    rating_check = st.checkbox("Apply Ratings")
+    sel_min_rating = st.number_input("Minimum Rating", min_value=0.0, max_value=10.0, step=0.1, format="%.1f")
+    sel_max_rating = st.number_input("Maximum Rating", min_value=0.0, max_value=10.0, value=10.0, step=0.1, format="%.1f")
+    sel_min_votes = st.number_input("Minimum Amount of Ratings", min_value=0, value=1000)
 
-    l1, l2 = leftbox.columns(2)
-    with l1:
-        st.write ("Ratings")
-    with l2:
-        rating_check = st.checkbox("Apply Ratings")
-
-    col6_1, col6_2 = leftbox.columns(2)
-
-    with col6_1:
-        selmin_rating = st.number_input("Minimum Rating", min_value=0.0, max_value=10.0, step = 0.1, format = "%0.1f")
-
-    with col6_2:
-        selmax_rating = st.number_input("Maximum Rating", min_value=0.0, max_value=10.0, value = 10.0, step = 0.1, format = "%0.1f" )
-
-selmin_votes = leftbox.number_input("Minimum Amount of Ratings", min_value=0, value= 1000)
-    
-    
 with col7:
-    midbox = col7.container(border=True, height=200)
-
-    m1, m2 = midbox.columns(2)
-    with m1:
-        st.write("Length")
-    with m2:
-        length_check = st.checkbox("Apply Length")
-
-    col7_1, col7_2 = midbox.columns(2)
-
-    with col7_1:
-        selmin_length = st.number_input("Minimum Length (in min)", min_value=0)
-
-    with col7_2:
-        selmax_length = st.number_input("Maximum Length (in min)", min_value=0)
-
+    length_check = st.checkbox("Apply Length")
+    sel_min_length = st.number_input("Minimum Length (in min)", min_value=0)
+    sel_max_length = st.number_input("Maximum Length (in min)", min_value=0)
 
 with col8:
-    rightbox = col8.container(border=True, height= 200)
-    r1, r2 = rightbox.columns(2)
-    with r1:
-        st.write("Release Date")
-    with r2:
-        date_check = st.checkbox("Apply Date")
+    date_check = st.checkbox("Apply Date")
+    sel_rel_after = st.date_input("Released After:")
+    sel_rel_before = st.date_input("Released Before:")
 
-    col8_1, col8_2 = rightbox.columns(2)
-    with col8_1:
-        selrel_after = st.date_input("Released After:")
-    with col8_2:
-        selrel_before = st.date_input("Released Before:")
-
- #ChatGPT helped with basic idea of this function(how to manage input that can be turned on/off)   
-def findmovie():
-    search_parameters = {}
-    if genre_check and selgen != "Select":
-            search_parameters["with_genres"] = str(Instance.get_genre_id(selgen))
-    
-    if actor_check and selactor: 
-        selactor_id = Instance.person.search(selactor)
-        search_parameters["with_cast"] = str(selactor_id[0].id)
-
-    if keyword_check and selkeywords:
-        keyword_ids = selkeywords
-        search_parameters["with_keywords"] = str(keyword_ids.lower)
-    
-    if selorder == "Descending":
-        search_parameters["sort_by"] = "vote_average.desc"
-    else:
-        search_parameters["sort_by"] = "vote_average.asc"
-    
-    if rating_check:
-        search_parameters["vote_average.gte"] = str(selmin_rating)
-        search_parameters["vote_average.lte"] = str(selmax_rating)
-        search_parameters["vote_count.gte"] = str(selmin_votes)
-
-    if length_check:
-        search_parameters["with_runtime.gte"] = str(selmin_length)
-        search_parameters["with_runtime.lte"] = str(selmin_length)
-
-    if date_check:
-        search_parameters["primary_release_date.gte"] = str(selrel_after)
-        search_parameters["primary_release_date.lte"] = str(selrel_before) 
-
-    moviesfound = Instance.discover.discover_movies(search_parameters)
-
-    return moviesfound
-
-returnmovies = findmovie()
-if returnmovies:
-    for movie in returnmovies:
-        st.write(f"{movie["title"]}")
+# Display Movies and Ratings
+return_movies = find_movies()
+if return_movies:
+    adjusted_movies = adjust_recommendations_with_ratings(return_movies)
+    for movie in adjusted_movies:
+        st.write(f"🎥 {movie['title']} ({movie['release_date'][:4]})")
+        rate_movie(movie["id"], movie["title"])
+else:
+    st.write("No movies found.")
