@@ -103,7 +103,7 @@ with col8:
 
  #ChatGPT helped with basic idea of this function(how to manage input that can be turned on/off)   
 def findmovie():
-    search_parameters = {"sort_by": "vote_average.desc"}
+    search_parameters = {}
     if genre_check and selgen != "Select":
             search_parameters["with_genres"] = str(Instance.get_genre_id(selgen))
     
@@ -114,6 +114,11 @@ def findmovie():
     if keyword_check and selkeywords:
         keyword_ids = str(selkeywords.id)
         search_parameters["with_keywords"] = keyword_ids
+    
+    if selorder == "Descending":
+        search_parameters["sort_by"] = "vote_average.desc"
+    else:
+        search_parameters["sort_by"] = "vote_average.asc"
     
     if rating_check:
         search_parameters["vote_average.gte"] = str(selmin_rating)
