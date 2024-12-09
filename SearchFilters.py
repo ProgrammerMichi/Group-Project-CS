@@ -2,25 +2,25 @@ from tmdbv3api import Discover
 from APIConnection import TMDbAPIClient
 from app import Instance
 
+from app import selgen
+from app import selactor
+from app import selkeywords
+from app import selmin_rating
+from app import selmax_rating
+from app import selmin_votes
+from app import selmin_length
+from app import selmax_length
+from app import selrel_after
+from app import selrel_before
+from app import genre_check
+from app import actor_check
+from app import keyword_check
+from app import rating_check
+from app import length_check
+from app import date_check
 
 
-selgen = None
-selactor = None
-selkeywords = None
-selmin_rating = None
-selmax_rating = None
-selmin_votes = None
-selmin_length = None
-selmax_length = None
-selrel_after = None
-selrel_before = None
-genre_check = None
-actor_check = None
-keyword_check = None
-rating_check = None
-min_length = None
-length_check = None
-date_check = None
+
 
 
 def findmovie(self, x):
