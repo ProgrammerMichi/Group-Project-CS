@@ -108,8 +108,7 @@ with col8:
     
 def findmovie():
     search_parameters = {"sort_by": "vote_average.desc"}
-    if genre_check:
-        if selgen != "Select":
+    if genre_check and selgen != "Select":
             search_parameters["with_genres"] = str(Instance.get_genre_id(selgen))
     
     if actor_check and selactor: 
