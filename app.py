@@ -139,8 +139,15 @@ def findmovie():
 
 returnmovies = findmovie()
 if returnmovies:
-    movie_poster = []
+    cols = st.columns(5)
     for movie in returnmovies:
+        poster_url = Instance.fetch_poster(movie["id"])
         st.write(f"{movie["title"]}, {movie["id"]}")
+        if poster_url:
+                st.image(poster_url, caption=movie["title"], use_column_width=True)
+        else:
+                st.write(f"{movie["title"]})
+
+
 
         
