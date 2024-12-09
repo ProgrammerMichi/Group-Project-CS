@@ -5,6 +5,7 @@ import numpy as np
 from streamlit_option_menu import option_menu
 from tmdbv3api import TMDb, Movie, Genre, Discover, Person
 from APIConnection import TMDbAPIClient
+from app import Instance
 
 # Tab Title
 st.set_page_config(page_title="Movie Recommender", page_icon="🎞️", layout="wide")
