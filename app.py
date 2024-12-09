@@ -47,12 +47,7 @@ with col4:
     relate_check = st.checkbox("Similar")
 
 with col5:
-    title_check = st.checkbox("Title")
-    if title_check:
-        title_input = st.text_input("Write the Title", value = None)
-        if title_input:
-            global search_query
-            search_query = str(title_input)
+    selorder = st.selectbox("Order of Movies", ["Descending Rating", "Ascending Rating"])
 
 with col6:
     leftbox = col6.container(border=True, height=275)
