@@ -60,8 +60,8 @@ def find_movies():
     if actor_check and sel_actor:
         sel_actor_id = Instance.person.search(sel_actor)
         search_parameters["with_cast"] = str(sel_actor_id[0].id)
-    if keyword_check and sel_keywords:
-        search_parameters["with_keywords"] = str(sel_keywords.lower())
+    if keyword_check and sel_keyword:
+        search_parameters["with_keyword"] = str(sel_keyword.lower())
     if sel_order == "Descending":
         search_parameters["sort_by"] = "vote_average.desc"
     else:
@@ -99,9 +99,9 @@ with col2:
         sel_actor = st.text_input("Choose Actor")
 
 with col3:
-    keyword_check = st.checkbox("Keywords")
+    keyword_check = st.checkbox("Keyword")
     if keyword_check:
-        sel_keywords = st.text_input("Enter Keywords")
+        sel_keyword = st.text_input("Enter Keyword")
 
 with col4:
     relate_check = st.checkbox("Similar")
