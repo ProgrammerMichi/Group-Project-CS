@@ -29,9 +29,9 @@ col1, col2, col3, col4, col5, col6, col7, col8 = st.columns([2, 2, 2, 2, 2, 3, 3
 with col1:
     genre_check = st.checkbox("Genre")
     if genre_check:
-        # Genre-Filter
+        # Dies gibt eine Liste von Genres für Filme zurück
         genrelist = ["Select"]
-        gl = list(Instance.get_genres())
+        gl = list(Instance.get_genres("movie"))  # Argument "movie" hinzugefügt
         for i in gl:
             genrelist.append(i)
         selgen = st.selectbox("Choose Genre", options=genrelist)
@@ -66,7 +66,7 @@ with col8:
     selrel_after = st.date_input("Released After:")
     selrel_before = st.date_input("Released Before:")
 
-# Funktion: Filme finden
+## Funktion: Filme finden
 def findmovie():
     search_parameters = {}
     if genre_check and selgen != "Select":
@@ -88,29 +88,28 @@ def findmovie():
     search_parameters["primary_release_date.gte"] = str(selrel_after)
     search_parameters["primary_release_date.lte"] = str(selrel_before)
 
-    return Instance.discover.discover_movies(search_parameters)
+    # Abrufen der Ergebnisse
+    moviesfound = Instance.discover.discover_movies(search_parameters)
+
+    # Gib nur die Filmliste aus "results" zurück
+    if isinstance(moviesfound, dict) and "results" in moviesfound:
+        return moviesfound["results"]  # Nur die Liste der Filme
+    else:
+        return []  # Leere Liste zurückgeben, falls keine Ergebnisse vorhanden sind
 
 # Filme anzeigen und bewerten
 movies = findmovie()
 
-# Debugging: Typ und Inhalt von `movies` prüfen
-st.write(type(movies))
-st.write(movies)
-
 # Sicherstellen, dass `movies` eine Liste ist
-if isinstance(movies, str):  # Falls `movies` ein String ist
-    import json
-    movies = json.loads(movies)
-
-if not isinstance(movies, list):  # Falls `movies` kein Listenobjekt ist
-    movies = list(movies)
-
-# Iteriere über die ersten 10 Filme
-for movie in movies[:10]:
-    if isinstance(movie, dict) and 'title' in movie and 'vote_average' in movie:
-        st.write(f"**{movie['title']}** (Rating: {movie['vote_average']})")
-    else:
-        st.write("Fehler: Unerwartetes Datenformat", movie)
+if not isinstance(movies, list):
+    st.write("Fehler: Unerwartetes Datenformat für Filme")
+else:
+    # Iteriere über die ersten 10 Filme
+    for movie in movies[:10]:
+        if isinstance(movie, dict) and "title" in movie and "vote_average" in movie:
+            st.write(f"**{movie['title']}** (Rating: {movie['vote_average']})")
+        else:
+            st.write("Fehler: Unerwartetes Datenformat", movie)
 
 # Daten vorbereiten
 if st.button("Daten vorbereiten"):
