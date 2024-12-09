@@ -14,6 +14,13 @@ selmin_length = None
 selmax_length = None
 selrel_after = None
 selrel_before = None
+genre_check = None
+actor_check = None
+keyword_check = None
+rating_check = None
+min_length = None
+length_check = None
+date_check = None
 
 
 def findmovie(self, x):
