@@ -69,7 +69,7 @@ with col6:
         selmin_rating = st.number_input("Minimum Rating", min_value=0, max_value=100)
 
     with col6_2:
-        selmax_rating = st.number_input("Maximum Rating", min_value=selmin_rating, max_value=100)
+        selmax_rating = st.number_input("Maximum Rating", min_value=0, max_value=100)
 
 selmin_votes = leftbox.number_input("Minimum Amount of Ratings", min_value=0, value= 1000)
     
@@ -89,7 +89,7 @@ with col7:
         selmin_length = st.number_input("Minimum Length (in min)", min_value=0)
 
     with col7_2:
-        selmax_length = st.number_input("Maximum Length (in min)", min_value=selmin_length)
+        selmax_length = st.number_input("Maximum Length (in min)", min_value=0)
 
 
 with col8:
