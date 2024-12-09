@@ -143,7 +143,10 @@ if returnmovies:
     for movie in returnmovies:
         movie_id = str(movie["id"])
         st.write(movie_id)
+        poster_url = Instance.fetch_poster(movie_id)
         st.write(f"{movie["title"]}, {movie["id"]}")
+        st.image(poster_url, caption=movie["title"], use_column_width=True)
+        
        
 
 
