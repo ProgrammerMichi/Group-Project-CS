@@ -43,7 +43,9 @@ with col3:
         selkeywords = st.text_input("Enter Keywords")
 
 with col4:
-    relate_check = st.checkbox("Exclude Keywords")
+    excl_check = st.checkbox("Exclude Keywords")
+    if excl_check:
+        exclkeywords = st.text_inut("Enter Keywords")
 
 with col5:
     selorder = st.selectbox("Order of Movies by Ratings", ["Descending", "Ascending"])
@@ -98,6 +100,9 @@ def findmovie():
 
     if keyword_check and selkeywords:
         search_parameters["with_keywords"] = str(Instance.get_keyword_id(selkeywords))
+
+    if excl_check and exclkeywords:
+        search_parameters["without_keywords"] = str(Instance.get_keyword_id(exclkeywords))
     
     if selorder == "Descending":
         search_parameters["sort_by"] = "vote_average.desc"
