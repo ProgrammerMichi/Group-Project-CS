@@ -153,4 +153,4 @@ if returnmovies:
             
         with lc3:
             st.write(Instance.search_actors(movie_id))
-            st.write(credits)
+            
