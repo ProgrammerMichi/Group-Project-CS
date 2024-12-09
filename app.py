@@ -97,7 +97,7 @@ def findmovie():
         search_parameters["with_cast"] = str(selactor_id[0].id)
 
     if keyword_check and selkeywords:
-        search_parameters["with_keywords"] = str(get_keyword_id(selkeywords))
+        search_parameters["with_keywords"] = str(Instance.get_keyword_id(selkeywords))
     
     if selorder == "Descending":
         search_parameters["sort_by"] = "vote_average.desc"
