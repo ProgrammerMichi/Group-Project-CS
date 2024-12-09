@@ -151,4 +151,4 @@ if returnmovies:
         with lc5:
             st.write("**Movie Rating**")
             st.write("**Your Personal Rating**")
-            userrating = st.slider(" ",min_value=1, max_value=10)
+            userrating = st.slider(" ",min_value=1, max_value=10, key = 1)
