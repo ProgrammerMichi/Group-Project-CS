@@ -6,7 +6,6 @@ from tmdbv3api import TMDb, Movie, Genre, Discover, Person
 #import surprise
 #import os
 from APIConnection import TMDbAPIClient
-from SearchFilters import findmovie
 import pandas as pd
 import numpy as np
 
@@ -39,7 +38,9 @@ with col2:
         selactor = st.text_input("Choose Actor")
 
 with col3:
-    keywords_check = st.checkbox("Keywords")
+    keyword_check = st.checkbox("Keywords")
+    if keyword_check:
+        selkeywords = st.text_input("Enter Keywords")
     
 
 with col4:
@@ -104,6 +105,45 @@ with col8:
         selrel_after = st.date_input("Released After:")
     with col8_2:
         selrel_before = st.date_input("Released Before:")
+    
+def findmovie():
+    if genre_check:
+        genre = selgen
+    
+    if actor_check:
+        actor = selactor
+
+    if keyword_check:
+        keywords = selkeywords
+
+    if rating_check:
+        min_rating = selmin_rating
+        max_rating = selmax_rating
+        min_votes = selmin_votes
+
+    if length_check:
+        min_length = selmin_length
+        max_length = selmax_length
+
+    if date_check:
+        rel_after = selrel_after
+        rel_before = selrel_before
+
+    moviesfound = Instance.discover.movie({
+        "sort_by": "vote_average.desc",
+        "with_genres": str(Instance.get_genre_id(genre)),
+        "with_cast": str(Instance.person.search(actor)),
+        "with_keywords": str(keywords),
+        "vote_average.gte": str(min_rating),
+        "vote_average.lte": str(max_rating),
+        "vote_count.gte": str(min_votes),
+        "with_runtime.gte": str(min_length),
+        "with_runtime.lte": str(max_length),
+        "primary_release_date.gte": str(rel_after),
+        "primary_release_date.lte": str(rel_before),
+        })    
+    
+    return moviesfound
 
 returnmovies = findmovie()
 if returnmovies:
@@ -117,7 +157,7 @@ if genre_check:
         for movie in moviesbygenre:
             st.write(f"{movie["title"]}")
                 
-
+ 
 
 if actor_check:     
     if selactor:
@@ -133,3 +173,5 @@ if title_check:
         movies = Instance.search_movie_title(search_query)
         for movie in movies:
             st.write(f"{movie['title']}")
+
+
