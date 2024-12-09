@@ -64,7 +64,7 @@ class TMDbAPIClient:
         movie_credits = self.movie.credits(movie_id)
         actors = movie_credits["cast"]
         return_actors = []
-        for actor in actors[:10]:
+        for actor in actors:
             return_actors.append(actor["name"])
         return return_actors
     
