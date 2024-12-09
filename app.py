@@ -19,7 +19,7 @@ Instance = TMDbAPIClient("eb7ed2a4be7573ea9c99867e37d0a4ab")
 
 st.markdown("**hello!**")
 
-col1, col2, col3, col4, col5, col6, col7 = st.columns([2,2,2,2,2,3,3])
+col1, col2, col3, col4, col5, col6, col7 = st.columns([2,2,2,5,5,3,3])
 
 with col1:
     genre_check = st.checkbox("Genre")
@@ -125,7 +125,7 @@ if returnmovies:
     for movie in returnmovies:
         movielisting = st.container(border= True, height = 326)
         movie_id = str(movie["id"])
-        lc1, lc2, lc3, lc4, lc5, lc6, lc7 = movielisting.columns([1.5,1.5,3.1,1,1,1,2])
+        lc1, lc2, lc3, lc4, lc5, lc6, lc7 = movielisting.columns([1.5,1.5,3.1,1,1,1,1])
 
         with lc1:
             poster_url = Instance.fetch_poster(movie_id)
