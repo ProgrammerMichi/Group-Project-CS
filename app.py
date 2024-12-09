@@ -149,7 +149,7 @@ if returnmovies:
             st.image(poster_url, caption=movie["title"], use_column_width=True)
 
         with lc2:
-            st.write(f"{movie["title"]}")
+            st.write(f"**{movie["title"]}**")
         
         
        
