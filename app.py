@@ -122,7 +122,7 @@ returnmovies = findmovie()
 if returnmovies:
     mcount = 0
     for movie in returnmovies:
-        movielisting = st.container(border= True, height = 326)
+        movielisting = st.container(border= True, height = 330)
         lc1, lc2, lc3, lc4, lc5 = movielisting.columns([1.3,1.5,3.1,2,2])
         movie_id = str(movie["id"])
 
