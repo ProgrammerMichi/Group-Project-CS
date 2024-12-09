@@ -1,4 +1,4 @@
-from tmdbv3api import Discover
+from tmdbv3api import Discover, Person, Genre
 from APIConnection import TMDbAPIClient
 from app import Instance
 
@@ -46,18 +46,18 @@ def findmovie():
         rel_after = selrel_after
         rel_before = selrel_before
 
-    moviesfound = Instance.discover.movie(
-        sort_by = "vote_average.desc",
-        with_genres = str(Instance.get_genre_id(genre))
-        with_cast = str(Instance.person.search(actor))
-        with_keywords = str(keywords)
-        vote_average.gte = str(min_rating)
-        vote_average.lte = str(max_rating)
-        vote_count.gte = str(min_votes)
-        with_runtime.gte = str(min_length)
-        with_runtime.lte = str(max_length)
-        primary_release_date.gte" = str(rel_after)
-        primary_release_date.lte = str(rel_before)
-        )    
+    moviesfound = Instance.discover.movie({
+        "sort_by": "vote_average.desc",
+        "with_genres": str(Instance.get_genre_id(genre)),
+        "with_cast": str(Instance.person.search(actor)),
+        "with_keywords": str(keywords),
+        "vote_average.gte": str(min_rating),
+        "vote_average.lte": str(max_rating),
+        "vote_count.gte": str(min_votes),
+        "with_runtime.gte": str(min_length),
+        "with_runtime.lte": str(max_length),
+        "primary_release_date.gte": str(rel_after),
+        "primary_release_date.lte": str(rel_before)
+        })    
     
     return moviesfound
