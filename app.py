@@ -19,7 +19,7 @@ Instance = TMDbAPIClient("eb7ed2a4be7573ea9c99867e37d0a4ab")
 
 st.markdown("**hello!**")
 
-col1, col2, col3, col4, col5, col6, col7, col8 = st.columns([2,2,2,2,2,3,3,3])
+col1, col2, col3, col4, col5, col6, col7 = st.columns([2,2,2,2,2,3,3])
 
 with col1:
     genre_check = st.checkbox("Genre")
@@ -87,20 +87,6 @@ with col7:
         selmax_length = st.number_input("Maximum Length (in min)", min_value=0)
 
 
-with col8:
-    rightbox = col8.container(border=True, height= 200)
-    r1, r2 = rightbox.columns(2)
-    with r1:
-        st.write("Release Date")
-    with r2:
-        date_check = st.checkbox("Apply Date")
-
-    col8_1, col8_2 = rightbox.columns(2)
-    with col8_1:
-        selrel_after = st.date_input("Released After:")
-    with col8_2:
-        selrel_before = st.date_input("Released Before:")
-
  #ChatGPT helped with basic idea of this function(how to manage input that can be turned on/off)   
 def findmovie():
     search_parameters = {}
@@ -128,10 +114,7 @@ def findmovie():
     if length_check:
         search_parameters["with_runtime.gte"] = str(selmin_length)
         search_parameters["with_runtime.lte"] = str(selmin_length)
-
-    if date_check:
-        search_parameters["primary_release_date.gte"] = str(selrel_after)
-        search_parameters["primary_release_date.lte"] = str(selrel_before) 
+ 
 
     moviesfound = Instance.discover.discover_movies(search_parameters)
 
