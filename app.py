@@ -150,4 +150,5 @@ if returnmovies:
 
         with lc5:
             st.write("**TMDB Movie Rating**")
-            userrating = st.slider("**Your Personal Rating**",min_value=1, max_value=10, key = 1)
+            st.slider("**Your Personal Rating**",min_value=1, max_value=10, key = 1)
+            submit = st.form_submit_button("Submit Rating")
