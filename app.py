@@ -152,5 +152,4 @@ if returnmovies:
             st.write(f"**{movie["title"]}**")
             
         with lc3:
-            actors = [i["name"] for i in Instance.search_actors(movie_id)]
-            st.write(actors)
+            st.write(Instance.search_actors(movie_id))

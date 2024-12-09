@@ -59,11 +59,16 @@ class TMDbAPIClient:
         
     
     
-    def search_actors(self, movie_id):
+    def search_actors(self, movie_id, limit = 10):
         #Gets actors of a movie based on movie id
-        credits = self.movie.credits(movie_id)
-        cast = credits["cast"][:10]
-        return cast
+        try:
+            credits = self.movie.credits(movie_id)
+            actors = credits['cast'][:limit]
+            return [actor['name'] for actor in actors]
+        except Exception as e:
+            print(f"Fehler beim Abrufen der Schauspieler: {e}")
+            return []
+        
     
     def search_actor_id(self, actorname):
         #Gets Actor ID
