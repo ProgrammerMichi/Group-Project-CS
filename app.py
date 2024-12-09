@@ -138,9 +138,18 @@ def findmovie():
     return moviesfound
 
 returnmovies = findmovie()
+movielist = []
 if returnmovies:
     for movie in returnmovies:
+        movielist.append({movie["title"]})
+
+if movielist == []:
+    st.write("No films found")
+else:
+    for movie in movielist:
         st.write(f"{movie["title"]}")
+
+
 
 
 
