@@ -107,44 +107,32 @@ with col8:
         selrel_before = st.date_input("Released Before:")
     
 def findmovie():
+    search_parameters = {"sort_by": "vote_average.desc"}
     if genre_check:
-        genre = selgen
-    else:
-        genre = None
+        if selgen != "Select":
+            search_parameters["with_genres"] = str(Instance.get_genre_id(selgen))
     
     if actor_check:
-        actor = selactor
+        search_parameters["with_cast"] = str(selactor)
 
     if keyword_check:
-        keywords = selkeywords
-
+        search_parameters["with_keywords"] = str(selkeywords)
+    
     if rating_check:
-        min_rating = selmin_rating
-        max_rating = selmax_rating
-        min_votes = selmin_votes
+        search_parameters["vote_average.gte"] = str(selmin_rating)
+        search_parameters["vote_average.lte"] = str(selmax_rating)
+        search_parameters["vote_count.gte"] = str(selmin_votes)
 
     if length_check:
-        min_length = selmin_length
-        max_length = selmax_length
+        search_parameters["with_runtime.gte"] = str(selmin_length)
+        search_parameters["with_runtime.lte"] = str(selmin_length)
 
     if date_check:
-        rel_after = selrel_after
-        rel_before = selrel_before
+        search_parameters["primary_release_date.gte"] = str(selrel_after)
+        search_parameters["primary_release_date.lte"] = str(selrel_before) 
 
-    moviesfound = Instance.discover.discover_movies({
-        "sort_by": "vote_average.desc",
-        "with_genres": str(Instance.get_genre_id(genre)),
-        "with_cast": str(Instance.person.search(actor)),
-        "with_keywords": str(keywords),
-        "vote_average.gte": str(min_rating),
-        "vote_average.lte": str(max_rating),
-        "vote_count.gte": str(min_votes),
-        "with_runtime.gte": str(min_length),
-        "with_runtime.lte": str(max_length),
-        "primary_release_date.gte": str(rel_after),
-        "primary_release_date.lte": str(rel_before),
-        })    
-    
+    moviesfound = Instance.discover.discover_movies(search_parameters)
+
     return moviesfound
 
 returnmovies = findmovie()
