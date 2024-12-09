@@ -113,7 +113,7 @@ def findmovie():
             search_parameters["with_genres"] = str(Instance.get_genre_id(selgen))
     
     if actor_check:
-        search_parameters["with_cast"] = str(selactor)
+        search_parameters["with_cast"] = str(Instance.person.search(selactor))
 
     if keyword_check:
         search_parameters["with_keywords"] = str(selkeywords)
