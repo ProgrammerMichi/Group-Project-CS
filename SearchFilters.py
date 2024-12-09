@@ -1,32 +1,29 @@
 from tmdbv3api import Discover, Person, Genre
 from APIConnection import TMDbAPIClient
+from app import Instance
 
-
-
+from app import selgen
+from app import selactor
+from app import selkeywords
+from app import selmin_rating
+from app import selmax_rating
+from app import selmin_votes
+from app import selmin_length
+from app import selmax_length
+from app import selrel_after
+from app import selrel_before
+from app import genre_check
+from app import actor_check
+from app import keyword_check
+from app import rating_check
+from app import length_check
+from app import date_check
 
 
 
 
 
 def findmovie():
-    from app import Instance
-    from app import selgen
-    from app import selactor
-    from app import selkeywords
-    from app import selmin_rating
-    from app import selmax_rating
-    from app import selmin_votes
-    from app import selmin_length
-    from app import selmax_length
-    from app import selrel_after
-    from app import selrel_before
-    from app import genre_check
-    from app import actor_check
-    from app import keyword_check
-    from app import rating_check
-    from app import length_check
-    from app import date_check
-
     if genre_check:
         genre = selgen
     
@@ -60,7 +57,7 @@ def findmovie():
         "with_runtime.gte": str(min_length),
         "with_runtime.lte": str(max_length),
         "primary_release_date.gte": str(rel_after),
-        "primary_release_date.lte": str(rel_before)
+        "primary_release_date.lte": str(rel_before),
         })    
     
     return moviesfound
