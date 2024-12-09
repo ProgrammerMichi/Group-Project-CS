@@ -117,8 +117,7 @@ def findmovie():
         search_parameters["with_cast"] = str(selactor_id[0].id)
 
     if keyword_check and selkeywords:
-        keyword_list = [",".join(selkeywords)]
-        keyword_ids = [str(keyword.id) for keyword in keyword_list]
+        keyword_ids = str(selkeywords.id)
         search_parameters["with_keywords"] = keyword_ids
     
     if rating_check:
