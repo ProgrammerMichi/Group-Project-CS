@@ -160,3 +160,5 @@ st.write("Ihre gespeicherten Bewertungen:")
 user_ratings = get_ratings_by_user(st.session_state.user_id)
 for movie_id, rating in user_ratings:
     st.write(f"Film-ID: {movie_id}, Bewertung: {rating}")
+
+# film bewerten -> wird gespeichert -> passt resultate ah - > 
