@@ -117,7 +117,8 @@ def findmovie():
             search_parameters["with_cast"] = str(Instance.person.search(selactor))
 
     if keyword_check:
-        search_parameters["with_keywords"] = str(selkeywords)
+        if selkeywords:
+            search_parameters["with_keywords"] = str(selkeywords)
     
     if rating_check:
         search_parameters["vote_average.gte"] = str(selmin_rating)
