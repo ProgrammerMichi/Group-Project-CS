@@ -62,7 +62,9 @@ class TMDbAPIClient:
     def search_actors(self, movie_id):
         #Gets actors of a movie based on movie id
         movie_details = self.movie.details(movie_id)
-        return movie_details.get("casts", [])
+        md_bridge = movie_details.get("casts", [])
+        return_cast = md_bridge[0,9]
+        return return_cast
     
     def search_actor_id(self, actorname):
         #Gets Actor ID
