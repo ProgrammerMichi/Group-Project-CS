@@ -105,7 +105,7 @@ with col8:
     with col8_2:
         selrel_before = st.date_input("Released Before:")
 
-returnmovies = findmovie
+returnmovies = findmovie()
 if returnmovies:
     for movie in returnmovies:
         st.write(f"{movie["title"]}")
