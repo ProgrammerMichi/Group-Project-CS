@@ -126,12 +126,12 @@ if returnmovies:
         movielisting = st.container(border= True, height = 326)
         lc1, lc2, lc3, lc4, lc5 = movielisting.columns([1.3,1.5,3.1,2,2])
         movie_id = str(movie["id"])
-        
+
         with lc1:
             try:
                 poster_url = Instance.fetch_poster(movie_id)
             except Exception: 
-                st.write(st.write("No Poster Found"))
+                st.write(st.write("No Poster Available"))
             else:
                 st.image(poster_url, caption=movie["title"], use_column_width=True)
 
