@@ -99,6 +99,10 @@ class TMDbAPIClient:
                            if min_length <= movie["runtime"] <= max_length]
         return filtered_movies
     
+        
+    def search_movie_by_keywords(self, keyword):
+        #Looks for a movie depending on keywords
+        return self.movie.keywords(keyword)
     
     
     def get_movie_details(self, movie_id):
@@ -110,6 +114,10 @@ class TMDbAPIClient:
         #Generates a recommendation based on a movie
         return self.movie.recommendations(movie_id)
     
+    
+    def get_popular_movie(self):
+        #List of most popular films
+        return self.movie.popular()
     
     def get_keyword_id(self, search):
         keywords = self.search.keywords(search)
