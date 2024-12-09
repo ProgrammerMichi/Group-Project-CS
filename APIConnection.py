@@ -93,7 +93,7 @@ class TMDbAPIClient:
         return self.movie.details(movie_id)
     
     
-    def get_recommendations(self, movie_id):
+    def get_similar_movie(self, movie_id):
         #Generates a recommendation based on a movie
         return self.movie.recommendations(movie_id)
     
