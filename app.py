@@ -139,5 +139,7 @@ def findmovie():
 
 returnmovies = findmovie()
 if returnmovies:
+    movie_poster = []
     for movie in returnmovies:
         st.write(f"{movie["title"]}")
+        movie_poster.append(Instance.fetch_poster(movie_id))
