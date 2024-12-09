@@ -129,7 +129,7 @@ def findmovie():
         rel_after = selrel_after
         rel_before = selrel_before
 
-    moviesfound = Instance.discover.movie({
+    moviesfound = Instance.discover.discover_movies({
         "sort_by": "vote_average.desc",
         "with_genres": str(Instance.get_genre_id(genre)),
         "with_cast": str(Instance.person.search(actor)),
