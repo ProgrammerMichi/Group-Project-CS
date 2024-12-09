@@ -41,7 +41,6 @@ with col3:
     keyword_check = st.checkbox("Include Keywords")
     if keyword_check:
         selkeywords = st.text_input("Enter Keywords")
-        selkeywords = [keyword.strip() for keyword in selkeywords.split(",")] if selkeywords else []
 
 with col4:
     relate_check = st.checkbox("Exclude Keywords")
@@ -98,7 +97,7 @@ def findmovie():
         search_parameters["with_cast"] = str(selactor_id[0].id)
 
     if keyword_check and selkeywords:
-        search_parameters["with_keywords"] = str(selkeywords)
+        search_parameters["with_keywords"] = str(get_keyword_id(selkeywords))
     
     if selorder == "Descending":
         search_parameters["sort_by"] = "vote_average.desc"
@@ -125,7 +124,7 @@ if returnmovies:
     for movie in returnmovies:
         movielisting = st.container(border= True, height = 326)
         lc1, lc2, lc3, lc4, lc5 = movielisting.columns([1.3,1.5,3.1,2,2])
-        movie_id = str(movie[0])
+        movie_id = str(movie["id"])
 
         with lc1:
             try:
