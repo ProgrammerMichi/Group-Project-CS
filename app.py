@@ -143,7 +143,7 @@ if returnmovies:
 
     
 for movie in returnmovies:
-    movielisting = st.container(border= True, height = 250)
+    movielisting = st.container(border= True, height = 300)
     movie_id = str(movie["id"])
     lc1, lc2, lc3, lc4, lc5, lc6, lc7, lc8 = movielisting.columns(8)
     with lc1:
