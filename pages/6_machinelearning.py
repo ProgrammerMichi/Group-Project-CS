@@ -1,10 +1,9 @@
-# Adding functionality for users to rate movies and consider ratings in recommendations
 import streamlit as st
-import pandas as pd
-import numpy as np
 from streamlit_option_menu import option_menu
 from tmdbv3api import TMDb, Movie, Genre, Discover, Person
 from APIConnection import TMDbAPIClient
+import pandas as pd
+import numpy as np
 
 # Tab Title
 st.set_page_config(page_title="Movie Recommender", page_icon="🎞️", layout="wide")
@@ -32,12 +31,11 @@ def rate_movie(movie_id, movie_title):
             }
             st.success(f"Thank you for rating '{movie_title}'!")
 
-# Function to apply user ratings to future recommendations
+# Function to adjust recommendations based on ratings
 def adjust_recommendations_with_ratings(movies):
     if not st.session_state["user_ratings"]:
         return movies  # If no ratings exist, return movies as is
 
-    # Adjust the scores based on similarity to rated movies
     rated_movies = st.session_state["user_ratings"]
     adjusted_movies = []
 
@@ -83,10 +81,19 @@ def find_movies():
 # UI Components
 col1, col2, col3, col4, col5, col6, col7, col8 = st.columns([2, 2, 2, 2, 2, 3, 3, 3])
 
+# Genre Selection with Error Handling
 with col1:
     genre_check = st.checkbox("Genre")
     if genre_check:
-        genre_list = ["Select"] + [genre["name"] for genre in Instance.get_genres()]
+        genre_list = ["Select"]
+        try:
+            genres = Instance.get_genres()
+            if genres and isinstance(genres, list):
+                genre_list += [genre["name"] for genre in genres if "name" in genre]
+            else:
+                st.error("Could not fetch genres. Please try again later.")
+        except Exception as e:
+            st.error(f"An error occurred while fetching genres: {e}")
         sel_gen = st.selectbox("Choose Genre", options=genre_list)
 
 with col2:
