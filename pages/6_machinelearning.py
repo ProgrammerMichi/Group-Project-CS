@@ -5,7 +5,6 @@ import numpy as np
 from streamlit_option_menu import option_menu
 from tmdbv3api import TMDb, Movie, Genre, Discover, Person
 from APIConnection import TMDbAPIClient
-from app import Instance
 
 # Tab Title
 st.set_page_config(page_title="Movie Recommender", page_icon="🎞️", layout="wide")
@@ -56,8 +55,8 @@ def adjust_recommendations_with_ratings(movies):
 # Function to find movies based on filters
 def find_movies():
     search_parameters = {}
-    if genre_check and sel_gen != "Select":
-        search_parameters["with_genres"] = str(Instance.get_genre_id(sel_gen))
+    if genre_check and selgen != "Select":
+        search_parameters["with_genres"] = str(Instance.get_genre_id(selgen))
     if actor_check and sel_actor:
         sel_actor_id = Instance.person.search(sel_actor)
         search_parameters["with_cast"] = str(sel_actor_id[0].id)
@@ -87,8 +86,12 @@ col1, col2, col3, col4, col5, col6, col7, col8 = st.columns([2, 2, 2, 2, 2, 3, 3
 with col1:
     genre_check = st.checkbox("Genre")
     if genre_check:
-        genre_list = ["Select"] + [genre["name"] for genre in Instance.get_genres()]
-        sel_gen = st.selectbox("Choose Genre", options=genre_list)
+        #This gives a list of movies according to which genre has been picked
+        genrelist = ["Select"]
+        gl = list(Instance.get_genres(any))
+        for i in gl:
+            genrelist.append(i)
+        selgen = st.selectbox("Choose Genre", options = genrelist)
 
 with col2:
     actor_check = st.checkbox("Actor")
