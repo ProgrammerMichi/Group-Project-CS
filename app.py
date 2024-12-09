@@ -53,13 +53,13 @@ with col5:
             search_query = str(title_input)
 
 with col6:
-    leftbox = col6.container(border=True, height=200)
+    leftbox = col6.container(border=True, height=225)
 
     l1, l2 = leftbox.columns(2)
     with l1:
         st.write ("Ratings")
     with l2:
-        st.checkbox("Apply Ratings")
+        rat_ch = st.checkbox("Apply Ratings")
 
     col6_1, col6_2 = leftbox.columns(2)
 
@@ -67,7 +67,10 @@ with col6:
         minrating = st.number_input("Minimum Rating", min_value=0, max_value=100)
 
     with col6_2:
-        st.number_input("Maximum Rating", min_value=minrating, max_value=100)
+        maxrating = st.number_input("Maximum Rating", min_value=minrating, max_value=100)
+
+minvotes = leftbox.number_input("Minimum Amount of Ratings", min_value=0, value= 1000)
+    
     
 with col7:
     rightbox = col7.container(border=True, height=200)
@@ -76,7 +79,7 @@ with col7:
     with r1:
         st.write("Length")
     with r2:
-        st.checkbox("Apply Length")
+        len_ch = st.checkbox("Apply Length")
 
     col7_1, col7_2 = rightbox.columns(2)
 
@@ -84,7 +87,7 @@ with col7:
         minlength = st.number_input("Minimum Length (in min)", min_value=0)
 
     with col7_2:
-        st.number_input("Maximum Length (in min)", min_value=minlength)
+        maxlength = st.number_input("Maximum Length (in min)", min_value=minlength)
     
 alt1, alt2 = st.columns([2,17])
 with alt2:
@@ -111,37 +114,3 @@ with alt2:
             movies = Instance.search_movie_title(search_query)
             for movie in movies:
                 st.write(f"{movie['title']}")
-
-
-selected = st.selectbox("Select Category", options= ["Genre", "Rating", "Actor","Length", "Keywords", "Recommendation", "Popular", "Title"])
-
-
-if selected == "Genre":
-   st.write("nüme")
-        
-
-if selected == "Rating":
-    st.write(f"Rating")
-
-if selected == "Actor":
-    #This gives a list of Films according to the actor entered
-    st.write("nah")
-    
-      
-
-if selected == "Length":
-    st.write(f"Length")
-
-if selected == "Keywords":
-    st.write(f"Keywords")
-
-if selected == "Recommendation":
-    st.write(f"Recommendation")
-
-if selected == "Popular":
-    st.write(f"Popular1")
-
-if selected == "Title":
-    st.write("moin")
-
-
