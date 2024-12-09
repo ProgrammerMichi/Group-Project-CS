@@ -6,6 +6,7 @@ from tmdbv3api import TMDb, Movie, Genre, Discover, Person
 #import surprise
 #import os
 from APIConnection import TMDbAPIClient
+from SearchFilters import findmovie
 import pandas as pd
 import numpy as np
 
@@ -59,17 +60,17 @@ with col6:
     with l1:
         st.write ("Ratings")
     with l2:
-        rat_ch = st.checkbox("Apply Ratings")
+        rating_check = st.checkbox("Apply Ratings")
 
     col6_1, col6_2 = leftbox.columns(2)
 
     with col6_1:
-        minrating = st.number_input("Minimum Rating", min_value=0, max_value=100)
+        selmin_rating = st.number_input("Minimum Rating", min_value=0, max_value=100)
 
     with col6_2:
-        maxrating = st.number_input("Maximum Rating", min_value=minrating, max_value=100)
+        selmax_rating = st.number_input("Maximum Rating", min_value=selmin_rating, max_value=100)
 
-minvotes = leftbox.number_input("Minimum Amount of Ratings", min_value=0, value= 1000)
+selmin_votes = leftbox.number_input("Minimum Amount of Ratings", min_value=0, value= 1000)
     
     
 with col7:
@@ -79,15 +80,15 @@ with col7:
     with m1:
         st.write("Length")
     with m2:
-        len_ch = st.checkbox("Apply Length")
+        length_check = st.checkbox("Apply Length")
 
     col7_1, col7_2 = midbox.columns(2)
 
     with col7_1:
-        minlength = st.number_input("Minimum Length (in min)", min_value=0)
+        selmin_length = st.number_input("Minimum Length (in min)", min_value=0)
 
     with col7_2:
-        maxlength = st.number_input("Maximum Length (in min)", min_value=minlength)
+        selmax_length = st.number_input("Maximum Length (in min)", min_value=selmin_length)
 
 
 with col8:
@@ -96,17 +97,18 @@ with col8:
     with r1:
         st.write("Release Date")
     with r2:
-        st.checkbox("Apply Date")
+        date_check = st.checkbox("Apply Date")
 
     col8_1, col8_2 = rightbox.columns(2)
     with col8_1:
-        st.date_input("Released After:")
+        selrel_after = st.date_input("Released After:")
     with col8_2:
-        st.date_input("Released Before:")
+        selrel_before = st.date_input("Released Before:")
 
-
-
-    
+returnmovies = findmovie
+if returnmovies:
+    for movie in returnmovies:
+        st.write(f"{movie["title"]}")
 
 
 if genre_check:

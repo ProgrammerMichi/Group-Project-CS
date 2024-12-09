@@ -23,7 +23,7 @@ from app import date_check
 
 
 
-def findmovie(self, x):
+def findmovie():
     if genre_check:
         genre = selgen
     
