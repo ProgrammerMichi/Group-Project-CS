@@ -38,14 +38,14 @@ with col2:
         selactor = st.text_input("Choose Actor")
 
 with col3:
-    keyword_check = st.checkbox("Include Keyword")
+    keyword_check = st.checkbox("Include Keywords")
     if keyword_check:
-        selkeyword = st.text_input("Enter Keyword", key = 1)
+        selkeywords = st.text_input("Enter Keywords", key = 1)
 
 with col4:
-    excl_check = st.checkbox("Exclude Keyword")
+    excl_check = st.checkbox("Exclude Keywords")
     if excl_check:
-        exclkeyword = st.text_input("Enter Keyword", key = 2)
+        exclkeywords = st.text_input("Enter Keywords", key = 2)
 
 with col5:
     selorder = st.selectbox("Order of Movies by Ratings", ["Descending", "Ascending"])
@@ -98,11 +98,11 @@ def findmovie():
         selactor_id = Instance.person.search(selactor)
         search_parameters["with_cast"] = str(selactor_id[0].id)
 
-    if keyword_check and selkeyword:
-        search_parameters["with_keywords"] = str(Instance.get_keyword_id(selkeyword))
+    if keyword_check and selkeywords:
+        search_parameters["with_keywords"] = str(Instance.get_keyword_id(selkeywords))
 
-    if excl_check and exclkeyword:
-        search_parameters["without_keywords"] = str(Instance.get_keyword_id(exclkeyword))
+    if excl_check and exclkeywords:
+        search_parameters["without_keywords"] = str(Instance.get_keyword_id(exclkeywords))
     
     if selorder == "Descending":
         search_parameters["sort_by"] = "vote_average.desc"
@@ -125,7 +125,7 @@ def findmovie():
 
 returnmovies = findmovie()
 if returnmovies:
-    slidercount = 3
+    mcount = 0
     for movie in returnmovies:
         movielisting = st.container(border= True, height = 350)
         lc1, lc2, lc3, lc4, lc5 = movielisting.columns([1.3,1.5,3.1,2,2])
@@ -155,5 +155,5 @@ if returnmovies:
 
         with lc5:
             st.write("**TMDB Movie Rating**")
-            st.slider("**Your Personal Rating**",min_value=1, max_value=10, key = slidercount)
-            slidercount += 1
+            st.slider("**Your Personal Rating**",min_value=1, max_value=10, key = mcount)
+mcount += 1
