@@ -141,7 +141,8 @@ if returnmovies:
             
         with lc3:
             st.write("**Actors:**")
-            st.write(Instance.search_actors(movie_id))
+            for i in Instance.search_actors(movie_id):
+                st.write(i)
         
         with lc4:
             st.write("**Movie Length**")
