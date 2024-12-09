@@ -116,7 +116,7 @@ def findmovie():
 
     if length_check:
         search_parameters["with_runtime.gte"] = str(selmin_length)
-        search_parameters["with_runtime.lte"] = str(selmin_length)
+        search_parameters["with_runtime.lte"] = str(selmax_length)
  
 
     moviesfound = Instance.discover.discover_movies(search_parameters)
