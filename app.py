@@ -152,5 +152,6 @@ if returnmovies:
             st.write(f"**{movie["title"]}**")
             
         with lc3:
+            st.write("**Actors**")
             st.write(Instance.search_actors(movie_id))
             
