@@ -29,6 +29,7 @@ with col1:
         gl = list(Instance.get_genres(any))
         for i in gl:
             genrelist.append(i)
+            genrelist.append(Instance.fetch_poster(i))
         selgen = st.selectbox("Choose Genre", options = genrelist)
 
 
