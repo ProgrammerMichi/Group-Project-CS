@@ -27,14 +27,10 @@ with col1:
         #This gives a list of movies according to which genre has been picked
         genrelist = ["Select"]
         movie_poster = []
-        movie_ids = []
         gl = list(Instance.get_genres(any))
         for i in gl:
-            temp_movie_id = (movies[movies.title ==i].movie_id).values[0]
-            movie_ids.append(temp_movie_id)
-            print(temp_movie_id)
             genrelist.append(i)
-            movie_poster.append(Instance.fetch_poster(temp_movie_id))
+            movie_poster.append(Instance.fetch_poster(i))
         selgen = st.selectbox("Choose Genre", options = genrelist)
 
 
