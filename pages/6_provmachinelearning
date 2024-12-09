@@ -141,5 +141,3 @@ returnmovies = findmovie()
 if returnmovies:
     for movie in returnmovies:
         st.write(f"{movie["title"]}")
-        
-# film bewerten (sterne) -> wird gespeichert -> passt resultate ah - > die similars werdet hoeher gwertet
