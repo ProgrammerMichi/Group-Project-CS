@@ -87,9 +87,7 @@ with col0:
 for movie in movies:
     with st.container():
         cols = st.columns(5)
-        for i in range(0,5):
-            with cols[i]:
-                st.write(f"**{movie['title']}**")
-                st.image(movie["poster_url"], width=150)
+        st.write(f"**{movie['title']}**")
+        st.image(movie["poster_url"], width=150)
 
 
