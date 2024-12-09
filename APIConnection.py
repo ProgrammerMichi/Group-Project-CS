@@ -17,7 +17,7 @@ class TMDbAPIClient:
         return self.movie.search(query)
     
     
-    def get_genres(self):
+    def get_genres(self, movie_genre):
         #Create a list with only genre names
         genres = self.genre.movie_list()
         genre_names = [genre["name"] for genre in genres]
