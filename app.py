@@ -45,7 +45,7 @@ with col3:
 with col4:
     excl_check = st.checkbox("Exclude Keywords")
     if excl_check:
-        exclkeywords = st.text_inut("Enter Keywords", key = 2)
+        exclkeywords = st.text_input("Enter Keywords", key = 2)
 
 with col5:
     selorder = st.selectbox("Order of Movies by Ratings", ["Descending", "Ascending"])
