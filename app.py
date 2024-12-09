@@ -139,7 +139,7 @@ if returnmovies:
             st.write(Instance.search_actors(movie_id))
         
         with lc4:
-            st.write("Movie Length")
+            st.write("**Movie Length**")
             st.write("Release Date")
 
         with lc5:
