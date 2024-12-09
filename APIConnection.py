@@ -5,7 +5,6 @@ from tmdbv3api import TMDb, Movie, Genre, Discover, Person
 class TMDbAPIClient:
     def __init__(self, api_key="eb7ed2a4be7573ea9c99867e37d0a4ab"):
         self.tmdb = TMDb()
-
         self.tmdb.api_key = api_key
         self.movie = Movie()
         self.genre = Genre()
@@ -18,7 +17,7 @@ class TMDbAPIClient:
         return self.movie.search(query)
     
     
-    def get_genres(self, movie_genre):
+    def get_genres(self):
         #Create a list with only genre names
         genres = self.genre.movie_list()
         genre_names = [genre["name"] for genre in genres]
