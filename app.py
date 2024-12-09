@@ -66,7 +66,7 @@ with col6:
     col6_1, col6_2 = leftbox.columns(2)
 
     with col6_1:
-        selmin_rating = st.number_input("Minimum Rating", min_value=0, max_value=100)
+        selmin_rating = st.number_input("Minimum Rating", min_value=0, max_value=110)
 
     with col6_2:
         selmax_rating = st.number_input("Maximum Rating", min_value=0, max_value=100, value = 100)
