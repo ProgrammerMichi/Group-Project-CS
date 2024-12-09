@@ -67,6 +67,7 @@ with col1:
     if genre_check:
         genrelist = ["Select"]
         gl = list(Instance.get_genres("movie"))  # Argument "movie" hinzugefügt
+        st.write("Geladene Genres:", gl)  # Debugging
         for i in gl:
             genrelist.append(i)
         selgen = st.selectbox("Choose Genre", options=genrelist)
@@ -108,7 +109,8 @@ def findmovie():
         search_parameters["with_genres"] = str(Instance.get_genre_id(selgen))
     if actor_check and selactor:
         selactor_id = Instance.person.search(selactor)
-        search_parameters["with_cast"] = str(selactor_id[0].id)
+        if selactor_id:  # Überprüfen, ob Ergebnisse für Schauspieler vorliegen
+            search_parameters["with_cast"] = str(selactor_id[0].id)
     if keyword_check and selkeywords:
         search_parameters["with_keywords"] = selkeywords.lower()
     if selorder == "Descending":
@@ -125,17 +127,26 @@ def findmovie():
 
     # Abrufen der Ergebnisse
     moviesfound = Instance.discover.discover_movies(search_parameters)
+    st.write("Suchparameter:", search_parameters)  # Debugging: Zeige die Suchparameter
+    st.write("API-Ergebnisse:", moviesfound)      # Debugging: Zeige die API-Rückgabe
+
+    # Sicherstellen, dass "results" im Rückgabewert enthalten ist
     if isinstance(moviesfound, dict) and "results" in moviesfound:
-        return moviesfound["results"]  # Nur die Liste der Filme
-    else:
-        return []  # Leere Liste zurückgeben, falls keine Ergebnisse vorhanden sind
+        results = moviesfound.get("results", [])
+        if isinstance(results, list):  # Überprüfen, ob es sich um eine Liste handelt
+            return results
+    return []  # Leere Liste zurückgeben, falls keine Ergebnisse vorhanden sind
 
 # Filme anzeigen und bewerten
 if st.button("Suche starten"):
     movies = findmovie()
-    if not isinstance(movies, list):
-        st.write("Fehler: Unerwartetes Datenformat für Filme")
+    st.write("Ergebnisse Typ:", type(movies))  # Debugging
+    st.write("Ergebnisse Inhalt:", movies)     # Debugging
+
+    if not movies or len(movies) == 0:
+        st.write("Keine Ergebnisse gefunden.")
     else:
+        st.write(f"{len(movies)} Ergebnisse gefunden:")
         for movie in movies[:10]:
             if isinstance(movie, dict) and "title" in movie and "vote_average" in movie:
                 st.write(f"**{movie['title']}** (Rating: {movie['vote_average']})")
