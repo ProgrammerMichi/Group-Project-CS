@@ -26,12 +26,24 @@ with col1:
     if genre_check:
         #This gives a list of movies according to which genre has been picked
         genrelist = ["Select"]
-        movie_poster = []
         gl = list(Instance.get_genres(any))
+        genre_dict = {genre["name"]: genre["id"] for genre in genres}
+        genrelist.extend(genre_dict.keys())
         for i in gl:
             genrelist.append(i)
-            movie_poster.append(Instance.fetch_poster(i))
         selgen = st.selectbox("Choose Genre", options = genrelist)
+    
+    if selgen != "Select":
+            genre_id = genre_dict.get(selgen)
+            movies = Instance.fetch_poster(genre_id)
+            
+            st.subheader(f"Movies in {selgen} Genre")
+            cols = st.columns(4)
+            
+            for idx, movie in enumerate(movies[:20]):  # Display only the first 12 movies
+                with cols[idx % 4]:  # Distribute posters into columns
+                    st.image(f"{IMAGE_BASE_URL}{movie['poster_path']}" if movie.get('poster_path') else None,
+                             caption=movie['title'], use_column_width=True)
 
 
 with col2:
