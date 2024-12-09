@@ -139,20 +139,17 @@ def findmovie():
 
 returnmovies = findmovie()
 if returnmovies:
-    lc1, lc2, lc3, lc4, lc5 = st.columns(5)
+    for movie in returnmovies:
+        movielisting = st.container(border= True, height = 326)
+        movie_id = str(movie["id"])
+        lc1, lc2, lc3, lc4, lc5, lc6, lc7, lc8 = movielisting.columns(8)
 
-    
-for movie in returnmovies:
-    movielisting = st.container(border= True, height = 326)
-    movie_id = str(movie["id"])
-    lc1, lc2, lc3, lc4, lc5, lc6, lc7, lc8 = movielisting.columns(8)
-    with lc1:
-        poster_url = Instance.fetch_poster(movie_id)
-        st.image(poster_url, caption=movie["title"], use_column_width=True)
+        with lc1:
+            poster_url = Instance.fetch_poster(movie_id)
+            st.image(poster_url, caption=movie["title"], use_column_width=True)
 
-    with lc2:
-        
-        st.write(f"{movie["title"]}, {movie["id"]}")
+        with lc2:
+            st.write(f"{movie["title"]}, {movie["id"]}")
         
         
        
