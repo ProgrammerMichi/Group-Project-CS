@@ -92,16 +92,25 @@ def findmovie():
 
 # Filme anzeigen und bewerten
 movies = findmovie()
-if movies:
-    st.write("Bitte bewerten Sie die folgenden Filme:")
-    for movie in movies[:10]:
-        col1, col2 = st.columns([3, 1])
-        with col1:
-            st.write(f"**{movie['title']}** (Rating: {movie['vote_average']})")
-        with col2:
-            rating = st.radio(f"Bewertung für '{movie['title']}'", options=[1, 2, 3, 4, 5], key=f"rate_{movie['id']}")
-            if rating:
-                st.session_state.ratings.append({"user_id": 1, "movie_id": movie["id"], "rating": rating})
+
+# Debugging: Typ und Inhalt von `movies` prüfen
+st.write(type(movies))
+st.write(movies)
+
+# Sicherstellen, dass `movies` eine Liste ist
+if isinstance(movies, str):  # Falls `movies` ein String ist
+    import json
+    movies = json.loads(movies)
+
+if not isinstance(movies, list):  # Falls `movies` kein Listenobjekt ist
+    movies = list(movies)
+
+# Iteriere über die ersten 10 Filme
+for movie in movies[:10]:
+    if isinstance(movie, dict) and 'title' in movie and 'vote_average' in movie:
+        st.write(f"**{movie['title']}** (Rating: {movie['vote_average']})")
+    else:
+        st.write("Fehler: Unerwartetes Datenformat", movie)
 
 # Daten vorbereiten
 if st.button("Daten vorbereiten"):
