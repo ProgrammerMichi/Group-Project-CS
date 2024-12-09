@@ -27,7 +27,7 @@ with col1:
         #This gives a list of movies according to which genre has been picked
         genrelist = ["Select"]
         gl = list(Instance.get_genres(any))
-        genre_dict = {genre["name"]: genre["id"] for genre in genres}
+        genre_dict = {genre["name"]: genre["id"] for i in gl}
         genrelist.extend(genre_dict.keys())
         for i in gl:
             genrelist.append(i)
