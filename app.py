@@ -109,6 +109,8 @@ with col8:
 def findmovie():
     if genre_check:
         genre = selgen
+    else:
+        genre = None
     
     if actor_check:
         actor = selactor
