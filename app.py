@@ -19,7 +19,7 @@ Instance = TMDbAPIClient("eb7ed2a4be7573ea9c99867e37d0a4ab")
 
 st.markdown("**hello!**")
 
-col0, col1, col2, col3, col4, col5, col6, col7 = st.columns([2,2,2,2,2,2,3,3])
+col1, col2, col3, col4, col5, col6, col7, col8 = st.columns([2,2,2,2,2,2,3,3,3])
 
 with col1:
     genre_check = st.checkbox("Genre")
@@ -73,21 +73,39 @@ minvotes = leftbox.number_input("Minimum Amount of Ratings", min_value=0, value=
     
     
 with col7:
-    rightbox = col7.container(border=True, height=200)
+    midbox = col7.container(border=True, height=200)
 
-    r1, r2 = rightbox.columns(2)
-    with r1:
+    m1, m2 = midbox.columns(2)
+    with m1:
         st.write("Length")
-    with r2:
+    with m2:
         len_ch = st.checkbox("Apply Length")
 
-    col7_1, col7_2 = rightbox.columns(2)
+    col7_1, col7_2 = midbox.columns(2)
 
     with col7_1:
         minlength = st.number_input("Minimum Length (in min)", min_value=0)
 
     with col7_2:
         maxlength = st.number_input("Maximum Length (in min)", min_value=minlength)
+
+
+with col8:
+    rightbox = col8.container(border=True, height= 200)
+    r1, r2 = rightbox.columns(2)
+    with r1:
+        st.write("Release Date")
+    with r2:
+        st.checkbox("Apply Date")
+
+    col8_1, col8_2 = rightbox.columns(2)
+    with col8_1:
+        st.date_input("Released After:")
+    with col8_2:
+        st.date_input("Released Before:")
+
+
+
     
 alt1, alt2 = st.columns([2,17])
 with alt2:
