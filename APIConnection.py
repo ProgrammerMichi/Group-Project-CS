@@ -67,7 +67,7 @@ class TMDbAPIClient:
             return [actor['name'] for actor in actors]
         except Exception as e:
             print(f"Fehler beim Abrufen der Schauspieler: {e}")
-            return []
+            return [1]
         
     
     def search_actor_id(self, actorname):
