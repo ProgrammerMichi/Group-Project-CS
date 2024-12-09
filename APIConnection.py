@@ -1,5 +1,6 @@
 #This module is the connection point between code and the TMDB API
 import streamlit as st
+import requests
 from tmdbv3api import TMDb, Movie, Genre, Discover, Person
 
 class TMDbAPIClient:
