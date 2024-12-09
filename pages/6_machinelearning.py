@@ -87,7 +87,8 @@ with col1:
     if genre_check:
         genre_list = ["Select"]
         try:
-            genres = Instance.get_genres()
+            # Passing "movie" as an example argument; replace with the appropriate value if needed
+            genres = Instance.get_genres("movie")
             if genres and isinstance(genres, list):
                 genre_list += [genre["name"] for genre in genres if "name" in genre]
             else:
