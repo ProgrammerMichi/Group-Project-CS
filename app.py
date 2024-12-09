@@ -140,10 +140,3 @@ returnmovies = findmovie()
 if returnmovies:
     for movie in returnmovies:
         st.write(f"{movie["title"]}")
-
-        
-
-
-
-
-
