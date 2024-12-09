@@ -120,7 +120,7 @@ class TMDbAPIClient:
         return self.movie.popular()
     
     def get_keyword_id(self, search):
-        keywords = self.search.keyword(search)
+        keywords = self.search.keywords(search)
         if keywords:
             return keywords[0].id
 
