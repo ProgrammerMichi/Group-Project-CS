@@ -67,7 +67,7 @@ class TMDbAPIClient:
         return_actors = []
         for actor in actors:
             bridge_actors.append(actor["name"])
-        return_actors = bridge_actors[:10]
+        return_actors = bridge_actors[:9]
         return return_actors
     
     def search_actor_id(self, actorname):
