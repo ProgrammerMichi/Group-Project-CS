@@ -1,6 +1,6 @@
 from tmdbv3api import Discover, Person, Genre
 from APIConnection import TMDbAPIClient
-from app import Instance
+
 
 
 
@@ -9,6 +9,7 @@ from app import Instance
 
 
 def findmovie():
+    from app import Instance
     from app import selgen
     from app import selactor
     from app import selkeywords
