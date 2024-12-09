@@ -59,14 +59,10 @@ class TMDbAPIClient:
         
     
     
-    def search_actors(self, movie_id, limit = 1):
+    def search_actors(self, movie_id):
         #Gets actors of a movie based on movie id
-        credits = self.movie.credits(movie_id)
-        st.write("Credits-Daten:", credits) 
-
-       
-    
-        
+        movie_details = self.movie.details(movie_id)
+        return movie_details.get("cast",[1])
     
     def search_actor_id(self, actorname):
         #Gets Actor ID
