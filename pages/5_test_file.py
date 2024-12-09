@@ -11,8 +11,30 @@ import numpy as np
 import requests  # To make API calls
 
 
+# options to switch pages      
+# v1
+if st.button("Get started"):
+    st.switch_page("app.py")
+if st.button("Rate our Recommendations"):
+    st.switch_page("pages/1_Ratings.py")
+if st.button("See your statistics"):
+    st.switch_page("pages/2_Statistics.py")
+
+# v2
+app_path = 'https://groupemichi.streamlit.app'
+page_file_path = 'pages/Ratings.py'
+page = page_file_path.split('/')[1][0:-3]  # get "1_Ratings.py"
+st.markdown(
+    "Rate our Recommendations " f'''<a href="{app_path}/{page}" target="_self">here</a>''',
+    unsafe_allow_html=True)
+
+# v3
+url = "https://groupemichi.streamlit.app"
+st.write("get started [here](%s)" % url)
+
 API_KEY = 'eb7ed2a4be7573ea9c99867e37d0a4ab'
 BASE_URL = 'https://api.themoviedb.org/3'
+
 
 
 # Function to fetch movies and posters by genre
@@ -68,30 +90,7 @@ for movie in movies:
         cols = [col8,col9,col10,col11,col12]
         for i in range(0,5):
             with cols[i]:
-                st.markdown(f"**{movie['title']}**")
+                st.write(f"**{movie['title']}**")
                 st.image(movie["poster_url"], width=150)
-
-
-
-# options to switch pages      
-# v1
-if st.button("Get started"):
-    st.switch_page("app.py")
-if st.button("Rate our Recommendations"):
-    st.switch_page("pages/1_Ratings.py")
-if st.button("See your statistics"):
-    st.switch_page("pages/2_Statistics.py")
-
-# v2
-app_path = 'https://groupemichi.streamlit.app'
-page_file_path = 'pages/Ratings.py'
-page = page_file_path.split('/')[1][0:-3]  # get "1_Ratings.py"
-st.markdown(
-    "Rate our Recommendations " f'''<a href="{app_path}/{page}" target="_self">here</a>''',
-    unsafe_allow_html=True)
-
-# v3
-url = "https://groupemichi.streamlit.app"
-st.write("get started [here](%s)" % url)
 
 
