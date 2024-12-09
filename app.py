@@ -114,7 +114,8 @@ def findmovie():
     
     if actor_check: 
         if selactor:
-            search_parameters["with_cast"] = str(Instance.person.search(selactor))
+            selactor_id = Instance.person.search(selactor)
+            search_parameters["with_cast"] = str(selactor_id[0].id)
 
     if keyword_check:
         if selkeywords:
