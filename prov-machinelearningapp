@@ -1,0 +1,156 @@
+import streamlit as st
+from tmdbv3api import TMDb, Discover, Movie, Genre, Person
+from surprise import Dataset, Reader, SVD, accuracy
+from surprise.model_selection import train_test_split
+import pandas as pd
+import numpy as np
+from APIConnection import TMDbAPIClient
+
+# Tab Title
+st.set_page_config(page_title="Movie Recommender", page_icon="🎞️", layout="wide")
+
+# Title & Intro
+st.title("🎞️ Movie Recommender")
+
+# Verbindung zur TMDb API
+Instance = TMDbAPIClient("eb7ed2a4be7573ea9c99867e37d0a4ab")
+
+st.markdown("**hello!**")
+
+# Speicher für Bewertungen und Modell
+if "ratings" not in st.session_state:
+    st.session_state.ratings = []
+if "model" not in st.session_state:
+    st.session_state.model = None
+
+# Spalten für die Filter
+col1, col2, col3, col4, col5, col6, col7, col8 = st.columns([2, 2, 2, 2, 2, 3, 3, 3])
+
+with col1:
+    genre_check = st.checkbox("Genre")
+    if genre_check:
+        # Genre-Filter
+        genrelist = ["Select"]
+        gl = list(Instance.get_genres())
+        for i in gl:
+            genrelist.append(i)
+        selgen = st.selectbox("Choose Genre", options=genrelist)
+
+with col2:
+    actor_check = st.checkbox("Actor")
+    if actor_check:
+        selactor = st.text_input("Choose Actor")
+
+with col3:
+    keyword_check = st.checkbox("Keywords")
+    if keyword_check:
+        selkeywords = st.text_input("Enter Keywords")
+
+with col4:
+    relate_check = st.checkbox("Similar")
+
+with col5:
+    selorder = st.selectbox("Order of Movies by Ratings", ["Descending", "Ascending"])
+
+# Filter für Bewertungen, Länge, Veröffentlichungsdatum
+with col6:
+    selmin_rating = st.number_input("Minimum Rating", min_value=0.0, max_value=10.0, step=0.1)
+    selmax_rating = st.number_input("Maximum Rating", min_value=0.0, max_value=10.0, value=10.0, step=0.1)
+    selmin_votes = st.number_input("Minimum Amount of Ratings", min_value=0, value=1000)
+
+with col7:
+    selmin_length = st.number_input("Minimum Length (in min)", min_value=0)
+    selmax_length = st.number_input("Maximum Length (in min)", min_value=0)
+
+with col8:
+    selrel_after = st.date_input("Released After:")
+    selrel_before = st.date_input("Released Before:")
+
+# Funktion: Filme finden
+def findmovie():
+    search_parameters = {}
+    if genre_check and selgen != "Select":
+        search_parameters["with_genres"] = str(Instance.get_genre_id(selgen))
+    if actor_check and selactor:
+        selactor_id = Instance.person.search(selactor)
+        search_parameters["with_cast"] = str(selactor_id[0].id)
+    if keyword_check and selkeywords:
+        search_parameters["with_keywords"] = selkeywords.lower()
+    if selorder == "Descending":
+        search_parameters["sort_by"] = "vote_average.desc"
+    else:
+        search_parameters["sort_by"] = "vote_average.asc"
+    search_parameters["vote_average.gte"] = selmin_rating
+    search_parameters["vote_average.lte"] = selmax_rating
+    search_parameters["vote_count.gte"] = selmin_votes
+    search_parameters["with_runtime.gte"] = selmin_length
+    search_parameters["with_runtime.lte"] = selmax_length
+    search_parameters["primary_release_date.gte"] = str(selrel_after)
+    search_parameters["primary_release_date.lte"] = str(selrel_before)
+
+    return Instance.discover.discover_movies(search_parameters)
+
+# Filme anzeigen und bewerten
+movies = findmovie()
+if movies:
+    st.write("Bitte bewerten Sie die folgenden Filme:")
+    for movie in movies[:10]:
+        col1, col2 = st.columns([3, 1])
+        with col1:
+            st.write(f"**{movie['title']}** (Rating: {movie['vote_average']})")
+        with col2:
+            rating = st.radio(f"Bewertung für '{movie['title']}'", options=[1, 2, 3, 4, 5], key=f"rate_{movie['id']}")
+            if rating:
+                st.session_state.ratings.append({"user_id": 1, "movie_id": movie["id"], "rating": rating})
+
+# Daten vorbereiten
+if st.button("Daten vorbereiten"):
+    if not st.session_state.ratings:
+        st.write("Es wurden noch keine Bewertungen abgegeben. Bitte bewerten Sie zuerst einige Filme!")
+    else:
+        ratings_df = pd.DataFrame(st.session_state.ratings)
+        st.write("Gesammelte Bewertungen:")
+        st.write(ratings_df)
+
+        # Daten für Surprise vorbereiten
+        reader = Reader(rating_scale=(1, 5))
+        data = Dataset.load_from_df(ratings_df[["user_id", "movie_id", "rating"]], reader)
+        st.write("Daten sind bereit für das Training!")
+
+# Modell trainieren
+if st.button("Modell trainieren"):
+    if not st.session_state.ratings:
+        st.write("Es wurden noch keine Bewertungen abgegeben. Bitte bewerten Sie zuerst einige Filme!")
+    else:
+        ratings_df = pd.DataFrame(st.session_state.ratings)
+        reader = Reader(rating_scale=(1, 5))
+        data = Dataset.load_from_df(ratings_df[["user_id", "movie_id", "rating"]], reader)
+        trainset, testset = train_test_split(data, test_size=0.2)
+
+        model = SVD()
+        model.fit(trainset)
+
+        predictions = model.test(testset)
+        rmse = accuracy.rmse(predictions)
+        st.write(f"Das Modell wurde trainiert. RMSE: {rmse:.2f}")
+        st.session_state.model = model
+        st.write("Das Modell wurde gespeichert und kann für Empfehlungen verwendet werden.")
+
+# Empfehlungen anzeigen
+if st.button("Empfehlungen anzeigen"):
+    if "model" not in st.session_state or st.session_state.model is None:
+        st.write("Bitte trainiere zuerst das Modell!")
+    else:
+        st.write("Empfehlungen basierend auf Ihren Bewertungen:")
+
+        all_movie_ids = [movie["id"] for movie in movies]
+        predictions = []
+        for movie_id in all_movie_ids:
+            pred = st.session_state.model.predict(uid=1, iid=movie_id)
+            predictions.append((movie_id, pred.est))
+
+        predictions.sort(key=lambda x: x[1], reverse=True)
+        for movie_id, pred_rating in predictions[:5]:
+            movie = next((m for m in movies if m["id"] == movie_id), None)
+            if movie:
+                st.write(f"**{movie['title']}** (Vorhergesagte Bewertung: {pred_rating:.2f})")
