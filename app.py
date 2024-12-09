@@ -129,7 +129,10 @@ if returnmovies:
 
         with lc1:
             poster_url = Instance.fetch_poster(movie_id)
-            st.image(poster_url, caption=movie["title"], use_column_width=True)
+            if poster_url:
+                st.image(poster_url, caption=movie["title"], use_column_width=True)
+            else:
+                st.write("No Poster Found")
 
         with lc2:
             st.write(f"**{movie["title"]}**")
