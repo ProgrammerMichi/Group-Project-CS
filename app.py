@@ -149,5 +149,5 @@ if returnmovies:
             st.write("**Release Date**")
 
         with lc5:
-            st.write("**Movie Rating**")
+            st.write("**TMDB Movie Rating**")
             userrating = st.slider("**Your Personal Rating**",min_value=1, max_value=10, key = 1)
