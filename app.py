@@ -105,7 +105,8 @@ with col8:
         selrel_after = st.date_input("Released After:")
     with col8_2:
         selrel_before = st.date_input("Released Before:")
-    
+
+ #ChatGPT helped with basic idea of this function(how to manage input that can be turned on/off)   
 def findmovie():
     search_parameters = {"sort_by": "vote_average.desc"}
     if genre_check and selgen != "Select":
