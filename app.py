@@ -41,7 +41,6 @@ with col3:
     keyword_check = st.checkbox("Include Keywords")
     if keyword_check:
         selkeywords = st.text_input("Enter Keywords")
-        selkeywords = ", ".join(selkeywords)
     
 
 with col4:
