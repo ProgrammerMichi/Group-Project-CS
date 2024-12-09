@@ -86,8 +86,7 @@ with col0:
           # Display movies and poster with st.container():
 for movie in movies:
     with st.container():
-        col8, col9, col10, col11, col12 = st.columns(5)
-        cols = [col8,col9,col10,col11,col12]
+        cols = st.columns(5)]
         for i in range(0,5):
             with cols[i]:
                 st.write(f"**{movie['title']}**")
