@@ -47,7 +47,7 @@ with col4:
     relate_check = st.checkbox("Similar")
 
 with col5:
-    selorder = st.selectbox("Order of Movies", ["Descending Rating", "Ascending Rating"])
+    selorder = st.selectbox("Order of Movies by Ratings", ["Descending", "Ascending"])
 
 with col6:
     leftbox = col6.container(border=True, height=275)
