@@ -62,16 +62,9 @@ class TMDbAPIClient:
     def search_actors(self, movie_id, limit = 1):
         #Gets actors of a movie based on movie id
         credits = self.movie.credits(movie_id)
-        st.write("Credits-Daten:", credits)  # Debug-Ausgabe
+        st.write("Credits-Daten:", credits) 
 
-        if not isinstance(credits['cast'], list):
-            st.write(f"Fehler: 'cast' ist keine liste. Typ: {type(credits['cast'])}")
-            return []
-
-        # Schauspieler extrahieren
-        if isinstance(credits['cast'], list):
-            actors = credits['cast'][:limit]
-            return [actor['name'] for actor in actors]
+       
     
         
     
