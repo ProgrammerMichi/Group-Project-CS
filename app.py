@@ -87,7 +87,17 @@ with col7:
     with col7_2:
         selmax_length = st.number_input("Maximum Length (in min)", min_value=0)
 
+
     underbox = col7.container(border=True, height=100)
+        st.write("Content Rating")
+        st.write("Exclude:")
+    col7_1, col7_2, col7_3 = midbox.columns(3)
+    with col7_1:
+        st.checkbox("PG-18")
+    with col7_2:
+        st.checkbox("PG-16")
+    with col7_3:
+        st.checkbox("PG-14")
 
     
 
