@@ -67,7 +67,13 @@ with col5:
 
 selmin_votes = leftbox.number_input("Minimum Amount of Ratings", min_value=0, value= 1000)
 with col6:
-    st.write("p")
+    
+    underbox = col7.container(border=True, height=58)
+
+
+
+
+    adult_check = underbox.checkbox("Exclude 18+ Movies")
     
     
 with col7:
@@ -88,8 +94,7 @@ with col7:
         selmax_length = st.number_input("Maximum Length (in min)", min_value=0)
 
 
-    underbox = col7.container(border=True, height=58)
-    adult_check = underbox.checkbox("Exclude 18+ Movies")
+    
 
 
  #ChatGPT helped with basic idea of this function(how to manage input that can be turned on/off)   
