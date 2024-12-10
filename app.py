@@ -125,7 +125,7 @@ def findmovie():
     if adult_check:
         search_parameters["with_adult"] = False
     else:
-        search_parameters["with_adult"] = True
+        search_parameters["include_adult"] = True
  
 
     moviesfound = Instance.discover.discover_movies(search_parameters)
