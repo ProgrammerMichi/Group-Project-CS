@@ -19,7 +19,7 @@ Instance = TMDbAPIClient("eb7ed2a4be7573ea9c99867e37d0a4ab")
 
 st.markdown("**hho!**")
 
-col1, col2, col3, col4, col5, col6, col7 = st.columns([2,2,2,2,2,3,3])
+col1, col2, col3, col4, col5, col6, col7 = st.columns([2,2,2,2,3,3,3])
 
 with col1:
     #This gives a list of movies according to which genre has been picked
