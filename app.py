@@ -145,7 +145,7 @@ if returnmovies:
                 
 
         with lc2:
-            st.write(f"**",details.title,"**")
+            st.write(f"**{details.title}**")
             
         with lc3:
             st.write("**Actors:**")
