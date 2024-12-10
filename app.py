@@ -152,7 +152,7 @@ if returnmovies:
         with lc4:
             st.write("**Movie Length:**")
             lengthbridge = Instance.get_movie_details(movie_id)
-            st.write(lengthbridge.runtime + "min")
+            st.write(lengthbridge.runtime, "min")
             
             st.write("**Release Date**")
 
