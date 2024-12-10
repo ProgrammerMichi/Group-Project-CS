@@ -91,16 +91,12 @@ with col7:
     underbox = col7.container(border=True, height=145)
     m3, m4 = underbox.columns(2)
     with m3:
-        st.write("Age Ratings")
+        st.write("Movie Restrictions")
     with m4:
-        st.checkbox("Exclude Ratings:")
-    col7_4, col7_5, col7_6 = underbox.columns(3)
+        st.checkbox("Apply Restriction:")
+    col7_4 = underbox.columns(1)
     with col7_4:
-        st.checkbox("PG-18")
-    with col7_5:
-        st.checkbox("PG-16")
-    with col7_6:
-        st.checkbox("PG-14")
+        st.checkbox("exclude 18+ Movies")
 
     
 
