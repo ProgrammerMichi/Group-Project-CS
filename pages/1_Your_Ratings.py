@@ -1,7 +1,7 @@
 import streamlit as st
 
 # Tab Title
-st.set_page_config(page_title="Ratings", page_icon="📋", layout="wide")
+st.set_page_config(page_title="Ratiings", page_icon="📋", layout="wide")
 
 
 # Title & Intro
