@@ -89,8 +89,10 @@ with col7:
 
 
     underbox = col7.container(border=True, height=100)
-    st.write("Content Rating")
-    st.write("Exclude:")
+    m3 = underbox.column(1)
+    with m3:
+        st.write("Content Rating")
+        st.write("Exclude:")
     col7_4, col7_5, col7_6 = underbox.columns(3)
     with col7_4:
         st.checkbox("PG-18")
