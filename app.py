@@ -25,6 +25,7 @@ with col1:
     #This gives a list of movies according to which genre has been picked
     st.write("")
     st.write("")
+    st.write("")
     genrelist = ["Select"]
     gl = list(Instance.get_genres(any))
     for i in gl:
