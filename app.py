@@ -69,7 +69,7 @@ selmin_votes = leftbox.number_input("Minimum Amount of Ratings", min_value=0, va
 with col6:
 
     underbox = col7.container(border=True, height=58)
-
+    
 
 
 
@@ -78,7 +78,7 @@ with col6:
     
 with col7:
     midbox = col7.container(border=True, height=200)
-    midbox.title("Length")
+
     m1, m2 = midbox.columns(2)
     with m1:
         st.write("Length")
