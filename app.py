@@ -42,13 +42,18 @@ with col3:
     if keyword_check:
         selkeywords = st.text_input("Enter Keyword", key = 1)
 
+    
+with col4:
     excl_check = st.checkbox("Exclude Keyword")
     if excl_check:
         exclkeywords = st.text_input("Enter Keyword", key = 2)
-with col4:
-    selorder = st.selectbox("Order of Movies by Ratings", ["Descending", "Ascending"])
+    
 
 with col5:
+    selorder = st.selectbox("Order of Movies by Ratings", ["Descending", "Ascending"])
+
+
+with col6:
     leftbox = col5.container(border=True, height=275)
 
     l1, l2 = leftbox.columns(2)
@@ -66,19 +71,7 @@ with col5:
         selmax_rating = st.number_input("Maximum Rating", min_value=0.0, max_value=10.0, value = 10.0, step = 0.1, format = "%0.1f" )
 
     selmin_votes = leftbox.number_input("Minimum Amount of Ratings", min_value=0, value= 1000)
-
-
-with col6:
     
-    underbox = col6.container(border=True, height=200)
-    ucol1, ucol2 = underbox.columns([1.5,2])
-    with ucol1:
-        st.write("Age Restriction")
-    
-    with ucol2:
-        age_check = st.checkbox("Apply Restriction")
-    global selage
-    selage = underbox.selectbox("Choose Age Rating", ["Select", "FSK 0", "FSK 6", "FSK 12", "FSK 16", "FSK 18"])
     
     
 with col7:
@@ -132,13 +125,6 @@ def findmovie():
         search_parameters["with_runtime.gte"] = str(selmin_length)
         search_parameters["with_runtime.lte"] = str(selmax_length)
 
-    if age_check == True:
-        if selage != "Select":
-            age = selage.strip("FSK ")
-            with col1:
-                st.write(age)
-            search_parameters["certification_country"] = "DE"
-            search_parameters["certification_lte"] = str(age)
     
 
     moviesfound = Instance.discover.discover_movies(search_parameters)
