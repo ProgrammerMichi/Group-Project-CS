@@ -89,17 +89,8 @@ with col7:
 
 
     underbox = col7.container(border=True, height=140)
-    m3, m4 = underbox.columns(2)
-    with m3:
-        st.write("Movie Restrictions")
-    with m4:
-        st.checkbox("Apply Restriction:")
-        
-    col7_3 = underbox.columns(1)
-    with col7_3[0]:
-        st.checkbox("lude 18+ Movies")
+    adult_check = st.checkbox("Exlude 18+ Movies")
 
-    
 
  #ChatGPT helped with basic idea of this function(how to manage input that can be turned on/off)   
 def findmovie():
