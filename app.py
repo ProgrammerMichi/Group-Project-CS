@@ -133,7 +133,7 @@ def findmovie():
         search_parameters["with_runtime.lte"] = str(selmax_length)
 
     if age_check == True and selage != "Select":
-        age = str(selage).strip("FSK ")
+        age = selage.strip("FSK ")
         search_parameters["certification_country"] = "DE"
         search_parameters["certification_lte"] = str(age)
  
