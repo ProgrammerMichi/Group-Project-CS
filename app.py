@@ -139,7 +139,7 @@ if returnmovies:
         
 
         movielisting = st.container(border= True, height = 360)
-        lc1, lc2, lc3, lc4, lc5 = movielisting.columns([1.3,1.5,1,2,2])
+        lc1, lc2, lc3, lc4, lc5 = movielisting.columns([1.3,1.5,1,1,2])
         movie_id = str(movie["id"])
         details = Instance.get_movie_details(movie_id)
 
