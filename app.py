@@ -146,13 +146,14 @@ if returnmovies:
 
         with lc2:
             st.write(f"**{details.title}**")
+            try:
+                description = Instance.fetch_movie_description(movie_id)
+            except Exception:
+                description = "No Description Available"
             with st.popover("View Movie Description"):
-                try:
-                    description = Instance.fetch_movie_description(movie_id)
-                except Exception:
-                    st.write("No Description Available")
-                else:
-                    st.write(description)
+                st.write(description)
+
+
             
         with lc3:
             st.write("**Actors:**")
