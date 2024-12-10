@@ -147,7 +147,8 @@ if returnmovies:
         with lc2:
             st.write(f"**{details.title}**")
             try:
-                description = Instance.fetch_movie_descriptionstr(movie_id)
+                movie_id = str(movie["id"])
+                description = Instance.fetch_movie_description(movie_id)
             except Exception:
                 st.write(st.write("No Description Available"))
             else:
