@@ -156,8 +156,9 @@ if returnmovies:
             mh = str(length // 60)
             mm = str(length % 60)
             st.write(mh,"hours", mm,"min")
-            
+            st.text("")
             st.write("**Release Date**")
+            
 
         with lc5:
             st.write("**TMDB Movie Rating**")
