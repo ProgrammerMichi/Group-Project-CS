@@ -151,8 +151,9 @@ if returnmovies:
             except Exception:
                 description = "No Description Available"
                 st.write(description)
-            with st.popover("View Movie Description"):
-                st.write(description)
+            else:
+                with st.popover("View Movie Description"):
+                    st.write(description)
 
 
             
