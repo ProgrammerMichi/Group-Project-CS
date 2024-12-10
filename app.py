@@ -22,14 +22,12 @@ st.markdown("**hho!**")
 col1, col2, col3, col4, col5, col6, col7 = st.columns([2,2,2,2,2,3,3])
 
 with col1:
-    genre_check = st.checkbox("Genre")
-    if genre_check:
-        #This gives a list of movies according to which genre has been picked
-        genrelist = ["Select"]
-        gl = list(Instance.get_genres(any))
-        for i in gl:
-            genrelist.append(i)
-        selgen = st.selectbox("Choose Genre", options = genrelist)
+    #This gives a list of movies according to which genre has been picked
+    genrelist = ["Select"]
+    gl = list(Instance.get_genres(any))
+    for i in gl:
+        genrelist.append(i)
+    selgen = st.selectbox("Choose Genre", options = genrelist)
     
 
 with col2:
@@ -95,7 +93,7 @@ with col7:
  #ChatGPT helped with basic idea of this function(how to manage input that can be turned on/off)   
 def findmovie():
     search_parameters = {}
-    if genre_check and selgen != "Select":
+    if selgen != "Select":
             search_parameters["with_genres"] = str(Instance.get_genre_id(selgen))
     
     if actor_check and selactor: 
