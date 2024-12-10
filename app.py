@@ -38,14 +38,14 @@ with col2:
         selactor = st.text_input("Choose Actor")
 
 with col3:
-    keyword_check = st.checkbox("Include Keywords")
+    keyword_check = st.checkbox("Include Keyword")
     if keyword_check:
-        selkeywords = st.text_input("Enter Keywords", key = 1)
+        selkeywords = st.text_input("Enter Keyword", key = 1)
 
 with col4:
-    excl_check = st.checkbox("Exclude Keywords")
+    excl_check = st.checkbox("Exclude Keyword")
     if excl_check:
-        exclkeywords = st.text_input("Enter Keywords", key = 2)
+        exclkeywords = st.text_input("Enter Keyword", key = 2)
 
 with col5:
     selorder = st.selectbox("Order of Movies by Ratings", ["Descending", "Ascending"])
