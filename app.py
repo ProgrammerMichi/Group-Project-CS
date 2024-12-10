@@ -67,9 +67,14 @@ with col5:
 
 selmin_votes = leftbox.number_input("Minimum Amount of Ratings", min_value=0, value= 1000)
 with col6:
-
-    underbox = col6.container(border=True, height=58)
     
+    underbox = col6.container(border=True, height=58)
+    ucol1, ucol2 = col6.columns(2)
+    with ucol1:
+        st.write("Age Restriction")
+    
+    with ucol2:
+        age_check = col6.checkbox("Apply Restriction")
 
 
 
