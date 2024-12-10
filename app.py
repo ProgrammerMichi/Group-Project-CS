@@ -150,6 +150,7 @@ if returnmovies:
                 description = Instance.fetch_movie_description(movie_id)
             except Exception:
                 description = "No Description Available"
+                st.write(description)
             with st.popover("View Movie Description"):
                 st.write(description)
 
