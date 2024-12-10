@@ -23,6 +23,13 @@ class TMDbAPIClient:
         full_path = "https://image.tmdb.org/t/p/w500/" + poster_path
         return full_path
     
+    def fetch_movie_description(self, movie_id):
+        url = "https://api.themoviedb.org/3/movie/" + movie_id + "?api_key=eb7ed2a4be7573ea9c99867e37d0a4ab&language=en-US"
+        data = requests.get(url)
+        data = data.json()
+        overview = data.get('overview', "No description available.")
+        return overview
+    
     
     def get_genres(self, x = None):
         #Create a list with only genre names
