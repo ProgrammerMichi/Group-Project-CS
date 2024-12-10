@@ -25,24 +25,19 @@ st.sidebar.markdown("### Rate Movies and Get Recommendations")
 
 if st.sidebar.button("Get Recommendations"):
     if not ratings.empty:
-        algo = None
+        algo = SVD()
         with st.spinner("Training the recommendation model..."):
-            algo = SVD()
             reader = Reader(rating_scale=(1, 10))
-            data = Dataset.load_from_df(ratings, reader)
-            algo.fit(data.build_full_trainset())
+            data = Dataset.load_from_df(ratings[["userId", "movieId", "rating"]], reader)
+            trainset = data.build_full_trainset()
+            algo.fit(trainset)
+
         st.sidebar.markdown("#### Recommended Movies:")
         movie_data = pd.DataFrame(returnmovies)
         movie_ids = movie_data["id"].tolist()
         unrated_movie_ids = [m_id for m_id in movie_ids if m_id not in ratings[ratings["userId"] == user_id]["movieId"].tolist()]
+
         recommendations = []
-        for m_id in unrated_movie_ids:
- mgrids predictedictions.append(x)
- out now absheir tab save skills rate rating reco meta description (rating * within above/below);
-
-Here’s the continuation and completion of the full code, ensuring all features are implemented and aligned:
-
-```python
         for m_id in unrated_movie_ids:
             try:
                 pred_rating = algo.predict(user_id, m_id).est
@@ -198,5 +193,7 @@ if returnmovies:
             st.write("**TMDB Movie Rating:**", round(details.vote_average, 1))
             personal_rating = st.slider(f"Your Rating for {movie['title']}", 1, 10, key=slidercount)
             if st.button(f"Save Rating for {movie['title']}", key=slidercount):
-                save_user_rating(user_id, movie_id, personal_rating)
+                new_rating = pd.DataFrame({"userId": [user_id], "movieId": [movie_id], "rating": [personal_rating]})
+                ratings = pd.concat([ratings, new_rating], ignore_index=True)
+                st.success(f"Rating for {movie['title']} saved!")
             slidercount += 1
