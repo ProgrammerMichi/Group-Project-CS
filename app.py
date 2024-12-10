@@ -65,9 +65,11 @@ with col5:
     with col6_2:
         selmax_rating = st.number_input("Maximum Rating", min_value=0.0, max_value=10.0, value = 10.0, step = 0.1, format = "%0.1f" )
 
-selmin_votes = leftbox.number_input("Minimum Amount of Ratings", min_value=0, value= 1000)
+    selmin_votes = leftbox.number_input("Minimum Amount of Ratings", min_value=0, value= 1000)
+
+selage = "Select"
 with col6:
-    selage = "Select"
+    
     underbox = col6.container(border=True, height=200)
     ucol1, ucol2 = underbox.columns([1.5,2])
     with ucol1:
