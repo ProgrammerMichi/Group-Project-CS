@@ -88,8 +88,8 @@ with col7:
         selmax_length = st.number_input("Maximum Length (in min)", min_value=0)
 
 
-    underbox = col7.container(border=True, height=140)
-    adult_check = underbox.checkbox("lude 18+ Movies")
+    underbox = col7.container(border=True, height=80)
+    adult_check = underbox.checkbox("Exclude 18+ Movies")
 
 
  #ChatGPT helped with basic idea of this function(how to manage input that can be turned on/off)   
