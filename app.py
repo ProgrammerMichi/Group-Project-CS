@@ -88,16 +88,6 @@ with col7:
         selmax_length = st.number_input("Maximum Length (in min)", min_value=0)
 
 
-    underbox = col7.container(border=True, height=100)
-    adult_check = underbox.checkbox("Exclude 18+ Movies")
-
-
-    
-    
-        
-
-    
-
  #ChatGPT helped with basic idea of this function(how to manage input that can be turned on/off)   
 def findmovie():
     search_parameters = {}
@@ -139,7 +129,7 @@ if returnmovies:
     for movie in returnmovies:
         
 
-        movielisting = st.container(border= True, height = 360)
+        movielisting = st.container(border= True, height = 350)
         lc1, lc2, lc3, lc4, lc5 = movielisting.columns([1.3,1.5,3.1,2,2])
         movie_id = str(movie["id"])
         details = Instance.get_movie_details(movie_id)
@@ -156,15 +146,6 @@ if returnmovies:
 
         with lc2:
             st.write(f"**{details.title}**")
-            try:
-                description = Instance.fetch_movie_description(movie_id)
-            except Exception:
-                st.write(st.write("No Description Available"))
-            else:
-                with st.popover("View Movie Description"):
-                    st.write(description)
-
-
             
         with lc3:
             st.write("**Actors:**")
