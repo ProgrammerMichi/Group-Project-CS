@@ -4,6 +4,7 @@ from tmdbv3api import TMDb, Movie, Genre, Discover, Person
 from APIConnection import TMDbAPIClient
 import pandas as pd
 import numpy as np
+import os
 
 # Tab Title
 st.set_page_config(page_title="Movie Recommender", page_icon="🎞️", layout="wide")
@@ -15,8 +16,14 @@ Instance = TMDbAPIClient("eb7ed2a4be7573ea9c99867e37d0a4ab")
 
 st.markdown("**hello!**")
 
-# Initialize user ratings storage
-user_ratings = pd.DataFrame(columns=["userId", "movieId", "rating"])
+# File path to save ratings
+RATINGS_FILE = "user_ratings.csv"
+
+# Load existing ratings or initialize empty DataFrame
+if os.path.exists(RATINGS_FILE):
+    user_ratings = pd.read_csv(RATINGS_FILE)
+else:
+    user_ratings = pd.DataFrame(columns=["userId", "movieId", "rating"])
 
 # Columns for filter options
 col1, col2, col3, col4, col5, col6, col7 = st.columns([2, 2, 2, 2, 2, 3, 3])
@@ -158,6 +165,7 @@ if returnmovies:
             if st.button(f"Save Rating for {movie['title']}", key=f"button_{movie_id}"):
                 new_rating = pd.DataFrame({"userId": [1], "movieId": [movie_id], "rating": [rating]})
                 user_ratings = pd.concat([user_ratings, new_rating], ignore_index=True)
+                user_ratings.to_csv(RATINGS_FILE, index=False)  # Save ratings to CSV
                 st.success(f"Rating saved for {movie['title']}")
 
 # Display recommendations
