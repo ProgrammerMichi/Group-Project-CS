@@ -136,7 +136,6 @@ def recommend_movies(user_id, movies, ratings_df, top_n=5):
 returnmovies = findmovie()
 
 if returnmovies:
-    slidercount = 1
     for movie in returnmovies:
         movielisting = st.container()
         lc1, lc2, lc3, lc4, lc5 = movielisting.columns([1.3, 1.5, 3.1, 2, 2])
@@ -154,12 +153,12 @@ if returnmovies:
             st.write(f"TMDB Rating: {movie.get('vote_average', 'N/A')}")
 
         with lc5:
-            rating = st.slider(f"Rate {movie['title']}", 1, 10, key=slidercount)
-            if st.button(f"Save Rating for {movie['title']}", key=slidercount):
+            # Use the unique movie_id as part of the key
+            rating = st.slider(f"Rate {movie['title']}", 1, 10, key=f"slider_{movie_id}")
+            if st.button(f"Save Rating for {movie['title']}", key=f"button_{movie_id}"):
                 new_rating = pd.DataFrame({"userId": [1], "movieId": [movie_id], "rating": [rating]})
                 user_ratings = pd.concat([user_ratings, new_rating], ignore_index=True)
                 st.success(f"Rating saved for {movie['title']}")
-            slidercount += 1
 
 # Display recommendations
 if st.sidebar.button("Get Recommendations"):
