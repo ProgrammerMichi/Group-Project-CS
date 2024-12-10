@@ -76,9 +76,7 @@ with col6:
     with ucol2:
         age_check = st.checkbox("Apply Restriction")
 
-    selage = underbox.selectbox("Choose Age Rating", ["FSK 0", "FSK 6", "FSK 12", "FSK 16", "FSK 18"])
-
-    adult_check = underbox.checkbox("Exclude 18+ Movies")
+    selage = underbox.selectbox("Choose Age Rating", ["Select", "FSK 0", "FSK 6", "FSK 12", "FSK 16", "FSK 18"])
     
     
 with col7:
@@ -132,10 +130,10 @@ def findmovie():
         search_parameters["with_runtime.gte"] = str(selmin_length)
         search_parameters["with_runtime.lte"] = str(selmax_length)
 
-    if adult_check:
-        search_parameters["include_adult"] = False
-    else:
-        search_parameters["include_adult"] = True
+    if age_check:
+        if selage != "Select":
+            search_parameters["certification_country"] = "DE"
+            search_parameters["certifcation_lte"] = str(selage)
  
 
     moviesfound = Instance.discover.discover_movies(search_parameters)
