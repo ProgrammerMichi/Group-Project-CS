@@ -67,7 +67,7 @@ with col5:
 
     selmin_votes = leftbox.number_input("Minimum Amount of Ratings", min_value=0, value= 1000)
 
-selage = "Select"
+
 with col6:
     
     underbox = col6.container(border=True, height=200)
