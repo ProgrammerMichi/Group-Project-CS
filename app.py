@@ -143,9 +143,9 @@ if returnmovies:
             else:
                 st.image(poster_url, caption=movie["title"], use_column_width=True)
                 st.write(description)
+                movie_id = str(movie["id"])
 
                 
-        movie_id = str(movie["id"])
 
         with lc2:
             st.write(f"**{details.title}**")
