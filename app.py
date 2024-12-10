@@ -123,7 +123,7 @@ def findmovie():
         search_parameters["with_runtime.lte"] = str(selmax_length)
 
     if adult_check:
-        search_parameters["with_adult"] = False
+        search_parameters["include_adult"] = False
     else:
         search_parameters["include_adult"] = True
  
