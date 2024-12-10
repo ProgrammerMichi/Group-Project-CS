@@ -160,6 +160,9 @@ if returnmovies:
             st.text("")
             st.text("")
             st.write("**Release Date**")
+            releasedate = Instance.get_move_details(movie_id).release_date
+            st.write(releasedate)
+
             
 
         with lc5:
