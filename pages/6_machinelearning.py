@@ -190,8 +190,35 @@ if st.sidebar.button("Get Recommendations"):
         recommendations.append((movie, score))
 
     # Sort recommendations by score
-    recommendations = sorted(recommendations, key=lambda x: x[1], reverse=True)[:5]
+    recommendations = sorted(recommendations, key=lambda x: x[1], reverse=True)
 
-    st.sidebar.markdown("### Recommended Movies:")
-    for movie, score in recommendations:
-        st.sidebar.write(f"{movie['title']} - Score: {round(score, 2)}")
+    if recommendations:
+        # Display the top recommendation prominently
+        top_movie, top_score = recommendations[0]
+        st.markdown("### 🎥 Top Recommendation 🎥")
+        st.markdown("#### This is the movie we think you'll love the most!")
+
+        # Centralized layout for the top recommendation
+        top_container = st.container()
+        tc1, tc2 = top_container.columns([2, 3])
+
+        with tc1:
+            try:
+                poster_url = Instance.fetch_poster(top_movie["id"])
+                st.image(poster_url, caption=top_movie["title"], use_column_width=True)
+            except:
+                st.write("No Poster Available")
+
+        with tc2:
+            st.markdown(f"### **{top_movie['title']}**")
+            st.markdown(f"**TMDB Rating:** {top_movie.get('vote_average', 'N/A')}")
+            st.markdown(f"**Predicted Score:** {round(top_score, 2)}")
+            st.markdown(f"**Overview:** {top_movie.get('overview', 'No overview available.')}")
+            st.markdown("### Watch this movie today!")
+
+        st.markdown("---")
+
+        # Display the remaining recommendations in the sidebar
+        st.sidebar.markdown("### Other Recommended Movies:")
+        for movie, score in recommendations[1:5]:
+            st.sidebar.write(f"{movie['title']} - Score: {round(score, 2)}")
