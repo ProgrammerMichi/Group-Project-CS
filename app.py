@@ -49,10 +49,7 @@ with col4:
     selorder = st.selectbox("Order of Movies by Ratings", ["Descending", "Ascending"])
 
 with col5:
-    
-    st.write("ps")
-with col6:
-    leftbox = col6.container(border=True, height=275)
+    leftbox = col5.container(border=True, height=275)
 
     l1, l2 = leftbox.columns(2)
     with l1:
@@ -69,6 +66,8 @@ with col6:
         selmax_rating = st.number_input("Maximum Rating", min_value=0.0, max_value=10.0, value = 10.0, step = 0.1, format = "%0.1f" )
 
 selmin_votes = leftbox.number_input("Minimum Amount of Ratings", min_value=0, value= 1000)
+with col6:
+    st.write("p")
     
     
 with col7:
