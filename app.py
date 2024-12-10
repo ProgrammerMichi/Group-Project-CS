@@ -153,8 +153,8 @@ if returnmovies:
             st.write("**Movie Length:**")
             lengthbridge = Instance.get_movie_details(movie_id)
             length = lengthbridge.runtime
-            mh = length // 60
-            mm = length % 60
+            mh = str(length // 60)
+            mm = str(length % 60)
             st.write(mh,"hours", mm,"min")
             
             st.write("**Release Date**")
