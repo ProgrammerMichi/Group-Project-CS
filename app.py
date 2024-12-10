@@ -127,11 +127,12 @@ returnmovies = findmovie()
 if returnmovies:
     slidercount = 3
     for movie in returnmovies:
-        details = Instance.get_movie_details(movie_id)
+        
 
         movielisting = st.container(border= True, height = 350)
         lc1, lc2, lc3, lc4, lc5 = movielisting.columns([1.3,1.5,3.1,2,2])
         movie_id = str(movie["id"])
+        details = Instance.get_movie_details(movie_id)
 
         with lc1:
             try:
