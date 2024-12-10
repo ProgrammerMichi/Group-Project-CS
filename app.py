@@ -155,7 +155,7 @@ if returnmovies:
                 st.write(st.write("No Description Available"))
             else:
                 with st.popover("View Movie Description"):
-                st.write(description)
+                    st.write(description)
             
         with lc3:
             st.write("**Actors:**")
