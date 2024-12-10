@@ -54,7 +54,7 @@ with col5:
 
 
 with col6:
-    leftbox = col5.container(border=True, height=275)
+    leftbox = col6.container(border=True, height=275)
 
     l1, l2 = leftbox.columns(2)
     with l1:
