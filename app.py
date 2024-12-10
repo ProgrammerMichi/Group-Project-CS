@@ -67,7 +67,7 @@ with col5:
 
 selmin_votes = leftbox.number_input("Minimum Amount of Ratings", min_value=0, value= 1000)
 with col6:
-    selage = "FSK 0"
+
     underbox = col6.container(border=True, height=200)
     ucol1, ucol2 = underbox.columns([1.5,2])
     with ucol1:
@@ -75,7 +75,7 @@ with col6:
     
     with ucol2:
         age_check = st.checkbox("Apply Restriction")
-
+    global selage
     selage = underbox.selectbox("Choose Age Rating", ["Select", "FSK 0", "FSK 6", "FSK 12", "FSK 16", "FSK 18"])
     
     
