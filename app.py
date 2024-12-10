@@ -42,10 +42,11 @@ with col3:
     if keyword_check:
         selkeywords = st.text_input("Enter Keyword", key = 1)
 
-with col4:
     excl_check = st.checkbox("Exclude Keyword")
     if excl_check:
         exclkeywords = st.text_input("Enter Keyword", key = 2)
+with col4:
+    st.write("ps")
 
 with col5:
     selorder = st.selectbox("Order of Movies by Ratings", ["Descending", "Ascending"])
