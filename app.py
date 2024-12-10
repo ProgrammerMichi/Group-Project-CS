@@ -88,16 +88,10 @@ with col7:
         selmax_length = st.number_input("Maximum Length (in min)", min_value=0)
 
 
-    underbox = col7.container(border=True, height=140)
-    m3, m4 = underbox.columns(2)
-    with m3:
-        st.write("Movie Restrictions")
-    with m4:
-        st.checkbox("Apply Restriction:")
+    underbox = col7.container(border=True, height=100)
+    adult_check = st.checkbox("Exclude 18+ Movies")
+    
         
-    col7_3 = underbox.columns(1)
-    with col7_3[0]:
-        st.checkbox("Exclude 18+ Movies")
 
     
 
