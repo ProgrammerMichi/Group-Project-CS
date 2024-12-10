@@ -89,7 +89,7 @@ with col7:
 
     underbox = col7.container(border=True, height=50)
 
-    u1 = midbox2.columns(1)
+    u1 = underbox.columns(1)
     with u1:
         st.write("Content Rating")
     
