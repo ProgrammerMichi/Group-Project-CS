@@ -174,6 +174,7 @@ if returnmovies:
 
             st.text("")
             st.text("")
+            st.text("")
             
             st.slider("**Your Personal Rating**",min_value=1, max_value=10, key = slidercount)
         slidercount += 1
