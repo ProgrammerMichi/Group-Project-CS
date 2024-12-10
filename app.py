@@ -89,7 +89,7 @@ with col7:
 
 
     underbox = col7.container(border=True, height=100)
-    adult_check = st.checkbox("Exclude 18+ Movies")
+    adult_check = underbox.checkbox("Exclude 18+ Movies")
     
         
 
