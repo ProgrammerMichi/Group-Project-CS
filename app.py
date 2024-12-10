@@ -172,7 +172,8 @@ if returnmovies:
 
         with lc3_5:
             st.write("**Age Rating:**")
-            ar = str(details.certification)
+            ar = str(details.certifications)
+            st.write(ar)
         
         with lc4:
             st.write("**Movie Length:**")
