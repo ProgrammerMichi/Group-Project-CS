@@ -87,6 +87,13 @@ with col7:
     with col7_2:
         selmax_length = st.number_input("Maximum Length (in min)", min_value=0)
 
+    midbox2 = col7.container(border=True, height=50)
+
+    m1, m2 = midbox2.columns(2)
+    with m1:
+        st.write("Content Rating")
+    with m2:
+        length_check = st.checkbox("Exclude PG-18 Movies")
 
  #ChatGPT helped with basic idea of this function(how to manage input that can be turned on/off)   
 def findmovie():
