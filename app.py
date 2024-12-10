@@ -157,6 +157,8 @@ if returnmovies:
             mm = str(length % 60)
             st.write(mh,"hours", mm,"min")
             st.text("")
+            st.text("")
+            st.text("")
             st.write("**Release Date**")
             
 
