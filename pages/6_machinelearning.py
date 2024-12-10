@@ -5,123 +5,89 @@ import pandas as pd
 import numpy as np
 import os
 
-# Tab Title
-st.set_page_config(page_title="Movie Recommender", page_icon="🎞️", layout="wide")
+# Tab Title & Layout
+st.set_page_config(
+    page_title="Movie Recommender",
+    page_icon="🎞️",
+    layout="wide",
+)
 
 # Title & Intro
 st.title("🎞️ Movie Recommender")
-
-Instance = TMDbAPIClient("eb7ed2a4be7573ea9c99867e37d0a4ab")
-
 st.markdown("**Welcome to your personalized movie recommender!**")
 
-# File path to save ratings
-RATINGS_FILE = "user_ratings.csv"
+# Load API Key and User ID
+API_KEY = "YOUR_TMDB_API_KEY"  # Replace with your actual API key
+USER_ID = 1
 
-# Load existing ratings or initialize empty DataFrame
-if os.path.exists(RATINGS_FILE):
-    user_ratings = pd.read_csv(RATINGS_FILE)
+# Initialize TMDb Client and User Ratings
+tmdb = TMDb(API_KEY)
+ratings_file = "user_ratings.csv"
+if os.path.exists(ratings_file):
+    user_ratings = pd.read_csv(ratings_file)
 else:
     user_ratings = pd.DataFrame(columns=["userId", "movieId", "rating"])
 
-# Columns for filter options
-col1, col2, col3, col4, col5, col6, col7 = st.columns([2, 2, 2, 2, 2, 3, 3])
+# Navigation Bar
+st.sidebar.header("Filters")
 
-with col1:
-    genre_check = st.checkbox("Genre")
-    if genre_check:
-        genrelist = ["Select"]
-        gl = list(Instance.get_genres(any))
-        for i in gl:
-            genrelist.append(i)
-        selgen = st.selectbox("Choose Genre", options=genrelist)
+# Filter Options with Collapsible Sections
+with st.expander("**Genre**"):
+    genre_list = ["Select"] + [genre.get("name") for genre in tmdb.genres().get("genres")]
+    selected_genre = st.selectbox("Choose Genre", options=genre_list)
 
-with col2:
-    actor_check = st.checkbox("Actor")
-    if actor_check:
-        selactor = st.text_input("Choose Actor")
+with st.expander("**Actors**"):
+    selected_actor = st.text_input("Enter Actor Name")
 
-with col3:
-    keyword_check = st.checkbox("Include Keywords")
-    if keyword_check:
-        selkeywords = st.text_input("Enter Keywords", key=1)
+with st.expander("**Keywords**"):
+    include_keywords = st.text_input("Include Keywords (Separate by commas)")
+    exclude_keywords = st.text_input("Exclude Keywords (Separate by commas)")
 
-with col4:
-    excl_check = st.checkbox("Exclude Keywords")
-    if excl_check:
-        exclkeywords = st.text_input("Enter Keywords", key=2)
+with st.expander("**Rating**"):
+    order_by_rating = st.selectbox("Order Movies By", ["Descending", "Ascending"])
+    min_rating = st.number_input("Minimum Rating", min_value=0.0, max_value=10.0, step=0.1, format="%0.1f")
+    max_rating = st.number_input("Maximum Rating", min_value=0.0, max_value=10.0, value=10.0, step=0.1, format="%0.1f")
+    min_votes = st.number_input("Minimum Amount of Ratings", min_value=0)
 
-with col5:
-    selorder = st.selectbox("Order of Movies by Ratings", ["Descending", "Ascending"])
+with st.expander("**Length**"):
+    min_length = st.number_input("Minimum Length (in min)", min_value=0)
+    max_length = st.number_input("Maximum Length (in min)", min_value=0)
 
-with col6:
-    leftbox = col6.container()
-    l1, l2 = leftbox.columns(2)
-    with l1:
-        st.write("Ratings")
-    with l2:
-        rating_check = st.checkbox("Apply Ratings")
-
-    col6_1, col6_2 = leftbox.columns(2)
-    with col6_1:
-        selmin_rating = st.number_input("Minimum Rating", min_value=0.0, max_value=10.0, step=0.1, format="%0.1f")
-    with col6_2:
-        selmax_rating = st.number_input("Maximum Rating", min_value=0.0, max_value=10.0, value=10.0, step=0.1, format="%0.1f")
-
-    selmin_votes = leftbox.number_input("Minimum Amount of Ratings", min_value=0, value=1000)
-
-with col7:
-    midbox = col7.container()
-    m1, m2 = midbox.columns(2)
-    with m1:
-        st.write("Length")
-    with m2:
-        length_check = st.checkbox("Apply Length")
-
-    col7_1, col7_2 = midbox.columns(2)
-    with col7_1:
-        selmin_length = st.number_input("Minimum Length (in min)", min_value=0)
-    with col7_2:
-        selmax_length = st.number_input("Maximum Length (in min)", min_value=0)
-
-    underbox = col7.container()
-    m3, m4 = underbox.columns(2)
-    with m3:
-        st.write("Movie Restrictions")
-    with m4:
-        st.checkbox("Apply Restriction:")
-    col7_3 = underbox.columns(1)
-    with col7_3[0]:
-        st.checkbox("Exclude 18+ Movies")
+with st.expander("**Restrictions**"):
+    exclude_adult = st.checkbox("Exclude Adult Movies")
 
 # Function to fetch movies based on filters
-def findmovie():
-    search_parameters = {}
-    if genre_check and selgen != "Select":
-        search_parameters["with_genres"] = str(Instance.get_genre_id(selgen))
-    if actor_check and selactor:
-        selactor_id = Instance.person.search(selactor)
-        search_parameters["with_cast"] = str(selactor_id[0].id)
-    if keyword_check and selkeywords:
-        search_parameters["with_keywords"] = str(Instance.get_keyword_id(selkeywords))
-    if excl_check and exclkeywords:
-        search_parameters["without_keywords"] = str(Instance.get_keyword_id(exclkeywords))
-    if selorder == "Descending":
-        search_parameters["sort_by"] = "vote_average.desc"
+def find_movies():
+    search_params = {}
+    if selected_genre != "Select":
+        genre_id = tmdb.genres().get_genre_id(selected_genre)
+        search_params["with_genres"] = str(genre_id)
+    if selected_actor:
+        actor_results = tmdb.search().person(selected_actor)
+        if actor_results.total_results > 0:
+            search_params["with_cast"] = str(actor_results.results[0].id)
+    if include_keywords:
+        keywords = ",".join([str(tmdb.keywords().get_keyword_id(keyword)) for keyword in include_keywords.split(",")])
+        search_params["with_keywords"] = keywords
+    if exclude_keywords:
+        keywords = ",".join([str(tmdb.keywords().get_keyword_id(keyword)) for keyword in exclude_keywords.split(",")])
+        search_params["without_keywords"] = keywords
+    if order_by_rating == "Descending":
+        search_params["sort_by"] = "vote_average.desc"
     else:
-        search_parameters["sort_by"] = "vote_average.asc"
+        search_params["sort_by"] = "vote_average.asc"
 
-    if rating_check:
-        search_parameters["vote_average.gte"] = str(selmin_rating)
-        search_parameters["vote_average.lte"] = str(selmax_rating)
-        search_parameters["vote_count.gte"] = str(selmin_votes)
+    search_params["vote_average.gte"] = str(min_rating)
+    search_params["vote_average.lte"] = str(max_rating)
+    search_params["vote_count.gte"] = str(min_votes)
 
-    if length_check:
-        search_parameters["with_runtime.gte"] = str(selmin_length)
-        search_parameters["with_runtime.lte"] = str(selmax_length)
+    search_params["with_runtime.gte"] = str(min_length)
+    search_params["with_runtime.lte"] = str(max_length)
 
-    moviesfound = Instance.discover.discover_movies(search_parameters)
-    return moviesfound
+    if exclude_adult:
+        search_params["include_adult"] = "false"
+
+    return tmdb.discover.movie(search_params)
 
 # Function to calculate weighted recommendation scores
 def calculate_score(movie, user_id, user_ratings, tmdb_rating_weight=0.4, personal_rating_weight=0.3, similar_rating_weight=0.3):
@@ -149,22 +115,23 @@ def calculate_score(movie, user_id, user_ratings, tmdb_rating_weight=0.4, person
 def get_similar_movies(movie):
     genre_ids = movie.get("genre_ids", [])
     similar_movies = user_ratings[user_ratings["movieId"].isin(
-        [m["id"] for m in returnmovies if set(genre_ids).intersection(m.get("genre_ids", []))]
+        [m["id"] for m in return_movies if set(genre_ids).intersection(m.get("genre_ids", []))]
     )]
     return similar_movies["movieId"].tolist()
 
-returnmovies = findmovie()
+# Find movies based on filters
+return_movies = find_movies()
 
 # Allow users to rate movies
-if returnmovies:
-    for movie in returnmovies:
-        movielisting = st.container()
-        lc1, lc2, lc3 = movielisting.columns([1.3, 3, 2])
+if return_movies:
+    for movie in return_movies:
+        movie_listing = st.container()
+        lc1, lc2, lc3 = movie_listing.columns([1.3, 3, 2])
         movie_id = movie["id"]
 
         with lc1:
             try:
-                poster_url = Instance.fetch_poster(movie_id)
+                poster_url = tmdb.images().get_poster_path(movie_id)
                 st.image(poster_url, caption=movie["title"], use_column_width=True)
             except:
                 st.write("No Poster Available")
@@ -176,17 +143,16 @@ if returnmovies:
         with lc3:
             rating = st.slider(f"Rate {movie['title']}", 1, 10, key=f"slider_{movie_id}")
             if st.button(f"Save Rating for {movie['title']}", key=f"button_{movie_id}"):
-                new_rating = pd.DataFrame({"userId": [1], "movieId": [movie_id], "rating": [rating]})
+                new_rating = pd.DataFrame({"userId": [USER_ID], "movieId": [movie_id], "rating": [rating]})
                 user_ratings = pd.concat([user_ratings, new_rating], ignore_index=True)
-                user_ratings.to_csv(RATINGS_FILE, index=False)  # Save ratings to CSV
+                user_ratings.to_csv(ratings_file, index=False)  # Save ratings to CSV
                 st.success(f"Rating saved for {movie['title']}")
 
 # Display recommendations
 if st.sidebar.button("Get Recommendations"):
-    user_id = 1
     recommendations = []
-    for movie in returnmovies:
-        score = calculate_score(movie, user_id, user_ratings)
+    for movie in return_movies:
+        score = calculate_score(movie, USER_ID, user_ratings)
         recommendations.append((movie, score))
 
     # Sort recommendations by score
