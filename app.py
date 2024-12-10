@@ -78,7 +78,7 @@ with col6:
     with ucol2:
         age_check = st.checkbox("Apply Restriction")
     global selage
-    selage = underbox.selectbox("Choose Age Rating", ["Select", "FSK 0", "FSK 6", "FSK 12", "FSK 16", "FSK 18"])
+    selage = underbox.selectbox("Choose Age Rating", ["Selec", "FSK 0", "FSK 6", "FSK 12", "FSK 16", "FSK 18"])
     
     
 with col7:
@@ -132,7 +132,7 @@ def findmovie():
         search_parameters["with_runtime.gte"] = str(selmin_length)
         search_parameters["with_runtime.lte"] = str(selmax_length)
 
-    if age_check == True and selage != "Select":
+    if age_check == True and selage != "Selec":
         selage = selage.strip("FSK ")
         search_parameters["certification_country"] = "DE"
         search_parameters["certification_lte"] = str(selage)
