@@ -78,7 +78,7 @@ with col6:
     with ucol2:
         age_check = st.checkbox("Apply Restriction")
     global selage
-    selage = underbox.selectbox("Choose Age Rating", ["Select", "FSK 0", "FSK 6", "FSK 12", "FSK 16", "FSK 18"])
+    selage = st.selectbox("Choose Age Rating", ["Select", "FSK 0", "FSK 6", "FSK 12", "FSK 16", "FSK 18"])
     
     
 with col7:
