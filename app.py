@@ -156,16 +156,17 @@ if returnmovies:
             mh = str(length // 60)
             mm = str(length % 60)
             st.write(mh,"hours", mm,"min")
-            st.text("")
-            st.text("")
-            st.text("")
-            st.write("**Release Date**")
-            rd = str(details.release_date)
-            st.write(rd)
 
-            
+            st.text("")
+            st.text("")
+            st.text("")
+
+            st.write("**Release Date**")
+            rd = str(details.cast)
+            st.write(rd) 
 
         with lc5:
             st.write("**TMDB Movie Rating**")
+            
             st.slider("**Your Personal Rating**",min_value=1, max_value=10, key = slidercount)
         slidercount += 1
