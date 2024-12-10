@@ -171,10 +171,10 @@ if returnmovies:
                 st.write(i)
 
         with lc3_5:
-            st.write("**Age Rating:**")
-            ar = str(details.certifications)
-            if ar:
-                for country, rating in ar:
+            if hasattr(details, "certifications"):
+                certifications = details.certifications
+                st.write("**Age Rating:**")
+                for country, rating in certifications:
                     st.write(f"Country: {country}, Rating: {rating}")
         
         with lc4:
