@@ -148,7 +148,9 @@ if returnmovies:
             st.write(f"**{details.title}**")
             try:
                 description = Instance.fetch_movie_description(movie_id)
-            finally:
+            except Exception:
+                st.write(st.write("No Description Available"))
+            else:
                 with st.popover("View Movie Description"):
                     st.write(description)
 
