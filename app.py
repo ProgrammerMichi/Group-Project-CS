@@ -89,7 +89,7 @@ with col7:
 
 
     underbox = col7.container(border=True, height=100)
-    m3 = underbox.column(1)
+    m3, m4 = underbox.columns(2)
     with m3:
         st.write("Content Rating")
         st.write("Exclude:")
