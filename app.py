@@ -88,7 +88,7 @@ with col7:
         selmax_length = st.number_input("Maximum Length (in min)", min_value=0)
 
 
-    underbox = col7.container(border=True, height=120)
+    underbox = col7.container(border=True, height=130)
     m3, m4 = underbox.columns(2)
     with m3:
         st.write("Content")
