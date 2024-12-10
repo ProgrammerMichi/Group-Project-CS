@@ -137,12 +137,10 @@ if returnmovies:
         with lc1:
             try:
                 poster_url = Instance.fetch_poster(movie_id)
-                description = Instance.fetch_movie_description(movie_id)
             except Exception: 
                 st.write(st.write("No Poster Available"))
             else:
                 st.image(poster_url, caption=movie["title"], use_column_width=True)
-                st.write(description)
 
                 
 
