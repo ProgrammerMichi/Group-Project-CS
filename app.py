@@ -162,7 +162,7 @@ if returnmovies:
             st.text("")
 
             st.write("**Release Date**")
-            rd = str(details.cast)
+            rd = str(details.actors)
             st.write(rd) 
 
         with lc5:
