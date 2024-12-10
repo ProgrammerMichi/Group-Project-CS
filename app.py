@@ -89,7 +89,7 @@ with col7:
 
 
     underbox = col7.container(border=True, height=140)
-    adult_check = st.checkbox("Exlude 18+ Movies")
+    adult_check = underbox.checkbox("lude 18+ Movies")
 
 
  #ChatGPT helped with basic idea of this function(how to manage input that can be turned on/off)   
