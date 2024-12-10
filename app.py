@@ -87,18 +87,18 @@ with col7:
     with col7_2:
         selmax_length = st.number_input("Maximum Length (in min)", min_value=0)
 
-    midbox2 = col7.container(border=True, height=50)
+    underbox = col7.container(border=True, height=50)
 
-    m1 = midbox2.columns(1)
-    with m1:
+    u1 = midbox2.columns(1)
+    with u1:
         st.write("Content Rating")
     
-    col7_1, col7_2 = midbox.columns(2)
+    col7_3, col7_4 = midbox.columns(2)
 
-    with col7_1:
+    with col7_3:
         st.checkbox("Exclude PG-18 Movies")
 
-    with col7_2:
+    with col7_4:
         st.checkbox("Exclude PG-16 Movies")
 
  #ChatGPT helped with basic idea of this function(how to manage input that can be turned on/off)   
