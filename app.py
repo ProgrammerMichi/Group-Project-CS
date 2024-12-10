@@ -160,7 +160,7 @@ if returnmovies:
             st.text("")
             st.text("")
             st.write("**Release Date**")
-            rdbridge = Instance.get_move_details(movie_id)
+            rdbridge = Instance.get_movie_details(movie_id)
             rd = str(rdbridge.release_date)
             st.write(rd)
 
