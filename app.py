@@ -173,7 +173,9 @@ if returnmovies:
         with lc3_5:
             st.write("**Age Rating:**")
             ar = str(details.certifications)
-            st.write(ar)
+            if ar:
+                for country, rating in ar:
+                    st.write(f"Country: {country}, Rating: {rating}")
         
         with lc4:
             st.write("**Movie Length:**")
