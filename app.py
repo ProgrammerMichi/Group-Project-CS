@@ -151,8 +151,8 @@ if returnmovies:
         
         with lc4:
             st.write("**Movie Length:**")
-            lengthbridge = Instance.get_movie_details(movie_id)
-            length = lengthbridge.runtime
+            bridge = Instance.get_movie_details(movie_id)
+            length = bridge.runtime
             mh = str(length // 60)
             mm = str(length % 60)
             st.write(mh,"hours", mm,"min")
@@ -160,8 +160,7 @@ if returnmovies:
             st.text("")
             st.text("")
             st.write("**Release Date**")
-            rdbridge = Instance.get_movie_details(movie_id)
-            rd = str(rdbridge.release_date)
+            rd = str(bridge.release_date)
             st.write(rd)
 
             
