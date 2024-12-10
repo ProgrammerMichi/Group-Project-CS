@@ -94,7 +94,7 @@ with col7:
         st.write("Movie Restrictions")
     with m4:
         st.checkbox("Apply Restriction:")
-    st.checkbox("exclude 18+ Movies")
+        st.checkbox("exclude 18+ Movies")
 
     
 
