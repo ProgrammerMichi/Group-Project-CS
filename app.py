@@ -96,7 +96,7 @@ with col7:
         st.checkbox("Apply Restriction:")
         
     col7_3 = underbox.columns(1)
-    with col7_3:
+    with col7_3[0]:
         st.checkbox("exclude 18+ Movies")
 
     
