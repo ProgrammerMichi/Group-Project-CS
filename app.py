@@ -148,6 +148,7 @@ if returnmovies:
             st.write(f"**{details.title}**")
             try:
                 description = Instance.fetch_movie_description(movie_id)
+            finally:
                 with st.popover("View Movie Description"):
                     st.write(description)
 
