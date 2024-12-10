@@ -158,28 +158,30 @@ returnmovies = findmovie()
 # Allow users to rate movies
 if returnmovies:
     for movie in returnmovies:
-        movielisting = st.container()
-        lc1, lc2, lc3 = movielisting.columns([1.3, 3, 2])
-        movie_id = movie["id"]
+        with st.markdown(f"""
+        <div style="border: 1px solid #ddd; padding: 15px; border-radius: 10px; margin-bottom: 15px;">
+        """, unsafe_allow_html=True):
+            lc1, lc2, lc3 = st.columns([1.3, 3, 2])
+            movie_id = movie["id"]
 
-        with lc1:
-            try:
-                poster_url = Instance.fetch_poster(movie_id)
-                st.image(poster_url, caption=movie["title"], use_column_width=True)
-            except:
-                st.write("No Poster Available")
+            with lc1:
+                try:
+                    poster_url = Instance.fetch_poster(movie_id)
+                    st.image(poster_url, caption=movie["title"], use_column_width=True)
+                except:
+                    st.write("No Poster Available")
 
-        with lc2:
-            st.write(f"**{movie['title']}**")
-            st.write(f"TMDB Rating: {movie.get('vote_average', 'N/A')}")
+            with lc2:
+                st.write(f"**{movie['title']}**")
+                st.write(f"TMDB Rating: {movie.get('vote_average', 'N/A')}")
 
-        with lc3:
-            rating = st.slider(f"Rate {movie['title']}", 1, 10, key=f"slider_{movie_id}")
-            if st.button(f"Save Rating for {movie['title']}", key=f"button_{movie_id}"):
-                new_rating = pd.DataFrame({"userId": [1], "movieId": [movie_id], "rating": [rating]})
-                user_ratings = pd.concat([user_ratings, new_rating], ignore_index=True)
-                user_ratings.to_csv(RATINGS_FILE, index=False)  # Save ratings to CSV
-                st.success(f"Rating saved for {movie['title']}")
+            with lc3:
+                rating = st.slider(f"Rate {movie['title']}", 1, 10, key=f"slider_{movie_id}")
+                if st.button(f"Save Rating for {movie['title']}", key=f"button_{movie_id}"):
+                    new_rating = pd.DataFrame({"userId": [1], "movieId": [movie_id], "rating": [rating]})
+                    user_ratings = pd.concat([user_ratings, new_rating], ignore_index=True)
+                    user_ratings.to_csv(RATINGS_FILE, index=False)  # Save ratings to CSV
+                    st.success(f"Rating saved for {movie['title']}")
 
 # Display recommendations
 if st.sidebar.button("Get Recommendations"):
