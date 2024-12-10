@@ -143,7 +143,7 @@ if returnmovies:
             else:
                 st.image(poster_url, caption=movie["title"], use_column_width=True)
                 st.write(description)
-                movie_id = 550
+                movie_id = str(550)
                 print(Instance.fetch_poster(movie_id))
                 print(Instance.fetch_movie_description(movie_id))
 
