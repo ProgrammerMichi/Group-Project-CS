@@ -113,8 +113,12 @@ with col7:
     with col7_2:
         selmax_length = st.number_input("Maximum Length (in min)", min_value=0)
 
+
+returnmovies = Instance.findmovie(selgen, actor_check, selactor, keyword_check, selkeywords, excl_check, exclkeywords, selorder, rating_check, selmin_rating, selmax_rating, selmin_votes, selmin_length, selmax_length, length_check, age_check, selage)
+
 if selgen == "None":
     selgen = None
+
 conditions = [selgen, actor_check, rating_check, keyword_check, excl_check, rating_check, age_check, length_check]
 
 
@@ -124,7 +128,7 @@ if any(conditions) and title_check:
 
 if any(conditions) and title_check == False:
     #Results of search function stored in variable
-    returnmovies = Instance.findmovie(selgen, actor_check, selactor, keyword_check, selkeywords, excl_check, exclkeywords, selorder, rating_check, selmin_rating, selmax_rating, selmin_votes, selmin_length, selmax_length, length_check, age_check, selage)
+    st.write("")
 
 
 try:
