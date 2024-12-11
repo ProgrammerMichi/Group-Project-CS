@@ -79,8 +79,6 @@ def get_keyword_id(search):
     keywords = search.keywords(search)
     if keywords:
         return keywords[0].id
-    
-
 
 
 
@@ -165,10 +163,12 @@ def findmovie(selgen, actor_check, selactor, keyword_check, selkeywords, excl_ch
     return moviesfound
 
 
+
 def search_movie(query):
     #Searches for movie titles fitting the input(query) and returns the movies with their data
     movieswtitle = search.movies(query)
     return movieswtitle
+
 
 
 def movielist(returnmovies):
@@ -266,6 +266,3 @@ def movielist(returnmovies):
                     st.text("")
                     
                     st.slider("**Your Personal Rating**",min_value=1, max_value=10, key = movie_id)
-                
-    
-
