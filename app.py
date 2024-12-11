@@ -132,9 +132,9 @@ else:
         movielisting = st.container(border= True, height = 360)
         lc1, lc2, lc3, lc3_5, lc4, lc5 = movielisting.columns([0.85,1,1,0.8,1,1])
 
-
         
-        details = Instance.get_movie_details(movie["id"])
+        movie_id = str(movie["id"])
+        details = Instance.get_movie_details(movie_id)
 
         with lc1:
             #Getting the poster and replacing it with text if not found
