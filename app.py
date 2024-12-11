@@ -17,7 +17,7 @@ st.markdown("Receive a movie list based on criteria you select, rate the movies 
 st.write("")
 
 #Creating columns in order to have criteria options in one row next to each other
-col1, col2, col3, col4, col5, col6, col7 = st.columns([2,2,2,2,3.1,3,3])
+col1, col2, col3, col4, col5, col6, col7 = st.columns([2,2,2,2,3.2,3,3])
 
 #Checkboxes coming up enable/disable inclusion of respective criteria in the search function
 #All variables (checkboxes and those of search criteria) are stored in variables, which are later used in the search function
