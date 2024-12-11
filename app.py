@@ -127,14 +127,9 @@ if any(conditions) and title_check:
     st.write("You can only search for titles without any additional criteria selected")
     st.write("You can only search by criteria without any title")
 
+
 if not any(conditions) and title_check == True and seltitle:
     
     st.write("helo")
     movietitle = Instance.search_movie(seltitle)
     Instance.movielist(movietitle)
-
-    
-
-
-
-
