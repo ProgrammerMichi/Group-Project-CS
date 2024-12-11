@@ -46,7 +46,8 @@ with col4:
     
 
 with col5:
-    selorder = st.selectbox("Order of Movies by Ratings", ["Descending", "Ascending"])
+    st.markdown("Order of Movies by Ratings")
+    selorder = st.selectbox("", ["Descending", "Ascending"])
 
 
 with col6:
