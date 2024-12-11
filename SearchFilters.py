@@ -2,9 +2,9 @@ from APIConnection import Instance
 import streamlit as st
 
 #This function takes all input from the main page and, depending on whether they should be included, 
-#adds them to a dictionary, which is used by the tmdbv3api to get the selected information
-#Dictionary is initally empty and depending on whether criteria has been selected (through checkmark or selection on dropdown menu)
-#or not. If criteria with textfield is included, try blocks first tests if anything is found with entered words, returns string
+#adds them to a dictionary, which is used by the tmdbv3api to get the wanted information
+#The dictionary is initally empty and depending on whether criteria has been selected (through checkmark or selection on dropdown menu)
+#or not. If criteria with textfield is included, try blocks first test if anything is found with entered words, return string
 #if it fails.
 #Returned data is stored in a variable, which will then be used to get the necessary information
 
