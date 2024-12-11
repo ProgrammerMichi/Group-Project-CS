@@ -113,10 +113,12 @@ with col7:
     with col7_2:
         selmax_length = st.number_input("Maximum Length (in min)", min_value=0)
 
-conditions = [actor_check, rating_check, keyword_check, excl_check, rating_check, age_check, length_check]
+if selgen == "None":
+    selgen = None
+conditions = [selgen, actor_check, rating_check, keyword_check, excl_check, rating_check, age_check, length_check]
 
 
-if selgen != "None" or any(conditions) and title_check:
+if any(conditions) and title_check:
     st.write("Searching titles only works without any additional criteria selected")
     st.write("Searching by criteria only works without any Title")
 
