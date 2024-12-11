@@ -13,16 +13,18 @@ st.set_page_config(page_title="Movie Recommender", page_icon="🎞️", layout="
 
 # Title & Intro
 st.title("🎞️ Movie Recommender")
-
 st.markdown("**Welcome to our Movie Recommender!**")
 st.markdown("Receive a movie list based on criteria you select, rate the movies and get a recommendation adapted to your likings!")
 st.write("")
 
+#Creating columns in order to have criteria options in one row next to each other
 col1, col2, col3, col4, col5, col6, col7 = st.columns([2,2,2,2,3,3,3])
 
+#Checkboxes coming up enable/disable inclusion of respective criteria in the search function
+#they are stored in variables later used in search function respectively
 with col1:
-    #This gives a list of movies according to which genre has been picked
-    
+    #Dropdown menu with all available genres as options, chosen genre is saved in a variable
+
     st.write("Genre")
     genrelist = ["None"]
     gl = list(Instance.get_genres(any))
@@ -32,25 +34,39 @@ with col1:
     
 
 with col2:
+    #Textfield offers option to include an actor in search, 
+    #stored in variable which will then be used in the search function
+
     actor_check = st.checkbox("Actor")
-    selactor = st.text_input("Choose Actor")
+    selactor = st.text_input("Enter Actor")
 
 with col3:
+    #Textfield offers option to include a keyword in search,
+    #stored in variable later used in search function
+
     keyword_check = st.checkbox("Include Keyword")
     selkeywords = st.text_input("Enter Keyword", key = 1)
 
-    
 with col4:
+    #Textfield offers option to include a keyword in search,
+    #stored in variable later used in search function
+
     excl_check = st.checkbox("Exclude Keyword")
     exclkeywords = st.text_input("Enter Keyword", key = 2)
     
 
 with col5:
+    #Option to sort with descending/options ratings
+    #stored in variable later used in search function
+
     st.markdown("Order of Movies by Ratings")
     selorder = st.selectbox("", ["Descending", "Ascending"])
 
 
 with col6:
+    #Option to enter minimum/maximum rating of movies and minimum amount of votes on respective movies
+    #stored in variables later used in search function
+
     leftbox = col6.container(border=True, height=275)
 
     l1, l2 = leftbox.columns(2)
@@ -72,15 +88,17 @@ with col6:
     
     
 with col7:
-    midbox = col7.container(border=True, height=200)
 
-    m1, m2 = midbox.columns(2)
+
+    rightbox = col7.container(border=True, height=200)
+
+    m1, m2 = rightbox.columns(2)
     with m1:
         st.write("Length")
     with m2:
         length_check = st.checkbox("Apply Length")
 
-    col7_1, col7_2 = midbox.columns(2)
+    col7_1, col7_2 = rightbox.columns(2)
 
     with col7_1:
         selmin_length = st.number_input("Minimum Length (in min)", min_value=0)
