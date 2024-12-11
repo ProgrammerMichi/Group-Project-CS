@@ -128,7 +128,7 @@ if any(conditions) and title_check == False:
 
 
 try:
-    returnmovies
+    any(returnmovies)
 
 except:
     st.write("") 
