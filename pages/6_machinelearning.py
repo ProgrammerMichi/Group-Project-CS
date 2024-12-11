@@ -19,17 +19,24 @@ st.markdown("**Welcome to your personalized movie recommender!**")
 USERS_FILE = "users.csv"
 RATINGS_FILE = "user_ratings.csv"
 
-# Initialize users database if not exists
+# Initialize user database if not exists
 if not os.path.exists(USERS_FILE):
     pd.DataFrame(columns=["username", "password"]).to_csv(USERS_FILE, index=False)
 
-# Load user ratings
-if os.path.exists(RATINGS_FILE):
-    user_ratings = pd.read_csv(RATINGS_FILE)
-else:
-    user_ratings = pd.DataFrame(columns=["userId", "movieId", "rating"])
+# Initialize session state variables
+if "logged_in" not in st.session_state:
+    st.session_state.logged_in = False
+if "current_user" not in st.session_state:
+    st.session_state.current_user = None
+if "user_id" not in st.session_state:
+    st.session_state.user_id = None
+if "user_ratings" not in st.session_state:
+    if os.path.exists(RATINGS_FILE):
+        st.session_state.user_ratings = pd.read_csv(RATINGS_FILE)
+    else:
+        st.session_state.user_ratings = pd.DataFrame(columns=["userId", "movieId", "rating"])
 
-# User authentication
+# Authentication functions
 def authenticate_user(username, password):
     users = pd.read_csv(USERS_FILE)
     user = users[(users["username"] == username) & (users["password"] == password)]
@@ -44,36 +51,42 @@ def register_user(username, password):
     updated_users.to_csv(USERS_FILE, index=False)
     return True
 
-# User login/registration
+# Sidebar for login/registration
 st.sidebar.title("User Login")
-auth_action = st.sidebar.selectbox("Action", ["Login", "Register"])
+if not st.session_state.logged_in:
+    auth_action = st.sidebar.selectbox("Action", ["Login", "Register"])
 
-if auth_action == "Login":
-    username = st.sidebar.text_input("Username")
-    password = st.sidebar.text_input("Password", type="password")
-    if st.sidebar.button("Login"):
-        if authenticate_user(username, password):
-            st.sidebar.success(f"Welcome back, {username}!")
-            current_user = username
-            user_id = pd.read_csv(USERS_FILE).loc[
-                pd.read_csv(USERS_FILE)["username"] == username
-            ].index[0] + 1  # User ID is the row index + 1
-        else:
-            st.sidebar.error("Invalid credentials!")
-            current_user = None
-            user_id = None
-elif auth_action == "Register":
-    username = st.sidebar.text_input("New Username")
-    password = st.sidebar.text_input("New Password", type="password")
-    if st.sidebar.button("Register"):
-        if register_user(username, password):
-            st.sidebar.success("Registration successful! Please log in.")
-        else:
-            st.sidebar.error("Username already exists!")
-
-# Ensure user is logged in before proceeding
-if 'current_user' not in locals() or current_user is None:
-    st.stop()
+    if auth_action == "Login":
+        username = st.sidebar.text_input("Username")
+        password = st.sidebar.text_input("Password", type="password")
+        if st.sidebar.button("Login"):
+            if authenticate_user(username, password):
+                st.sidebar.success(f"Welcome back, {username}!")
+                st.session_state.logged_in = True
+                st.session_state.current_user = username
+                st.session_state.user_id = (
+                    pd.read_csv(USERS_FILE)
+                    .loc[pd.read_csv(USERS_FILE)["username"] == username]
+                    .index[0]
+                    + 1
+                )  # User ID is the row index + 1
+            else:
+                st.sidebar.error("Invalid credentials!")
+    elif auth_action == "Register":
+        username = st.sidebar.text_input("New Username")
+        password = st.sidebar.text_input("New Password", type="password")
+        if st.sidebar.button("Register"):
+            if register_user(username, password):
+                st.sidebar.success("Registration successful! Please log in.")
+            else:
+                st.sidebar.error("Username already exists!")
+else:
+    st.sidebar.success(f"Logged in as {st.session_state.current_user}")
+    if st.sidebar.button("Logout"):
+        st.session_state.logged_in = False
+        st.session_state.current_user = None
+        st.session_state.user_id = None
+        st.stop()
 
 # Columns for filter options
 col1, col2, col3, col4, col5, col6, col7 = st.columns([2, 2, 2, 2, 2, 3, 3])
@@ -227,16 +240,16 @@ if returnmovies:
         with lc3:
             rating = st.slider(f"Rate {movie['title']}", 1, 10, key=f"slider_{movie_id}")
             if st.button(f"Save Rating for {movie['title']}", key=f"button_{movie_id}"):
-                new_rating = pd.DataFrame({"userId": [user_id], "movieId": [movie_id], "rating": [rating]})
-                user_ratings = pd.concat([user_ratings, new_rating], ignore_index=True)
-                user_ratings.to_csv(RATINGS_FILE, index=False)  # Save ratings to CSV
-                st.success(f"Rating saved for {movie['title']}")
+                new_rating = pd.DataFrame({"userId": [st.session_state.user_id], "movieId": [movie_id], "rating": [rating]})
+                st.session_state.user_ratings = pd.concat([st.session_state.user_ratings, new_rating], ignore_index=True)
+                st.session_state.user_ratings.to_csv(RATINGS_FILE, index=False)
+                st.success(f"Rating saved for {movie['title']}!")
 
 # Display recommendations
 if st.sidebar.button("Get Recommendations"):
     recommendations = []
     for movie in returnmovies:
-        score = calculate_score(movie, user_id, user_ratings)
+        score = calculate_score(movie, st.session_state.user_id, st.session_state.user_ratings)
         recommendations.append((movie, score))
 
     # Sort recommendations by score
