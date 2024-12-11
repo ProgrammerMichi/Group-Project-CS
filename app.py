@@ -130,7 +130,6 @@ if any(conditions) and title_check == False:
     #Results of search function stored in variable
     st.write("")
 
-
 try:
     any(returnmovies)
 
