@@ -18,7 +18,7 @@ def findmovie(selgen, actor_check, selactor, keyword_check, selkeywords, excl_ch
             search_parameters["with_cast"] = str(selactor_id[0].id)
         except: 
             st.write("**Actor not Included in Search**:")
-            st.write("Actor not found,please adjust actor names")
+            st.write("Actor not found, please adjust actor names")
         
         else:
             selactor_id = Instance.person.search(selactor + " ")
