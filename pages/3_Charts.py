@@ -94,3 +94,7 @@ RATINGS_FILE = "ratings_with_genres_sample.csv"
 df_ratings.to_csv(RATINGS_FILE, index=False)
 
 print(f"Sample data with genres saved to {RATINGS_FILE}")
+
+# Display the CSV data as a table
+st.title("Movie Ratings with Genres")
+st.dataframe(ratings_df)
