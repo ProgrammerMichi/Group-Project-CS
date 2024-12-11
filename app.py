@@ -112,7 +112,7 @@ def findmovie():
 
         except:
             st.write("Keywords not implemented in search:")
-            st.write("Please only use one Keyword. If you have already entered only one Keyword, try changing it.")
+            st.write("Please only use one keyword. If you have already entered only one keyword, try changing it.")
 
         else:
             search_parameters["with_keywords"] = str(Instance.get_keyword_id(selkeywords))
