@@ -24,6 +24,7 @@ class TMDbAPIClient:
         full_path = "https://image.tmdb.org/t/p/w500/" + poster_path
         return full_path
     
+
     def fetch_movie_description(self, movie_id):
         url = f"https://api.themoviedb.org/3/movie/{str(movie_id)}?api_key=eb7ed2a4be7573ea9c99867e37d0a4ab&language=en-US"
         data = requests.get(url)
@@ -57,6 +58,7 @@ class TMDbAPIClient:
             bridge_actors.append(actor["name"])
         return_actors = bridge_actors[:7]
         return return_actors
+    
     
     def search_actor_id(self, actorname):
         #Gets Actor ID
