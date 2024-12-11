@@ -21,7 +21,7 @@ st.write("")
 col1, col2, col3, col4, col5, col6, col7 = st.columns([2,2,2,2,3,3,3])
 
 #Checkboxes coming up enable/disable inclusion of respective criteria in the search function
-#All variables (checkboxes and others) are stored in variables, which are later used in the search function
+#All variables (checkboxes and those of search criteria) are stored in variables, which are later used in the search function
 with col1:
     #Dropdown menu with all available genres as options, chosen genre is saved in a variable
 
