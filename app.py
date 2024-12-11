@@ -26,7 +26,7 @@ with col1:
     
     st.write("Genre")
     st.write("")
-    genrelist = ["Select"]
+    genrelist = ["None"]
     gl = list(Instance.get_genres(any))
     for i in gl:
         genrelist.append(i)
@@ -99,7 +99,7 @@ with col7:
  #ChatGPT helped with basic idea of this function(how to manage input that can be turned on/off)   
 def findmovie():
     search_parameters = {}
-    if selgen != "Select":
+    if selgen != "None":
             search_parameters["with_genres"] = str(Instance.get_genre_id(selgen))
     
     if actor_check and selactor:
