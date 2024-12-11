@@ -1,7 +1,13 @@
 from APIConnection import Instance
 import streamlit as st
 
-def findmovie(selgen, actor_check, selactor, keyword_check, selkeywords, excl_check, exclkeywords, selorder, rating_check, selmin_rating, selmax_rating, selmin_votes, selmin_length, selmax_length, length_check):
+#This function takes all input from the main page and, depending on whether they should be included, 
+#adds them to a dictionary, which is used by the tmdbv3api to get the selected information
+
+#ChatGPT helped with basic idea of this function(how to manage input that can be turned on/off) 
+
+def findmovie(selgen, actor_check, selactor, keyword_check, selkeywords, excl_check, exclkeywords, selorder, rating_check, 
+              selmin_rating, selmax_rating, selmin_votes, selmin_length, selmax_length, length_check):
     search_parameters = {}
     if selgen != "None":
             search_parameters["with_genres"] = str(Instance.get_genre_id(selgen))
@@ -55,7 +61,6 @@ def findmovie(selgen, actor_check, selactor, keyword_check, selkeywords, excl_ch
         search_parameters["with_runtime.gte"] = str(selmin_length)
         search_parameters["with_runtime.lte"] = str(selmax_length)
 
-    
 
     moviesfound = Instance.discover.discover_movies(search_parameters)
 
