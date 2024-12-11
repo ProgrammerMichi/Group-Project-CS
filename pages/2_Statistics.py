@@ -3,6 +3,12 @@ import pandas as pd
 import plotly.express as px
 
 
+# Tab Title, Title and Intro
+st.set_page_config(page_title="Statistics", page_icon="📊", layout="wide")
+st.title("Your Statistics")
+st.write("""Here you can find diverse charts ...""")
+
+
 # Load the ratings data from the CSV file
 ratings_df = pd.read_csv("ratings_with_genres_sample.csv")
 
