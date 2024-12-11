@@ -47,8 +47,8 @@ def get_genres(x = None):
 def get_genre_id(genre_name):
     #Get the id for a genre, later used to filter for a specific genre
     genres = genre.movie_list()
-    for genre in genres:
-        if genre["name"].lower() == genre_name.lower():
+    for i in genres:
+        if i["name"].lower() == genre_name.lower():
             return genre["id"]
     return None
 
