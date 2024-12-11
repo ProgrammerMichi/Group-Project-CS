@@ -4,6 +4,7 @@ import streamlit as st
 #import surprise
 #import os
 from APIConnection import Instance
+from SearchFilters import findmovie
 import pandas as pd
 import numpy as np
 
@@ -105,7 +106,7 @@ with col7:
 
 #Results of search function stored in variable
 
-returnmovies = Instance.findmovie(selgen, actor_check, selactor, keyword_check, selkeywords, excl_check, exclkeywords, selorder, rating_check, selmin_rating, selmax_rating, selmin_votes, selmin_length, selmax_length, length_check)
+returnmovies = findmovie(selgen, actor_check, selactor, keyword_check, selkeywords, excl_check, exclkeywords, selorder, rating_check, selmin_rating, selmax_rating, selmin_votes, selmin_length, selmax_length, length_check)
 
 
 #Try block tests whether movies have been found
