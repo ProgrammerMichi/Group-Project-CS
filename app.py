@@ -77,8 +77,6 @@ with col5:
 
     selmin_votes = leftbox.number_input("Minimum Amount of Ratings", min_value=0, value= 1000)
     
-    
-
 
 with col6:
     #Option to filter according to age rating in Germany, returns movies at or below age rating
