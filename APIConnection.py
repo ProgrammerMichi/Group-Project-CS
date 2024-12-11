@@ -59,7 +59,7 @@ class TMDbAPIClient:
         return_actors = bridge_actors[:7]
         return return_actors
     
-    
+
     def search_actor_id(self, actorname):
         #Gets Actor ID
         actor = self.person.search(actorname)
@@ -90,5 +90,5 @@ class TMDbAPIClient:
             return keywords[0].id
 
 
-Instance = TMDbAPIClient("eb7ed2a4be7573ea9c99867e37d0a4ab")
+Instance = TMDbAPIClient()
 
