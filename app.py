@@ -139,7 +139,7 @@ else:
         with lc1:
             #Getting the poster and replacing it with text if not found
             try:
-                poster_url = Instance.fetch_poster(movie["id"])
+                poster_url = Instance.fetch_poster(movie_id)
             except Exception: 
                 st.write(st.write("No Poster Available"))
             else:
