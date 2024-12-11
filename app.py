@@ -130,7 +130,7 @@ else:
 
             
         with lc3:
-            st.write("**Actors:**")
+            st.write("**Lead Actors:**")
             for i in Instance.search_actors(movie_id):
                 st.write(i)
 
