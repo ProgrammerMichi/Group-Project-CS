@@ -89,8 +89,7 @@ with col6:
         age_check = st.checkbox ("Apply Restriction")
 
     selage = leftleftbox.selectbox("", ["FSK 0", "FSK 6", "FSK 12", "FSK 16", "FSK 18"])
-    
-    
+       
     
 with col7:
     #Option to filter according to minimum/maximum length of movie
