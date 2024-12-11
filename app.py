@@ -131,7 +131,7 @@ try:
     returnmovies
 
 except:
-    st.write("uf") 
+    st.write("") 
 
 else:
 
