@@ -138,7 +138,6 @@ except:
     st.write("") 
 
 else:
-
     #Try block tests whether movies have been found
     try:
         for movie in returnmovies:
