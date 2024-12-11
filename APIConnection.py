@@ -3,7 +3,8 @@ import streamlit as st
 import requests
 from tmdbv3api import TMDb, Movie, Genre, Discover, Person, Search
 
-#Class of
+#Class with all functions that interact with the tmdbv3api 
+#f
 
 class TMDbAPIClient:
     def __init__(self, api_key="eb7ed2a4be7573ea9c99867e37d0a4ab"):
@@ -71,6 +72,17 @@ class TMDbAPIClient:
         if keywords:
             return keywords[0].id
         
+
+
+    #This function takes all input from the main page and, depending on whether they should be included, 
+    #adds them to a dictionary, which is used by the tmdbv3api to get the wanted information
+    #The dictionary is initally empty and depending on whether criteria has been selected (through checkmark or selection on dropdown menu)
+    #or not. If criteria with textfield is included, try blocks first test if anything is found with entered words, return string
+    #if it fails.
+    #Returned data is stored in a variable, which will then be used to get the necessary information
+
+    #ChatGPT gave the idea to use an empty dictionary
+
     def findmovie(self, selgen, actor_check, selactor, keyword_check, selkeywords, excl_check, exclkeywords, selorder, rating_check, 
               selmin_rating, selmax_rating, selmin_votes, selmin_length, selmax_length, length_check):
     
