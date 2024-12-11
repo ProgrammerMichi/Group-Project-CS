@@ -32,14 +32,15 @@ with col1:
     
 
 with col2:
-    #Textfield offers option to include an actor in search, 
+    #Textfield offers option to include an actor during search
 
     actor_check = st.checkbox("Include Actor")
     selactor = st.text_input("Enter Actor")
 
 
 with col3:
-    #Textfield offers option to include a keyword in search,
+    #First textfield offers option to include a keyword during search
+    #second one offers option to exclude a keyword
 
     keyword_check = st.checkbox("Include Keyword")
     selkeywords = st.text_input("Enter Keyword", key = 1)
@@ -48,31 +49,17 @@ with col3:
     exclkeywords = st.text_input("Enter Keyword", key = 2)
 
 with col4:
-    #Textfield offers option to exclude a keyword in search,
-
+    
+    #Option to sort with descending/options ratings
     st.markdown("Order of Ratings")
     selorder = st.selectbox("", ["Descending", "Ascending"])
     
 
 with col5:
-    #Option to sort with descending/options ratings
-    leftleftbox = col5.container(border=True, height = 200)
-
-    ll1, ll2 = leftleftbox.columns(2)
-    with ll1:
-        st.write("Age Restriction")
-    with ll2:
-        age_check = st.checkbox ("Apply Restriction")
-
-    selage = leftleftbox.selectbox("", ["FSK 0", "FSK 6", "FSK 12", "FSK 16", "FSK 18"])
-    
-
-
-with col6:
     #Option to filter according to minimum/maximum rating of movie
     #and minimum amount of votes on respective movies
 
-    leftbox = col6.container(border=True, height=275)
+    leftbox = col5.container(border=True, height=275)
 
     l1, l2 = leftbox.columns(2)
     with l1:
@@ -89,6 +76,21 @@ with col6:
         selmax_rating = st.number_input("Maximum Rating", min_value=0.0, max_value=10.0, value = 10.0, step = 0.1, format = "%0.1f" )
 
     selmin_votes = leftbox.number_input("Minimum Amount of Ratings", min_value=0, value= 1000)
+    
+    selage = leftleftbox.selectbox("", ["FSK 0", "FSK 6", "FSK 12", "FSK 16", "FSK 18"])
+    
+
+
+with col6:
+    #Option to filter according to age rating in Germany, returns movies at or below age rating
+    leftleftbox = col5.container(border=True, height = 200)
+
+    ll1, ll2 = leftleftbox.columns(2)
+    with ll1:
+        st.write("Age Restriction")
+    with ll2:
+        age_check = st.checkbox ("Apply Restriction")
+
     
     
     
