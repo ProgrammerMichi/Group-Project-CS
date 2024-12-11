@@ -55,6 +55,7 @@ with col3:
 with col4:
     
     st.write("Search by Title")
+    seltitle = st.text_input("")
     
 
 with col5:
