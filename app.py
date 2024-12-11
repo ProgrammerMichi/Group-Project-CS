@@ -115,7 +115,8 @@ with col7:
 
 if title_check == False:
     returnmovies = Instance.findmovie(selgen, actor_check, selactor, keyword_check, selkeywords, excl_check, exclkeywords, selorder, rating_check, selmin_rating, selmax_rating, selmin_votes, selmin_length, selmax_length, length_check, age_check, selage)
-
+    Instance.movielist(returnmovies)
+    
 if selgen == "None":
     selgen = False
 
@@ -130,8 +131,9 @@ if not any(conditions) and title_check == True:
     
     st.write("helo")
     movietitle = Instance.search_movie(seltitle)
+
     
 
 
-Instance.movielist(returnmovies)
+
 
