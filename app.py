@@ -173,7 +173,7 @@ else:
             st.write("**Movie Length:**")
             
             length = details.runtime
-            st.write(length // 60,"hours", length % 60,"min")
+            st.write(str(length) // 60,"hours", str(length % 60),"min")
 
             st.text("")
             st.text("")
