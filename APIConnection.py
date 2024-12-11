@@ -159,6 +159,10 @@ class TMDbAPIClient:
         moviesfound = self.discover.discover_movies(search_parameters)
         return moviesfound
     
+    def search_movie(self, query):
+        movieswtitle = Search.movies(query)
+        return movieswtitle
+    
         
 
 Instance = TMDbAPIClient()
