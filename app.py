@@ -132,8 +132,11 @@ def findmovie():
 
     return moviesfound
 
+
+returnmovies = findmovie()
+
 try:
-    returnmovies = findmovie()
+    returnmovies != {}
 
 except:
     print("No Movies Fitting the Criteria Found")
