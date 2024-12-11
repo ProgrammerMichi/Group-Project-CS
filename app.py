@@ -121,19 +121,23 @@ except:
     st.write("No Movies Fitting the Criteria Found")
 
 
-#Else function creates for loop which creates a list of containers on the site,
+#Else function creates for loop which creates a list of movies on the page,
 #including some information and option to rate the movie. 
 #Rating is stored on the site and fed into machine learning system to later be able to make a fitting recommendation
 else: 
     slidercount = 3
     for movie in returnmovies:
         
+        #Design of each list entry, columns in order to have elements on the same line
         movielisting = st.container(border= True, height = 360)
         lc1, lc2, lc3, lc3_5, lc4, lc5 = movielisting.columns([0.85,1,1,0.8,1,1])
-        movie_id = str(movie["id"])
-        details = Instance.get_movie_details(movie_id)
+
+
+        
+        details = Instance.get_movie_details(movie["id"])
 
         with lc1:
+            #Getting the poster and replacing it with text if not found
             try:
                 poster_url = Instance.fetch_poster(movie_id)
             except Exception: 
@@ -144,6 +148,7 @@ else:
                 
 
         with lc2:
+            #Writes the movie title and
             st.write(f"**{details.title}**")
             try:
                 description = Instance.fetch_movie_description(movie_id)
