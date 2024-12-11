@@ -268,6 +268,6 @@ class TMDbAPIClient:
                     
     
         
-
+#Instantiating the class here, as all functions
 Instance = TMDbAPIClient()
 
