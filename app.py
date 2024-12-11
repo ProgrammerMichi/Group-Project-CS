@@ -48,7 +48,7 @@ with col3:
 
 
 with col4:
-    #Textfield offers option to include a keyword in search,
+    #Textfield offers option to exclude a keyword in search,
 
     excl_check = st.checkbox("Exclude Keyword")
     exclkeywords = st.text_input("Enter Keyword", key = 2)
@@ -185,6 +185,8 @@ else:
             st.write(str(details.release_date)) 
 
         with lc5:
+            #Lists rating of movie on TMDB, also offers the user to rate the movie
+            #Input of rating will then be used to recommend a movie for user
             st.write("**TMDB Movie Rating**")
             st.write(str(round(details.vote_average,1)))
 
