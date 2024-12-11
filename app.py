@@ -83,7 +83,7 @@ with col5:
 
 with col6:
     #Option to filter according to age rating in Germany, returns movies at or below age rating
-    leftleftbox = col5.container(border=True, height = 200)
+    leftleftbox = col6.container(border=True, height = 200)
 
     ll1, ll2 = leftleftbox.columns(2)
     with ll1:
