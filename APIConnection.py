@@ -3,7 +3,7 @@ import streamlit as st
 import requests
 from tmdbv3api import TMDb, Movie, Genre, Discover, Person, Search
 
-
+#Class of
 
 class TMDbAPIClient:
     def __init__(self, api_key="eb7ed2a4be7573ea9c99867e37d0a4ab"):
@@ -59,16 +59,6 @@ class TMDbAPIClient:
             bridge_actors.append(actor["name"])
         return_actors = bridge_actors[:7]
         return return_actors
-    
-
-    def search_actor_id(self, actorname):
-        #Gets Actor ID
-        actor = self.person.search(actorname)
-        if actor:
-            actor_id = actor[0]["id"]
-            return actor_id
-        if not actor:
-            return("no actors found")
         
     
     def get_movie_details(self, movie_id):
@@ -80,6 +70,74 @@ class TMDbAPIClient:
         keywords = self.search.keywords(search)
         if keywords:
             return keywords[0].id
+        
+    def findmovie(self, selgen, actor_check, selactor, keyword_check, selkeywords, excl_check, exclkeywords, selorder, rating_check, 
+              selmin_rating, selmax_rating, selmin_votes, selmin_length, selmax_length, length_check):
+    
+        search_parameters = {}
+
+        if selgen != "None":
+                search_parameters["with_genres"] = str(self.get_genre_id(selgen))
+        
+
+        if actor_check and selactor:
+            try: 
+                selactor_id = self.person.search(selactor + " ")
+                search_parameters["with_cast"] = str(selactor_id[0].id)
+
+            except: 
+                st.write("**Actor not Included in Search**:")
+                st.write("Actor not found, please adjust actor names")
+            
+            else:
+                selactor_id = self.person.search(selactor + " ")
+                search_parameters["with_cast"] = str(selactor_id[0].id)
+
+
+        if keyword_check and selkeywords:
+            try:
+                search_parameters["with_keywords"] = str(self.get_keyword_id(selkeywords))
+
+            except:
+                st.write("**Keywords not implemented in search**:")
+                st.write("Please only use one keyword. If you have already entered only one keyword, try changing it.")
+
+            else:
+                search_parameters["with_keywords"] = str(self.get_keyword_id(selkeywords))
+
+
+        if excl_check and exclkeywords:
+            try:
+                search_parameters["without_keywords"] = str(self.get_keyword_id(exclkeywords))
+
+            except:
+                st.write("False Use of Keywords:")
+                st.write("Please only use one Keyword, if you have already entered only one Keyword, try changing it.")
+
+            else:
+                search_parameters["without_keywords"] = str(self.get_keyword_id(exclkeywords))
+        
+
+        if selorder == "Descending":
+            search_parameters["sort_by"] = "vote_average.desc"
+
+        else:
+            search_parameters["sort_by"] = "vote_average.asc"
+        
+
+        if rating_check:
+            search_parameters["vote_average.gte"] = str(selmin_rating)
+            search_parameters["vote_average.lte"] = str(selmax_rating)
+            search_parameters["vote_count.gte"] = str(selmin_votes)
+
+
+        if length_check:
+            search_parameters["with_runtime.gte"] = str(selmin_length)
+            search_parameters["with_runtime.lte"] = str(selmax_length)
+
+
+        moviesfound = self.discover.discover_movies(search_parameters)
+        return moviesfound
 
 
 Instance = TMDbAPIClient()
