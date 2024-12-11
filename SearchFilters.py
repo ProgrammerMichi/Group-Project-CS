@@ -4,7 +4,7 @@ import streamlit as st
 #This function takes all input from the main page and, depending on whether they should be included, 
 #adds them to a dictionary, which is used by the tmdbv3api to get the selected information
 
-#ChatGPT helped with idea of using an empty dictionary
+#ChatGPT gave the idea to use an empty dictionary
 
 def findmovie(selgen, actor_check, selactor, keyword_check, selkeywords, excl_check, exclkeywords, selorder, rating_check, 
               selmin_rating, selmax_rating, selmin_votes, selmin_length, selmax_length, length_check):
