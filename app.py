@@ -28,9 +28,9 @@ with col1:
     st.write("Genre")
     genrelist = ["None"]
     gl = list(Instance.get_genres(any))
-    for i in gl:
+    for i in Instance.get_genres(any):
         genrelist.append(i)
-    selgen = st.selectbox("Select Genre", options = Instance.get_genres(any))
+    selgen = st.selectbox("Select Genre", options = genrelist)
     
 
 with col2:
