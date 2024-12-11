@@ -21,6 +21,7 @@ search = Search()
 #List of all functions needed
 
 def fetch_poster(movie_id):
+    #Fetch the movie poster for the respective movie 
     url = "https://api.themoviedb.org/3/movie/" + movie_id + "?api_key=eb7ed2a4be7573ea9c99867e37d0a4ab&language=en-US"
     data = requests.get(url)
     data = data.json()
@@ -30,6 +31,7 @@ def fetch_poster(movie_id):
 
 
 def fetch_movie_description(movie_id):
+    #Fetch the movie description for the respective movie
     url = f"https://api.themoviedb.org/3/movie/{str(movie_id)}?api_key=eb7ed2a4be7573ea9c99867e37d0a4ab&language=en-US"
     data = requests.get(url)
     data = data.json()
