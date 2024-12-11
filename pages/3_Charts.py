@@ -97,4 +97,4 @@ print(f"Sample data with genres saved to {RATINGS_FILE}")
 
 # Display the CSV data as a table
 st.title("Movie Ratings with Genres")
-st.dataframe(ratings_df)
+st.dataframe(df_ratings)
