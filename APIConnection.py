@@ -153,7 +153,6 @@ class TMDbAPIClient:
 
         if age_check and selage:
             age = selage.strip("FSK ")
-            
             search_parameters["certification"] = age
             search_parameters["certification_country"] = "DE"
 
