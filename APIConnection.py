@@ -34,17 +34,17 @@ class TMDbAPIClient:
         return overview
     
     
-        #Get a list of all available genres for the dropdown menu
+        
     def get_genres(self, x = None):
-        #Create a list with only genre names
+        #Get a list of all available genres for the dropdown menu
         genres = self.genre.movie_list()
         genre_names = [genre["name"] for genre in genres]
         return genre_names
     
     
-        #Get the id for a genre, later used to filter for a specific genre
+        
     def get_genre_id(self, genre_name):
-        #Gets Genre id belonging to a certain genre
+        #Get the id for a genre, later used to filter for a specific genre
         genres = self.genre.movie_list()
         for genre in genres:
             if genre["name"].lower() == genre_name.lower():
@@ -52,8 +52,10 @@ class TMDbAPIClient:
         return None
     
     
-        #Get a list of first 7 actor of a movie
+        
     def search_actors(self, movie_id):
+        #Get a list of first 7 actor of a movie
+
         movie_credits = self.movie.credits(movie_id)
         actors = movie_credits["cast"]
         bridge_actors = []
@@ -64,32 +66,34 @@ class TMDbAPIClient:
         return return_actors
         
     
-        #Get all movie details, so you can pick which information to use/present
+        
     def get_movie_details(self, movie_id):
-        #Gets information to a film
+        #Get all movie details, so you can pick which information to use/present
         return self.movie.details(movie_id)
     
 
-        #Get the id for a keyword, later used to filter for specific keyword
+        
     def get_keyword_id(self, search):
+        #Get the id for a keyword, later used to filter for specific keyword
         keywords = self.search.keywords(search)
         if keywords:
             return keywords[0].id
         
 
 
-    #This function takes all input from the main page and, depending on whether they should be included, 
-    #adds them to a dictionary, which is used by the tmdbv3api to get the wanted information
-    #The dictionary is initally empty and depending on whether criteria has been selected (through checkmark or selection on dropdown menu)
-    #or not. If criteria with textfield is included, try blocks first test if anything is found with entered words, return string
-    #if it fails.
-    #Returned data is stored in a variable, which will then be used to get the necessary information
-
-    #ChatGPT gave the idea to use an empty dictionary
+   
 
     def findmovie(self, selgen, actor_check, selactor, keyword_check, selkeywords, excl_check, exclkeywords, selorder, rating_check, 
               selmin_rating, selmax_rating, selmin_votes, selmin_length, selmax_length, length_check, age_check, selage):
-    
+         #This function takes all input from the main page and, depending on whether they should be included, 
+        #adds them to a dictionary, which is used by the tmdbv3api to get the wanted information
+        #The dictionary is initally empty and depending on whether criteria has been selected (through checkmark or selection on dropdown menu)
+        #or not. If criteria with textfield is included, try blocks first test if anything is found with entered words, return string
+        #if it fails.
+        #Returned data is stored in a variable, which will then be used to get the necessary information
+
+        #ChatGPT gave the idea to use an empty dictionary
+
         search_parameters = {}
 
         if selgen != "None":
