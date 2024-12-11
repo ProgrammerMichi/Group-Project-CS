@@ -15,14 +15,65 @@ Instance = TMDbAPIClient("eb7ed2a4be7573ea9c99867e37d0a4ab")
 
 st.markdown("**Welcome to your personalized movie recommender!**")
 
-# File path to save ratings
+# File paths
+USERS_FILE = "users.csv"
 RATINGS_FILE = "user_ratings.csv"
 
-# Load existing ratings or initialize empty DataFrame
+# Initialize users database if not exists
+if not os.path.exists(USERS_FILE):
+    pd.DataFrame(columns=["username", "password"]).to_csv(USERS_FILE, index=False)
+
+# Load user ratings
 if os.path.exists(RATINGS_FILE):
     user_ratings = pd.read_csv(RATINGS_FILE)
 else:
     user_ratings = pd.DataFrame(columns=["userId", "movieId", "rating"])
+
+# User authentication
+def authenticate_user(username, password):
+    users = pd.read_csv(USERS_FILE)
+    user = users[(users["username"] == username) & (users["password"] == password)]
+    return not user.empty
+
+def register_user(username, password):
+    users = pd.read_csv(USERS_FILE)
+    if username in users["username"].values:
+        return False  # User already exists
+    new_user = pd.DataFrame({"username": [username], "password": [password]})
+    updated_users = pd.concat([users, new_user], ignore_index=True)
+    updated_users.to_csv(USERS_FILE, index=False)
+    return True
+
+# User login/registration
+st.sidebar.title("User Login")
+auth_action = st.sidebar.selectbox("Action", ["Login", "Register"])
+
+if auth_action == "Login":
+    username = st.sidebar.text_input("Username")
+    password = st.sidebar.text_input("Password", type="password")
+    if st.sidebar.button("Login"):
+        if authenticate_user(username, password):
+            st.sidebar.success(f"Welcome back, {username}!")
+            current_user = username
+            user_id = pd.read_csv(USERS_FILE).loc[
+                pd.read_csv(USERS_FILE)["username"] == username
+            ].index[0] + 1  # User ID is the row index + 1
+        else:
+            st.sidebar.error("Invalid credentials!")
+            current_user = None
+            user_id = None
+elif auth_action == "Register":
+    username = st.sidebar.text_input("New Username")
+    password = st.sidebar.text_input("New Password", type="password")
+    if st.sidebar.button("Register"):
+        if register_user(username, password):
+            st.sidebar.success("Registration successful! Please log in.")
+        else:
+            st.sidebar.error("Username already exists!")
+
+# Ensure user is logged in before proceeding
+if 'current_user' not in locals() or current_user is None:
+    st.stop()
 
 # Columns for filter options
 col1, col2, col3, col4, col5, col6, col7 = st.columns([2, 2, 2, 2, 2, 3, 3])
@@ -176,14 +227,13 @@ if returnmovies:
         with lc3:
             rating = st.slider(f"Rate {movie['title']}", 1, 10, key=f"slider_{movie_id}")
             if st.button(f"Save Rating for {movie['title']}", key=f"button_{movie_id}"):
-                new_rating = pd.DataFrame({"userId": [1], "movieId": [movie_id], "rating": [rating]})
+                new_rating = pd.DataFrame({"userId": [user_id], "movieId": [movie_id], "rating": [rating]})
                 user_ratings = pd.concat([user_ratings, new_rating], ignore_index=True)
                 user_ratings.to_csv(RATINGS_FILE, index=False)  # Save ratings to CSV
                 st.success(f"Rating saved for {movie['title']}")
 
 # Display recommendations
 if st.sidebar.button("Get Recommendations"):
-    user_id = 1
     recommendations = []
     for movie in returnmovies:
         score = calculate_score(movie, user_id, user_ratings)
