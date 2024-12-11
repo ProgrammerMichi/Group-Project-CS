@@ -136,7 +136,7 @@ else:
 
         
         details = Instance.get_movie_details(movie["id"])
-
+        movie_id = str(movie["id"])
 
         with lc1:
             #Getting the poster and replacing it with text if not found
@@ -152,7 +152,7 @@ else:
         with lc2:
             #Writes the movie title and
             st.write(f"**{details.title}**")
-            movie_id = str(movie["id"])
+            
             try:
                 description = Instance.fetch_movie_description(movie["id"])
             except Exception:
