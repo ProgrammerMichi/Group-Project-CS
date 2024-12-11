@@ -50,7 +50,7 @@ with col3:
 with col4:
     #Textfield offers option to exclude a keyword in search,
 
-    st.markdown("Order of Movies by Ratings")
+    st.markdown("Order of Ratings")
     selorder = st.selectbox("", ["Descending", "Ascending"])
     
 
