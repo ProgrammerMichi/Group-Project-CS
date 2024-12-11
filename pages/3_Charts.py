@@ -36,10 +36,11 @@ def fetch_genres():
 
 # Function to fetch popular movies and include genres
 def fetch_popular_movies():
-    params = {
-        'api_key': API_KEY,
-        'language': 'en-US',
-        'page': 1  # You can change the page number if you want more results
+    for page in range(1, 3):
+        params = {
+            'api_key': API_KEY,
+            'language': 'en-US',
+            'page': page  # You can change the page number if you want more results
     }
     
     response = requests.get(MOVIE_POPULAR_URL, params=params)
