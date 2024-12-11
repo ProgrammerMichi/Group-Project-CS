@@ -39,6 +39,7 @@ class TMDbAPIClient:
         genre_names = [genre["name"] for genre in genres]
         return genre_names
     
+    
     def get_genre_id(self, genre_name):
         #Gets Genre id belonging to a certain genre
         genres = self.genre.movie_list()
@@ -69,15 +70,6 @@ class TMDbAPIClient:
         if not actor:
             return("no actors found")
         
-
-    def search_movie_length(self, min_length, max_length):
-        #Looks for a movie depending on length
-        moviesbeforefilter = self.movie.popular()
-        filtered_movies = [movie for movie in moviesbeforefilter
-                           if min_length <= movie["runtime"] <= max_length]
-        return filtered_movies
-    
-
     
     def get_movie_details(self, movie_id):
         #Gets information to a film
