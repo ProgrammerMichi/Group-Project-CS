@@ -3,19 +3,27 @@ import streamlit as st
 
 #This function takes all input from the main page and, depending on whether they should be included, 
 #adds them to a dictionary, which is used by the tmdbv3api to get the selected information
+#Dictionary is initally empty and depending on whether criteria has been selected (through checkmark or selection on dropdown menu)
+#or not. If criteria with textfield is included, try blocks first tests if anything is found with entered words, returns string
+#if it fails.
+#Returned data is stored in a variable, which will then be used to get the necessary information
 
 #ChatGPT gave the idea to use an empty dictionary
 
 def findmovie(selgen, actor_check, selactor, keyword_check, selkeywords, excl_check, exclkeywords, selorder, rating_check, 
               selmin_rating, selmax_rating, selmin_votes, selmin_length, selmax_length, length_check):
+    
     search_parameters = {}
+
     if selgen != "None":
             search_parameters["with_genres"] = str(Instance.get_genre_id(selgen))
     
+
     if actor_check and selactor:
         try: 
             selactor_id = Instance.person.search(selactor + " ")
             search_parameters["with_cast"] = str(selactor_id[0].id)
+
         except: 
             st.write("**Actor not Included in Search**:")
             st.write("Actor not found, please adjust actor names")
@@ -23,6 +31,7 @@ def findmovie(selgen, actor_check, selactor, keyword_check, selkeywords, excl_ch
         else:
             selactor_id = Instance.person.search(selactor + " ")
             search_parameters["with_cast"] = str(selactor_id[0].id)
+
 
     if keyword_check and selkeywords:
         try:
@@ -47,15 +56,19 @@ def findmovie(selgen, actor_check, selactor, keyword_check, selkeywords, excl_ch
         else:
             search_parameters["without_keywords"] = str(Instance.get_keyword_id(exclkeywords))
     
+
     if selorder == "Descending":
         search_parameters["sort_by"] = "vote_average.desc"
+
     else:
         search_parameters["sort_by"] = "vote_average.asc"
     
+
     if rating_check:
         search_parameters["vote_average.gte"] = str(selmin_rating)
         search_parameters["vote_average.lte"] = str(selmax_rating)
         search_parameters["vote_count.gte"] = str(selmin_votes)
+
 
     if length_check:
         search_parameters["with_runtime.gte"] = str(selmin_length)
@@ -63,5 +76,4 @@ def findmovie(selgen, actor_check, selactor, keyword_check, selkeywords, excl_ch
 
 
     moviesfound = Instance.discover.discover_movies(search_parameters)
-
     return moviesfound
