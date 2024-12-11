@@ -44,19 +44,28 @@ with col3:
     keyword_check = st.checkbox("Include Keyword")
     selkeywords = st.text_input("Enter Keyword", key = 1)
 
+    excl_check = st.checkbox("Exclude Keyword")
+    exclkeywords = st.text_input("Enter Keyword", key = 2)
 
 with col4:
     #Textfield offers option to exclude a keyword in search,
 
-    excl_check = st.checkbox("Exclude Keyword")
-    exclkeywords = st.text_input("Enter Keyword", key = 2)
+    st.markdown("Order of Movies by Ratings")
+    selorder = st.selectbox("", ["Descending", "Ascending"])
     
 
 with col5:
     #Option to sort with descending/options ratings
+    leftleftbox = col5.container(border=True, height = 200)
 
-    st.markdown("Order of Movies by Ratings")
-    selorder = st.selectbox("", ["Descending", "Ascending"])
+    ll1, ll2 = leftleftbox.columns(2)
+    with ll1:
+        st.write("Age Restriction")
+    with ll2:
+        age_check = st.checkbox ("Apply Restriction")
+
+    selage = leftleftbox.selectbox("", ["FSK 0", "FSK 6", "FSK 12", "FSK 16", "FSK 18"])
+    
 
 
 with col6:

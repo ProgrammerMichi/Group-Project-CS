@@ -88,7 +88,7 @@ class TMDbAPIClient:
     #ChatGPT gave the idea to use an empty dictionary
 
     def findmovie(self, selgen, actor_check, selactor, keyword_check, selkeywords, excl_check, exclkeywords, selorder, rating_check, 
-              selmin_rating, selmax_rating, selmin_votes, selmin_length, selmax_length, length_check):
+              selmin_rating, selmax_rating, selmin_votes, selmin_length, selmax_length, length_check, age_check, selage):
     
         search_parameters = {}
 
@@ -151,10 +151,16 @@ class TMDbAPIClient:
             search_parameters["with_runtime.gte"] = str(selmin_length)
             search_parameters["with_runtime.lte"] = str(selmax_length)
 
+        if age_check and selage:
+            age = selage.strip("FSK ")
+            search_parameters["region"] = "DE"
+            search_parameters["certifcation"] = age
+            search_parameters["certification_country"] = "DE"
 
         moviesfound = self.discover.discover_movies(search_parameters)
         return moviesfound
-
+    
+        
 
 Instance = TMDbAPIClient()
 
