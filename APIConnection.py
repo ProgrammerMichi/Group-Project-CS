@@ -3,6 +3,8 @@ import streamlit as st
 import requests
 from tmdbv3api import TMDb, Movie, Genre, Discover, Person, Search, Keyword
 
+Instance = TMDbAPIClient("eb7ed2a4be7573ea9c99867e37d0a4ab")
+
 class TMDbAPIClient:
     def __init__(self, api_key="eb7ed2a4be7573ea9c99867e37d0a4ab"):
         self.tmdb = TMDb()
