@@ -19,7 +19,7 @@ st.markdown("**Welcome to your personalized movie recommender!**")
 USERS_FILE = "users.csv"
 RATINGS_FILE = "user_ratings.csv"
 
-# Initialize users database if not exists
+# Initialize user database if not exists
 if not os.path.exists(USERS_FILE):
     pd.DataFrame(columns=["username", "password"]).to_csv(USERS_FILE, index=False)
 
@@ -36,7 +36,7 @@ if "user_ratings" not in st.session_state:
     else:
         st.session_state.user_ratings = pd.DataFrame(columns=["userId", "movieId", "rating"])
 
-# User authentication
+# Authentication functions
 def authenticate_user(username, password):
     users = pd.read_csv(USERS_FILE)
     user = users[(users["username"] == username) & (users["password"] == password)]
@@ -172,5 +172,16 @@ if returnmovies:
             rating = st.slider(f"Rate {movie['title']}", 1, 10, key=f"slider_{movie_id}")
             if st.button(f"Save Rating for {movie['title']}", key=f"button_{movie_id}"):
                 save_rating(movie_id, rating)
-                st.success(f"Rating saved for {movie['title']}")
-                
+                st.success(f"Rating saved for {movie['title']}!")
+
+# Recommendations (Sidebar)
+if st.sidebar.button("Get Recommendations"):
+    recommendations = []
+    for movie in returnmovies:
+        score = calculate_score(movie, st.session_state.user_id, st.session_state.user_ratings)
+        recommendations.append((movie, score))
+
+    recommendations = sorted(recommendations, key=lambda x: x[1], reverse=True)[:5]
+    st.sidebar.markdown("### Recommended Movies:")
+    for movie, score in recommendations:
+        st.sidebar.write(f"{movie['title']} - Score: {round(score, 2)}")
