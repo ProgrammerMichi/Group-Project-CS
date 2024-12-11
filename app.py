@@ -132,8 +132,13 @@ def findmovie():
 
     return moviesfound
 
-returnmovies = findmovie()
-if returnmovies:
+try:
+    returnmovies = findmovie()
+
+except:
+    print("No Movies Fitting the Criteria Found")
+
+else: 
     slidercount = 3
     for movie in returnmovies:
         
