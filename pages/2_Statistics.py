@@ -20,6 +20,7 @@ genre_avg_ratings = ratings_df.groupby('primary_genre')['rating'].mean().reset_i
 fig = px.bar(genre_avg_ratings, x='primary_genre', y='rating', 
              title="Average Rating by Genre", 
              labels={'primary_genre': 'Genre', 'rating': 'Average Rating'})
+fig.update_layout(width=600)
 st.plotly_chart(fig)
 
 
