@@ -170,6 +170,8 @@ else:
         
         with lc4:
             #Listing movie length in hours and minutes instead of only minutes
+            #Also lists release date
+
             st.write("**Movie Length:**")
             
             length = details.runtime
@@ -180,8 +182,7 @@ else:
             st.text("")
 
             st.write("**Release Date**")
-            rd = str(details.release_date)
-            st.write(rd) 
+            st.write(str(details.release_date)) 
 
         with lc5:
             st.write("**TMDB Movie Rating**")
