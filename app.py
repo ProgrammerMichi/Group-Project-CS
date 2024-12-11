@@ -36,14 +36,16 @@ with col1:
 with col2:
     #Textfield offers option to include an actor in search, 
 
-    actor_check = st.checkbox("Actor")
+    actor_check = st.checkbox("Include Actor")
     selactor = st.text_input("Enter Actor")
+
 
 with col3:
     #Textfield offers option to include a keyword in search,
 
     keyword_check = st.checkbox("Include Keyword")
     selkeywords = st.text_input("Enter Keyword", key = 1)
+
 
 with col4:
     #Textfield offers option to include a keyword in search,
@@ -102,16 +104,26 @@ with col7:
     with col7_2:
         selmax_length = st.number_input("Maximum Length (in min)", min_value=0)
 
-  
+
+#Results of search function stored in variable
+
 returnmovies = findmovie(selgen, actor_check, selactor, keyword_check, selkeywords, excl_check, exclkeywords, selorder, rating_check, selmin_rating, selmax_rating, selmin_votes, selmin_length, selmax_length, length_check)
 
+
+#Try function tests whether movies have been found
 try:
     for movie in returnmovies:
         movie_id = str(movie["id"])
 
+
+#Except function returns that no movies where found in case the try function fails
 except:
     st.write("No Movies Fitting the Criteria Found")
 
+
+#Else function creates for loop which creates a list of containers on the site,
+#including some information and option to rate the movie. 
+#Rating is stored on the site and fed into machine learning system to later be able to make a fitting recommendation
 else: 
     slidercount = 3
     for movie in returnmovies:
