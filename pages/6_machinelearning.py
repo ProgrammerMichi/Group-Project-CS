@@ -173,3 +173,4 @@ if returnmovies:
             if st.button(f"Save Rating for {movie['title']}", key=f"button_{movie_id}"):
                 save_rating(movie_id, rating)
                 st.success(f"Rating saved for {movie['title']}")
+                
