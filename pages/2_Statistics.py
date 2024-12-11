@@ -1,11 +1,9 @@
 import streamlit as st
+import pandas as pd
 
-# Tab Title
-st.set_page_config(page_title="Statistics", page_icon="📊", layout="wide")
+# Load the ratings data from the CSV file
+ratings_df = pd.read_csv("ratings_with_genres_sample.csv")
 
-
-# Title & Intro
-st.title("Statistics")
-st.write("""
-    Find here all kinds of statistics.
-    """)
+# Display the CSV data as a table
+st.title("Movie Ratings with Genres")
+st.dataframe(ratings_df)
