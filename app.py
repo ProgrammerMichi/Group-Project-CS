@@ -30,7 +30,7 @@ with col1:
     gl = list(Instance.get_genres(any))
     for i in Instance.get_genres(any):
         genrelist.append(i)
-    selgen = st.selectbox("Select Genre", options = genrelist)
+    selgen = st.selectbox("Select Genre", options = Instance.get_genres(any).insert(0, "None"))
     
 
 with col2:
