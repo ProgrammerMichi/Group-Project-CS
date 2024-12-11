@@ -54,7 +54,7 @@ with col3:
 
 with col4:
     
-    st.write("Search by Title")
+    title_check = st.checkbox("Search by Title")
     seltitle = st.text_input("")
     
 
@@ -117,8 +117,9 @@ with col7:
 #Results of search function stored in variable
 
 returnmovies = Instance.findmovie(selgen, actor_check, selactor, keyword_check, selkeywords, excl_check, exclkeywords, selorder, rating_check, selmin_rating, selmax_rating, selmin_votes, selmin_length, selmax_length, length_check, age_check, selage)
-
-
+if returnmovies and title_check:
+    st.write("Searching titles only works without any additional criteria selected")
+    st.write("Searching by criteria only works without any Title")
 #Try block tests whether movies have been found
 try:
     for movie in returnmovies:
