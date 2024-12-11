@@ -21,7 +21,7 @@ st.write("")
 col1, col2, col3, col4, col5, col6, col7 = st.columns([2,2,2,2,3,3,3])
 
 #Checkboxes coming up enable/disable inclusion of respective criteria in the search function
-#they are stored in variables later used in search function respectively
+#All variables (checkboxes and others) are stored in variables, which are later used in the search function
 with col1:
     #Dropdown menu with all available genres as options, chosen genre is saved in a variable
 
@@ -35,21 +35,18 @@ with col1:
 
 with col2:
     #Textfield offers option to include an actor in search, 
-    #stored in variable which will then be used in the search function
 
     actor_check = st.checkbox("Actor")
     selactor = st.text_input("Enter Actor")
 
 with col3:
     #Textfield offers option to include a keyword in search,
-    #stored in variable later used in search function
 
     keyword_check = st.checkbox("Include Keyword")
     selkeywords = st.text_input("Enter Keyword", key = 1)
 
 with col4:
     #Textfield offers option to include a keyword in search,
-    #stored in variable later used in search function
 
     excl_check = st.checkbox("Exclude Keyword")
     exclkeywords = st.text_input("Enter Keyword", key = 2)
@@ -57,15 +54,14 @@ with col4:
 
 with col5:
     #Option to sort with descending/options ratings
-    #stored in variable later used in search function
 
     st.markdown("Order of Movies by Ratings")
     selorder = st.selectbox("", ["Descending", "Ascending"])
 
 
 with col6:
-    #Option to enter minimum/maximum rating of movies and minimum amount of votes on respective movies
-    #stored in variables later used in search function
+    #Option to filter according to minimum/maximum rating of movie
+    #and minimum amount of votes on respective movies
 
     leftbox = col6.container(border=True, height=275)
 
@@ -88,7 +84,7 @@ with col6:
     
     
 with col7:
-
+    #Option to filter according to minimum/maximum length of movie
 
     rightbox = col7.container(border=True, height=200)
 
