@@ -117,7 +117,7 @@ if title_check == False:
     returnmovies = Instance.findmovie(selgen, actor_check, selactor, keyword_check, selkeywords, excl_check, exclkeywords, selorder, rating_check, selmin_rating, selmax_rating, selmin_votes, selmin_length, selmax_length, length_check, age_check, selage)
 
 if selgen == "None":
-    selgen = None
+    selgen = False
 
 conditions = [selgen, actor_check, rating_check, keyword_check, excl_check, rating_check, age_check, length_check]
 
@@ -126,7 +126,7 @@ if any(conditions) and title_check:
     st.write("You can only search for titles without any additional criteria selected")
     st.write("You can only search by criteria without any title")
 
-if not conditions and title_check == False:
+if not conditions and title_check == True:
     #Results of search function stored in variable
     st.write("helo")
 
