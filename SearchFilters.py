@@ -1,7 +1,7 @@
 from APIConnection import Instance
 import streamlit as st
 
-def findmovie(selgen, actor_check, keyword_check, excl_check, selorder, rating_check, length_check, selactor = None, selkeywords = None, exclkeywords = None, selmin_rating = None, selmax_rating = None, selmin_votes = None, selmin_length = None, selmax_length = None):
+def findmovie(selgen, actor_check, selactor, keyword_check, selkeywords, excl_check, exclkeywords, selorder, rating_check, selmin_rating, selmax_rating, selmin_votes, selmin_length, selmax_length, length_check):
     search_parameters = {}
     if selgen != "None":
             search_parameters["with_genres"] = str(Instance.get_genre_id(selgen))
