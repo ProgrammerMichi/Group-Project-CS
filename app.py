@@ -140,7 +140,7 @@ try:
         movie_id = str(movie["id"])
 
 except:
-    print("No Movies Fitting the Criteria Found")
+    st.write("No Movies Fitting the Criteria Found")
 
 else: 
     slidercount = 3
