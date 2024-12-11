@@ -4,7 +4,7 @@ import streamlit as st
 #This function takes all input from the main page and, depending on whether they should be included, 
 #adds them to a dictionary, which is used by the tmdbv3api to get the selected information
 
-#ChatGPT helped with basic idea of this function(how to manage input that can be turned on/off) 
+#ChatGPT helped with idea of using an empty dictionary
 
 def findmovie(selgen, actor_check, selactor, keyword_check, selkeywords, excl_check, exclkeywords, selorder, rating_check, 
               selmin_rating, selmax_rating, selmin_votes, selmin_length, selmax_length, length_check):
@@ -17,8 +17,8 @@ def findmovie(selgen, actor_check, selactor, keyword_check, selkeywords, excl_ch
             selactor_id = Instance.person.search(selactor + " ")
             search_parameters["with_cast"] = str(selactor_id[0].id)
         except: 
-            st.write("**Actor not Found**:")
-            st.write("Please adjust actor names")
+            st.write("**Actor not Included in Search**:")
+            st.write("Actor not found, please adjust actor names")
         
         else:
             selactor_id = Instance.person.search(selactor + " ")
