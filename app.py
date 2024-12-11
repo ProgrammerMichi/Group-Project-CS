@@ -126,7 +126,7 @@ if any(conditions) and title_check:
     st.write("You can only search for titles without any additional criteria selected")
     st.write("You can only search by criteria without any title")
 
-if not conditions and title_check == True:
+if not any(conditions) and title_check == True:
     #Results of search function stored in variable
     st.write("helo")
 
