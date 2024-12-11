@@ -15,6 +15,7 @@ st.set_page_config(page_title="Movie Recommender", page_icon="🎞️", layout="
 st.title("🎞️ Movie Recommender")
 
 st.markdown("**Welcome to our Movie Recommender!**")
+st.markdown("Receive a movie list based on criteria you select, rate the movies and get a recommendation adapted to your likings!")
 
 col1, col2, col3, col4, col5, col6, col7 = st.columns([2,2,2,2,3,3,3])
 
