@@ -3,4 +3,3 @@ tmdbv3api
 pandas
 numpy
 scikit-surprise
-streamlit-option-menu

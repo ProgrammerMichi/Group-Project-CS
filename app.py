@@ -1,6 +1,4 @@
 import streamlit as st
-from streamlit_option_menu import option_menu
-from tmdbv3api import TMDb, Movie, Genre, Discover, Person
 #import pandas
 #import numpy
 #import surprise
