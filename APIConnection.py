@@ -194,7 +194,7 @@ class TMDbAPIClient:
                     
                     #Design of each list entry, columns in order to have elements on the same line
                     movielisting = st.container(border= True, height = 360)
-                    lc1, lc2, lc3, lc4, lc5 = movielisting.columns([0.61,1,1,1,1])
+                    lc1, lc2, lc3, lc4, lc5 = movielisting.columns([0.55,1,1,1,1])
 
                     #Storing movie id in variable for each loop, in order to use it as argument in later functions
                     #Tried using movie["id"] directly instead of doing a detour with variable, gave an error in some places for some reason
