@@ -90,14 +90,7 @@ with col7:
     with col7_2:
         selmax_length = st.number_input("Maximum Length (in min)", min_value=0)
 
-
-    
-
-
- #ChatGPT helped with basic idea of this function(how to manage input that can be turned on/off)   
-
-
-
+  
 returnmovies = findmovie(selgen, actor_check, selactor, keyword_check, selkeywords, excl_check, exclkeywords, selorder, rating_check, selmin_rating, selmax_rating, selmin_votes, selmin_length, selmax_length, length_check)
 
 try:
