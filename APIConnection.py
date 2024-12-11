@@ -183,8 +183,8 @@ def movielist(returnmovies):
     else:
         #Try block tests whether movies have been found
         try:
-            for movie in returnmovies:
-                movie_id = str(movie["id"])
+            for i in returnmovies:
+                movie_id = str(i["id"])
 
 
         #Except block returns string in case the no movies are found
@@ -196,7 +196,7 @@ def movielist(returnmovies):
         #including some information and option to rate the movie. 
         #Rating is stored on the site and fed into machine learning system to later be able to make a fitting recommendation
         else: 
-            for movie in returnmovies:
+            for i in returnmovies:
                 
                 #Design of each list entry, columns in order to have elements on the same line
                 movielisting = st.container(border= True, height = 360)
@@ -204,7 +204,7 @@ def movielist(returnmovies):
 
                 #Storing movie id in variable for each loop, in order to use it as argument in later functions
                 #Tried using movie["id"] directly instead of doing a detour with variable, gave an error in some places for some reason
-                movie_id = str(movie["id"])
+                movie_id = str(i["id"])
                 details = get_movie_details(movie_id)
 
                 with lc1:
@@ -214,7 +214,7 @@ def movielist(returnmovies):
                     except Exception: 
                         st.write(st.write("No Poster Available"))
                     else:
-                        st.image(poster_url, caption=movie["title"])
+                        st.image(poster_url, caption=i["title"])
 
                         
 
