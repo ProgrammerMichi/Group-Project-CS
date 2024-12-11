@@ -54,8 +54,8 @@ with col3:
 
 with col4:
     
-    title_check = st.checkbox("Search by Title")
-    seltitle = st.text_input("")
+    st.write("Search by Title")
+    
     
 
 with col5:
@@ -114,107 +114,94 @@ with col7:
         selmax_length = st.number_input("Maximum Length (in min)", min_value=0)
 
 
+#Results of search function stored in variable
+
+returnmovies = Instance.findmovie(selgen, actor_check, selactor, keyword_check, selkeywords, excl_check, exclkeywords, selorder, rating_check, selmin_rating, selmax_rating, selmin_votes, selmin_length, selmax_length, length_check, age_check, selage)
 
 
-if selgen or actor_check or rating_check or keyword_check or excl_check or rating_check or age_check or length_check and title_check:
-    st.write("Searching titles only works without any additional criteria selected")
-    st.write("Searching by criteria only works without any Title")
-
-if selgen != "None" or actor_check or rating_check or keyword_check or excl_check or rating_check or age_check or length_check and title_check == False:
-    #Results of search function stored in variable
-    returnmovies = Instance.findmovie(selgen, actor_check, selactor, keyword_check, selkeywords, excl_check, exclkeywords, selorder, rating_check, selmin_rating, selmax_rating, selmin_votes, selmin_length, selmax_length, length_check, age_check, selage)
-
+#Try block tests whether movies have been found
 try:
-    returnmovies
+    for movie in returnmovies:
+        movie_id = str(movie["id"])
+
+
+#Except block returns string in case the try block fails
 except:
-    st.write("") 
-
-else:
-
-    #Try block tests whether movies have been found
-    try:
-        for movie in returnmovies:
-            movie_id = str(movie["id"])
+    st.write("No Movies Fitting the Criteria Found")
 
 
-    #Except block returns string in case the try block fails
-    except:
-        st.write("No Movies Fitting the Criteria Found")
+#Else block creates for loop which creates a list of movies on the page,
+#including some information and option to rate the movie. 
+#Rating is stored on the site and fed into machine learning system to later be able to make a fitting recommendation
+else: 
+    slidercount = 3
+    for movie in returnmovies:
+        
+        #Design of each list entry, columns in order to have elements on the same line
+        movielisting = st.container(border= True, height = 360)
+        lc1, lc2, lc3, lc3_5, lc4, lc5 = movielisting.columns([0.61,1,1,0.8,1,1])
 
+        #Storing movie id in variable for each loop, in order to use it as argument in later functions
+        #Tried using movie["id"] directly instead of doing a detour with variable, gave an error in some places for some reason
+        movie_id = str(movie["id"])
+        details = Instance.get_movie_details(movie_id)
 
-    #Else block creates for loop which creates a list of movies on the page,
-    #including some information and option to rate the movie. 
-    #Rating is stored on the site and fed into machine learning system to later be able to make a fitting recommendation
-    else: 
-        slidercount = 3
-        for movie in returnmovies:
-            
-            #Design of each list entry, columns in order to have elements on the same line
-            movielisting = st.container(border= True, height = 360)
-            lc1, lc2, lc3, lc3_5, lc4, lc5 = movielisting.columns([0.61,1,1,0.8,1,1])
-
-            #Storing movie id in variable for each loop, in order to use it as argument in later functions
-            #Tried using movie["id"] directly instead of doing a detour with variable, gave an error in some places for some reason
-            movie_id = str(movie["id"])
-            details = Instance.get_movie_details(movie_id)
-
-            with lc1:
-                #Getting the poster and replacing it with text if not found
-                try:
-                    poster_url = Instance.fetch_poster(movie_id)
-                except Exception: 
-                    st.write(st.write("No Poster Available"))
-                else:
-                    st.image(poster_url, caption=movie["title"])
-
-                    
-
-            with lc2:
-                #Writes the movie title and offers option to read movie description with a button
-                st.write(f"**{details.title}**")
-                try:
-                    description = Instance.fetch_movie_description(movie_id)
-                except Exception:
-                    st.write(st.write("No Description Available"))
-                else:
-                    with st.popover("View Movie Description"):
-                        st.write(description)
-
+        with lc1:
+            #Getting the poster and replacing it with text if not found
+            try:
+                poster_url = Instance.fetch_poster(movie_id)
+            except Exception: 
+                st.write(st.write("No Poster Available"))
+            else:
+                st.image(poster_url, caption=movie["title"])
 
                 
-            with lc3:
-                #Lists first 7 listed actors, if available
-                st.write("**Lead Actors:**")
-                for i in Instance.search_actors(movie_id):
-                    st.write(i)
+
+        with lc2:
+            #Writes the movie title and offers option to read movie description with a button
+            st.write(f"**{details.title}**")
+            try:
+                description = Instance.fetch_movie_description(movie_id)
+            except Exception:
+                st.write(st.write("No Description Available"))
+            else:
+                with st.popover("View Movie Description"):
+                    st.write(description)
+
 
             
-            with lc4:
-                #Listing movie length in hours and minutes instead of only minutes
-                #Also lists release date
+        with lc3:
+            #Lists first 7 listed actors, if available
+            st.write("**Lead Actors:**")
+            for i in Instance.search_actors(movie_id):
+                st.write(i)
 
-                st.write("**Movie Length:**")
-                
-                length = details.runtime
-                st.write(str(length // 60),"hours", str(length % 60),"min")
+        
+        with lc4:
+            #Listing movie length in hours and minutes instead of only minutes
+            #Also lists release date
 
-                st.text("")
-                st.text("")
-                st.text("")
+            st.write("**Movie Length:**")
+            
+            length = details.runtime
+            st.write(str(length // 60),"hours", str(length % 60),"min")
 
-                st.write("**Release Date**")
-                st.write(str(details.release_date)) 
+            st.text("")
+            st.text("")
+            st.text("")
 
-            with lc5:
-                #Lists rating of movie on TMDB, also offers the user to rate the movie
-                #Input of rating will then be used to recommend a movie for user
-                st.write("**TMDB Movie Rating**")
-                st.write(str(round(details.vote_average,1)))
+            st.write("**Release Date**")
+            st.write(str(details.release_date)) 
 
-                st.text("")
-                st.text("")
-                st.text("")
-                
-                st.slider("**Your Personal Rating**",min_value=1, max_value=10, key = slidercount)
-            slidercount += 1
+        with lc5:
+            #Lists rating of movie on TMDB, also offers the user to rate the movie
+            #Input of rating will then be used to recommend a movie for user
+            st.write("**TMDB Movie Rating**")
+            st.write(str(round(details.vote_average,1)))
 
+            st.text("")
+            st.text("")
+            st.text("")
+            
+            st.slider("**Your Personal Rating**",min_value=1, max_value=10, key = slidercount)
+        slidercount += 1
