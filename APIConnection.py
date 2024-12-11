@@ -14,7 +14,6 @@ class TMDbAPIClient:
         self.person = Person()
         self.discover = Discover()
         self.search = Search()
-        self.keyword = Keyword()
 
 
     def fetch_poster(self, movie_id):
