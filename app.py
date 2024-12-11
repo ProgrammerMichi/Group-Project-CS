@@ -115,6 +115,7 @@ with col7:
     with col7_2:
         selmax_length = st.number_input("Maximum Length (in min)", min_value=0)
 
+
 #As searching by title and by other criteria are separate, movies of certain criteria only have to be searched for 
 #when one isn't searching by title. This ensures that a list such movies will only be returned if search for title is turned off:
 if title_check == False:
