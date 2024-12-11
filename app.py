@@ -12,7 +12,7 @@ st.set_page_config(page_title="Movie Recommender", page_icon="🎞️", layout="
 
 # Title & Intro
 st.title("🎞️ Movie Recommender")
-st.markdown("**Welcomee to our Movie Recommender!**")
+st.markdown("**Welcome to our Movie Recommender!**")
 st.markdown("Receive a movie list based on criteria you select, rate the movies and get a recommendation adapted to your likings!")
 st.write("")
 

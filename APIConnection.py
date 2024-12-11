@@ -18,6 +18,8 @@ discover = Discover()
 search = Search()
 
 
+#List of all functions needed
+
 def fetch_poster(movie_id):
     url = "https://api.themoviedb.org/3/movie/" + movie_id + "?api_key=eb7ed2a4be7573ea9c99867e37d0a4ab&language=en-US"
     data = requests.get(url)
@@ -73,9 +75,9 @@ def get_movie_details(movie_id):
 
 
     
-def get_keyword_id(search):
+def get_keyword_id(term):
     #Get the id for a keyword, later used to filter for specific keyword
-    keywords = search.keywords(search)
+    keywords = search.keywords(term)
     if keywords:
         return keywords[0].id
 
