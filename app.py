@@ -20,7 +20,7 @@ st.write("")
 col1, col2, col3, col4, col5, col6, col7 = st.columns([2,2,2,2,3.2,3,3])
 
 #Checkboxes coming up enable/disable inclusion of respective criteria in the search function
-#All variables (checkboxes and those of search criteria) are stored in variables, which are later used in the search function
+#All inputs (checkboxes and search criteria) are stored in variables, which are later used in the search function
 with col1:
     #Dropdown menu with all available genres as options, chosen genre is saved in a variable
 
@@ -136,7 +136,7 @@ else:
         
         #Design of each list entry, columns in order to have elements on the same line
         movielisting = st.container(border= True, height = 360)
-        lc1, lc2, lc3, lc3_5, lc4, lc5 = movielisting.columns([0.85,1,1,0.8,1,1])
+        lc1, lc2, lc3, lc3_5, lc4, lc5 = movielisting.columns([0.8,1,1,0.8,1,1])
 
         #Storing movie id in variable for each loop, in order to use it as argument in later functions
         #Tried using movie["id"] directly instead of doing a detour with variable, gave an error in some places for some reason
