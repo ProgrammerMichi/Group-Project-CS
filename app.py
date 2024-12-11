@@ -124,7 +124,13 @@ if selgen != "None" or actor_check or rating_check or keyword_check or excl_chec
     #Results of search function stored in variable
     returnmovies = Instance.findmovie(selgen, actor_check, selactor, keyword_check, selkeywords, excl_check, exclkeywords, selorder, rating_check, selmin_rating, selmax_rating, selmin_votes, selmin_length, selmax_length, length_check, age_check, selage)
 
-if returnmovies:
+try:
+    returnmovies
+except:
+    st.write("") 
+
+else:
+    
     #Try block tests whether movies have been found
     try:
         for movie in returnmovies:
