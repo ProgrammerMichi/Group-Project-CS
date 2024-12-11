@@ -110,18 +110,18 @@ with col7:
 returnmovies = findmovie(selgen, actor_check, selactor, keyword_check, selkeywords, excl_check, exclkeywords, selorder, rating_check, selmin_rating, selmax_rating, selmin_votes, selmin_length, selmax_length, length_check)
 
 
-#Try function tests whether movies have been found
+#Try block tests whether movies have been found
 try:
     for movie in returnmovies:
         movie_id = str(movie["id"])
 
 
-#Except function returns that no movies where found in case the try function fails
+#Except block returns string in case the try block fails
 except:
     st.write("No Movies Fitting the Criteria Found")
 
 
-#Else function creates for loop which creates a list of movies on the page,
+#Else block creates for loop which creates a list of movies on the page,
 #including some information and option to rate the movie. 
 #Rating is stored on the site and fed into machine learning system to later be able to make a fitting recommendation
 else: 
