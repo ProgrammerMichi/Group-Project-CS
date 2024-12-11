@@ -133,10 +133,8 @@ else:
         lc1, lc2, lc3, lc3_5, lc4, lc5 = movielisting.columns([0.85,1,1,0.8,1,1])
 
 
-
-        
-        details = Instance.get_movie_details(movie["id"])
         movie_id = str(movie["id"])
+        details = Instance.get_movie_details(movie["id"])
 
         with lc1:
             #Getting the poster and replacing it with text if not found
@@ -152,9 +150,8 @@ else:
         with lc2:
             #Writes the movie title and
             st.write(f"**{details.title}**")
-            
             try:
-                description = Instance.fetch_movie_description(movie["id"])
+                description = Instance.fetch_movie_description(movie_id)
             except Exception:
                 st.write(st.write("No Description Available"))
             else:
@@ -165,7 +162,7 @@ else:
             
         with lc3:
             st.write("**Lead Actors:**")
-            for i in Instance.search_actors(movie["id"]):
+            for i in Instance.search_actors(movie_id):
                 st.write(i)
 
         
