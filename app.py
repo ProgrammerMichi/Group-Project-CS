@@ -114,7 +114,7 @@ else:
             except Exception: 
                 st.write(st.write("No Poster Available"))
             else:
-                st.image(poster_url, caption=movie["title"], use_column_width=True)
+                st.image(poster_url, caption=movie["title"])
 
                 
 
