@@ -123,8 +123,8 @@ conditions = [selgen, actor_check, rating_check, keyword_check, excl_check, rati
 
 
 if any(conditions) and title_check:
-    st.write("Searching titles only works without any additional criteria selected")
-    st.write("Searching by criteria only works without any title")
+    st.write("You can only search for titles without any additional criteria selected")
+    st.write("You can only search by criteria without any title")
 
 if any(conditions) and title_check == False:
     #Results of search function stored in variable
