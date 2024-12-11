@@ -3,11 +3,11 @@ import streamlit as st
 import requests
 from tmdbv3api import TMDb, Movie, Genre, Discover, Person, Search
 
-#Class with all functions that interact with the tmdbv3api 
-#f
+
 
 class TMDbAPIClient:
     def __init__(self, api_key="eb7ed2a4be7573ea9c99867e37d0a4ab"):
+        #Instantiating the different APIs 
         self.tmdb = TMDb()
         self.tmdb.api_key = api_key
         self.movie = Movie()
@@ -16,7 +16,7 @@ class TMDbAPIClient:
         self.discover = Discover()
         self.search = Search()
 
-
+    
     def fetch_poster(self, movie_id):
         url = "https://api.themoviedb.org/3/movie/" + movie_id + "?api_key=eb7ed2a4be7573ea9c99867e37d0a4ab&language=en-US"
         data = requests.get(url)
@@ -34,6 +34,7 @@ class TMDbAPIClient:
         return overview
     
     
+        #Get a list of all available genres for the dropdown menu
     def get_genres(self, x = None):
         #Create a list with only genre names
         genres = self.genre.movie_list()
@@ -41,6 +42,7 @@ class TMDbAPIClient:
         return genre_names
     
     
+        #Get the id for a genre, later used to filter for a specific genre
     def get_genre_id(self, genre_name):
         #Gets Genre id belonging to a certain genre
         genres = self.genre.movie_list()
@@ -50,8 +52,8 @@ class TMDbAPIClient:
         return None
     
     
+        #Get a list of first 7 actor of a movie
     def search_actors(self, movie_id):
-        #Gets actors of a movie based on movie id
         movie_credits = self.movie.credits(movie_id)
         actors = movie_credits["cast"]
         bridge_actors = []
@@ -62,11 +64,13 @@ class TMDbAPIClient:
         return return_actors
         
     
+        #Get all movie details, so you can pick which information to use/present
     def get_movie_details(self, movie_id):
         #Gets information to a film
         return self.movie.details(movie_id)
     
-    
+
+        #Get the id for a keyword, later used to filter for specific keyword
     def get_keyword_id(self, search):
         keywords = self.search.keywords(search)
         if keywords:
