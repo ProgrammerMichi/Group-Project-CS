@@ -3,7 +3,7 @@ import streamlit as st
 #import numpy
 #import surprise
 #import os
-from APIConnection import get_genres, findmovie, movielist, search_movie
+from APIConnection import Instance
 import pandas as pd
 import numpy as np
 
@@ -28,7 +28,7 @@ with col1:
 
     st.write("Genre")
     genrelist = ["None"]
-    for i in get_genres(any):
+    for i in Instance.get_genres(any):
         genrelist.append(i)
     selgen = st.selectbox("Select Genre", options = genrelist)
     
@@ -119,8 +119,8 @@ with col7:
 #As searching by title and by other criteria are separate, movies of certain criteria only have to be searched for 
 #when one isn't searching by title. This ensures that a list such movies will only be returned if search for title is turned off:
 if title_check == False:
-    returnmovies = findmovie(selgen, actor_check, selactor, keyword_check, selkeywords, excl_check, exclkeywords, selorder, rating_check, selmin_rating, selmax_rating, selmin_votes, selmin_length, selmax_length, length_check, age_check, selage)
-    movielist(returnmovies)
+    returnmovies = Instance.findmovie(selgen, actor_check, selactor, keyword_check, selkeywords, excl_check, exclkeywords, selorder, rating_check, selmin_rating, selmax_rating, selmin_votes, selmin_length, selmax_length, length_check, age_check, selage)
+    Instance.movielist(returnmovies)
 
 #This makes sure that search by title and search by criteria do not interfere with each other and lets the user know if they do:
 if selgen == "None":
@@ -134,5 +134,5 @@ if any(conditions) and title_check:
 
 #List of movies when searching by title:
 if not any(conditions) and title_check == True and seltitle:
-    movietitle = search_movie(seltitle)
-    movielist(movietitle)
+    movietitle = Instance.search_movie(seltitle)
+    Instance.movielist(movietitle)
