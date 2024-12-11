@@ -102,9 +102,17 @@ def findmovie():
     if selgen != "Select":
             search_parameters["with_genres"] = str(Instance.get_genre_id(selgen))
     
-    if actor_check and selactor: 
-        selactor_id = Instance.person.search(selactor)
-        search_parameters["with_cast"] = str(selactor_id[0].id)
+    if actor_check and selactor:
+        try: 
+            selactor_id = Instance.person.search(selactor)
+        
+        except: 
+            st.write("**Actor not Found**:")
+            st.write("Please adjust actor names")
+        
+        else:
+            selactor_id = Instance.person.search(selactor)
+            search_parameters["with_cast"] = str(selactor_id[0].id)
 
     if keyword_check and selkeywords:
         try:
