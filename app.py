@@ -127,30 +127,11 @@ if any(conditions) and title_check:
     st.write("You can only search by criteria without any title")
 
 if not any(conditions) and title_check == True:
-    #Results of search function stored in variable
+    
     st.write("helo")
-
-try:
-    any(returnmovies)
-
-except:
-    st.write("") 
-
-else:
-    #Try block tests whether movies have been found
-    try:
-        for movie in returnmovies:
-            movie_id = str(movie["id"])
+    movietitle = Instance.search_movie(seltitle)
+    
 
 
-    #Except block returns string in case the try block fails
-    except:
-        st.write("No Movies Fitting the Criteria Found")
-
-
-    #Else block creates for loop which creates a list of movies on the page,
-    #including some information and option to rate the movie. 
-    #Rating is stored on the site and fed into machine learning system to later be able to make a fitting recommendation
-    else: 
-        Instance.movielist(returnmovies)
+Instance.movielist(returnmovies)
 
