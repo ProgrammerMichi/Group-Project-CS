@@ -5,7 +5,7 @@ from tmdbv3api import TMDb, Movie, Genre, Discover, Person
 #import numpy
 #import surprise
 #import os
-from Instantiation import Instance
+from APIConnection import TMDbAPIClient
 import pandas as pd
 import numpy as np
 
@@ -15,7 +15,7 @@ st.set_page_config(page_title="Movie Recommender", page_icon="🎞️", layout="
 # Title & Intro
 st.title("🎞️ Movie Recommender")
 
-
+Instance = TMDbAPIClient("eb7ed2a4be7573ea9c99867e37d0a4ab")
 
 st.markdown("**ho!**")
 
