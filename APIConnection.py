@@ -6,11 +6,11 @@ from tmdbv3api import TMDb, Movie, Genre, Discover, Person, Search
 
 
 
-api_key="eb7ed2a4be7573ea9c99867e37d0a4ab"
+
 
 #Instantiating the different APIs 
 tmdb = TMDb()
-tmdb.api_key = api_key
+tmdb.api_key = "eb7ed2a4be7573ea9c99867e37d0a4ab"
 movie = Movie()
 genre = Genre()
 person = Person()
@@ -47,11 +47,9 @@ def get_genres(x = None):
 def get_genre_id(genre_name):
     #Get the id for a genre, later used to filter for a specific genre
     genres_response = genre.movie_list()
-    genres = genres_response.get("genres", [])
-    for i in genres:
-        if i["name"].lower() == genre_name.lower():
-            return genre["id"]
-    return None
+    for i in genres_response:
+            if i["name"].lower() == "Horror".lower():
+                print(genre["id"])
 
 
     
