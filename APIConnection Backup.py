@@ -49,7 +49,7 @@ class TMDbAPIClient:
         for genre in genres:
             if genre["name"].lower() == genre_name.lower():
                 return genre["id"]
-        return None
+
     
     
         
