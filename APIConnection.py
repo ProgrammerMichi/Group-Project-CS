@@ -163,7 +163,79 @@ class TMDbAPIClient:
         movieswtitle = Search.movies(query)
         return movieswtitle
     
-    
+
+    def movielist(self, returnmovies):
+        slidercount = 3
+        for movie in returnmovies:
+            
+            #Design of each list entry, columns in order to have elements on the same line
+            movielisting = st.container(border= True, height = 360)
+            lc1, lc2, lc3, lc3_5, lc4, lc5 = movielisting.columns([0.61,1,1,0.8,1,1])
+
+            #Storing movie id in variable for each loop, in order to use it as argument in later functions
+            #Tried using movie["id"] directly instead of doing a detour with variable, gave an error in some places for some reason
+            movie_id = str(movie["id"])
+            details = self.get_movie_details(movie_id)
+
+            with lc1:
+                #Getting the poster and replacing it with text if not found
+                try:
+                    poster_url = self.fetch_poster(movie_id)
+                except Exception: 
+                    st.write(st.write("No Poster Available"))
+                else:
+                    st.image(poster_url, caption=movie["title"])
+
+                    
+
+            with lc2:
+                #Writes the movie title and offers option to read movie description with a button
+                st.write(f"**{details.title}**")
+                try:
+                    description = self.fetch_movie_description(movie_id)
+                except Exception:
+                    st.write(st.write("No Description Available"))
+                else:
+                    with st.popover("View Movie Description"):
+                        st.write(description)
+
+
+                
+            with lc3:
+                #Lists first 7 listed actors, if available
+                st.write("**Lead Actors:**")
+                for i in self.search_actors(movie_id):
+                    st.write(i)
+
+            
+            with lc4:
+                #Listing movie length in hours and minutes instead of only minutes
+                #Also lists release date
+
+                st.write("**Movie Length:**")
+                
+                length = details.runtime
+                st.write(str(length // 60),"hours", str(length % 60),"min")
+
+                st.text("")
+                st.text("")
+                st.text("")
+
+                st.write("**Release Date**")
+                st.write(str(details.release_date)) 
+
+            with lc5:
+                #Lists rating of movie on TMDB, also offers the user to rate the movie
+                #Input of rating will then be used to recommend a movie for user
+                st.write("**TMDB Movie Rating**")
+                st.write(str(round(details.vote_average,1)))
+
+                st.text("")
+                st.text("")
+                st.text("")
+                
+                st.slider("**Your Personal Rating**",min_value=1, max_value=10, key = slidercount)
+            slidercount += 1
     
         
 
