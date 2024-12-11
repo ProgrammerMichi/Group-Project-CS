@@ -26,7 +26,7 @@ with col1:
     #Dropdown menu with all available genres as options, chosen genre is saved in a variable
 
     st.write("Genre")
-    genrelist = [Instance.get_genres(any)]
+    genrelist = Instance.get_genres(any)
     gl = list(Instance.get_genres(any))
     for i in Instance.get_genres(any):
         genrelist.append(i)
