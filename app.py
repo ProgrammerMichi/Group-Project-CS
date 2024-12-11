@@ -107,10 +107,27 @@ def findmovie():
         search_parameters["with_cast"] = str(selactor_id[0].id)
 
     if keyword_check and selkeywords:
-        search_parameters["with_keywords"] = str(Instance.get_keyword_id(selkeywords))
+        try:
+            search_parameters["with_keywords"] = str(Instance.get_keyword_id(selkeywords))
+
+        except:
+            st.write("False Use of Keywords:")
+            st.write("Please only use one Keyword, if you have already entered only one Keyword, try changing it.")
+
+        else:
+            search_parameters["with_keywords"] = str(Instance.get_keyword_id(selkeywords))
+
 
     if excl_check and exclkeywords:
-        search_parameters["without_keywords"] = str(Instance.get_keyword_id(exclkeywords))
+        try:
+            search_parameters["without_keywords"] = str(Instance.get_keyword_id(exclkeywords))
+
+        except:
+            st.write("False Use of Keywords:")
+            st.write("Please only use one Keyword, if you have already entered only one Keyword, try changing it.")
+
+        else:
+            search_parameters["without_keywords"] = str(Instance.get_keyword_id(exclkeywords))
     
     if selorder == "Descending":
         search_parameters["sort_by"] = "vote_average.desc"
