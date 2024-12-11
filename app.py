@@ -136,7 +136,7 @@ def findmovie():
 returnmovies = findmovie()
 
 try:
-    returnmovies != None
+    st.write("movie_id")
 
 except:
     print("No Movies Fitting the Criteria Found")
