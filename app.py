@@ -37,6 +37,10 @@ with col2:
     actor_check = st.checkbox("Include Actor")
     selactor = st.text_input("Enter Actor")
 
+    #Option to sort with descending/options ratings
+    st.markdown("Order of Ratings")
+    selorder = st.selectbox("", ["Descending", "Ascending"])
+
 
 with col3:
     #First textfield offers option to include a keyword during search
@@ -50,9 +54,7 @@ with col3:
 
 with col4:
     
-    #Option to sort with descending/options ratings
-    st.markdown("Order of Ratings")
-    selorder = st.selectbox("", ["Descending", "Ascending"])
+    st.write("Search by Title")
     
 
 with col5:
