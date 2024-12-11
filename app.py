@@ -116,7 +116,7 @@ with col7:
 
 
 
-if selgen or actor_check or rating_check or keyword_check or excl_check or rating_check or age_check or length_check and title_check:
+if selgen or actor_check or rating_check or keyword_check or excl_check or rating_check or age_check or length_check and title_check == True:
     st.write("Searching titles only works without any additional criteria selected")
     st.write("Searching by criteria only works without any Title")
 
