@@ -132,7 +132,8 @@ else:
         movielisting = st.container(border= True, height = 360)
         lc1, lc2, lc3, lc3_5, lc4, lc5 = movielisting.columns([0.85,1,1,0.8,1,1])
 
-        
+        #Storing movie id in variable for each loop, in order to use it as argument in later functions
+        #Tried using movie["id"] directly instead of doing a detour with variable, gave an error in some places for some reason
         movie_id = str(movie["id"])
         details = Instance.get_movie_details(movie_id)
 
@@ -148,7 +149,7 @@ else:
                 
 
         with lc2:
-            #Writes the movie title and
+            #Writes the movie title and offers option to read movie description with a button
             st.write(f"**{details.title}**")
             try:
                 description = Instance.fetch_movie_description(movie_id)
@@ -161,18 +162,18 @@ else:
 
             
         with lc3:
+            #Lists first 7 listed actors, if available
             st.write("**Lead Actors:**")
             for i in Instance.search_actors(movie_id):
                 st.write(i)
 
         
         with lc4:
+            #Listing movie length in hours and minutes instead of only minutes
             st.write("**Movie Length:**")
             
             length = details.runtime
-            mh = str(length // 60)
-            mm = str(length % 60)
-            st.write(mh,"hours", mm,"min")
+            st.write(length // 60,"hours", length % 60,"min")
 
             st.text("")
             st.text("")
