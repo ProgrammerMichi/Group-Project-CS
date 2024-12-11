@@ -161,12 +161,15 @@ class TMDbAPIClient:
     
 
     def search_movie(self, query):
+        #Searches for movie titles fitting the input(query) and returns the movies with their data
         movieswtitle = self.search.movies(query)
         return movieswtitle
     
 
     def movielist(self, returnmovies):
-        
+        #Checks whether list has been created, whether there is anything in it and then makes a list of the movies, if there are any
+
+        #Test if variable returnmovies was created
         try:
             any(returnmovies)
 
@@ -180,7 +183,7 @@ class TMDbAPIClient:
                     movie_id = str(movie["id"])
 
 
-            #Except block returns string in case the try block fails
+            #Except block returns string in case the no movies are found
             except:
                 st.write("No Movies Fitting the Criteria Found")
 
@@ -189,7 +192,6 @@ class TMDbAPIClient:
             #including some information and option to rate the movie. 
             #Rating is stored on the site and fed into machine learning system to later be able to make a fitting recommendation
             else: 
-                slidercount = 3
                 for movie in returnmovies:
                     
                     #Design of each list entry, columns in order to have elements on the same line
@@ -258,8 +260,8 @@ class TMDbAPIClient:
                         st.text("")
                         st.text("")
                         
-                        st.slider("**Your Personal Rating**",min_value=1, max_value=10, key = slidercount)
-                    slidercount += 1
+                        st.slider("**Your Personal Rating**",min_value=1, max_value=10, key = movie_id)
+                    
     
         
 
