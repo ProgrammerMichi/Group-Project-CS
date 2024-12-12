@@ -14,6 +14,7 @@ CREATE TABLE IF NOT EXISTS users (
 """)
 conn.commit()
 
+
 # Get the next user ID starting from 611
 def get_next_user_id():
     cursor.execute("SELECT MAX(userId) FROM users")
@@ -24,6 +25,7 @@ def register_user(username, password):
     user_id = get_next_user_id()
     cursor.execute("INSERT INTO users (userId, username, password) VALUES (?, ?, ?)", (user_id, username, password))
     conn.commit()
+    st.session_state["userID"] = user_id
 
 def authenticate_user(username, password):
     cursor.execute("SELECT * FROM users WHERE username = ? AND password = ?", (username, password))
