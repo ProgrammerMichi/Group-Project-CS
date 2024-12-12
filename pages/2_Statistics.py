@@ -12,7 +12,13 @@ st.write("Here you can find diverse charts visualising all of your rated movies.
 
 # Load the dataset
 df_ratings = pd.read_csv("ratings_with_genres_and_details_sample.csv")
-df_global = pd.read_csv("global_ratings.csv")
+
+global_ratings_path = "global_ratings.csv"
+
+if os.path.exists(global_ratings_path):
+    df_global = pd.read_csv(global_ratings_path)
+    st.write("Global Ratings Data")
+    st.dataframe(df_global.head())
 
 
 col1, col2 = st.columns([1, 1])
