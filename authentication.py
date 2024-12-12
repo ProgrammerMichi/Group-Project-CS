@@ -28,7 +28,7 @@ def register_user(username, password):
 
     try:
         user_id = get_next_user_id()
-        cursor.execute("INSERT INTO users (userId, username, password) VALUES (?, ?, ?)", (user_id, username, password))
+        cursor.execute("INSERT INTO users (userId, username, password) VALUES (?, ?, ?)", (str(user_id), username, password))
         conn.commit()
         st.session_state["userId"] = user_id
         st.success("User successfully registered!")
