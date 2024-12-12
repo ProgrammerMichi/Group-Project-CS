@@ -99,6 +99,7 @@ def login():
                 st.session_state["username"] = username
                 st.session_state["userId"] = user_id
                 st.success(f"Welcome, {username}!")
+
             else:
                 st.error("Invalid username or password.")
 

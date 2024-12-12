@@ -301,4 +301,10 @@ def movielist(returnmovies):
                         st.write("Log in to rate movies!")
 
                         
-                    
+def store_rating(userId, movieId, rating):
+    conn = sqlite3.connect("userratings.db")
+    cursor = conn.cursor()
+    cursor.execute("CREATE TABLE IF NOT EXISTS ratings (userId INTEGER, movieId INTEGER, rating REAL)")
+    cursor.execute("INSERT INTO ratings (userId, movieId, rating) VALUES (?, ?, ?)", (userId, movieId, rating))
+    conn.commit()
+    conn.close()
