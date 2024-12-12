@@ -29,7 +29,7 @@ with col1:
 
     st.write("Genre")
     genrelist = ["None"]
-    for i in get_genres(any):
+    for i in get_genres():
         genrelist.append(i)
     selgen = st.selectbox("Select Genre", options = genrelist)
     
