@@ -84,41 +84,42 @@ def get_keyword_id(term):
 # File path for ratings.json
 RATINGS_FILE = os.path.join(os.path.dirname(__file__), "ratings.json")
 
-# Load ratings from JSON file
+# Load ratings from json file
 def load_ratings():
     if not os.path.exists(RATINGS_FILE):
         return {}
     with open(RATINGS_FILE, "r") as file:
         return json.load(file)
     
-    # Extract all unique movie titles from the ratings
+    #Extract all unique movie titles from the ratings
     movies = set()
     for user_ratings in ratings.values():
         movies.update(user_ratings.keys())
 
     return list(movies), ratings  # Return movie titles and the ratings dictionary
 
+
+#Gets current ratings of movies of users and lists them 
 def get_user_movie_ratings():
     if "username" not in st.session_state:
         return []
     
     _, ratings = load_ratings()
     
-    # Get the current user's ratings
     current_user = st.session_state["username"]
     user_ratings = ratings.get(current_user, {})
     
-    # Create a list of "movie: rating" strings
     movie_rating_list = [f"{movie}: {rating}" for movie, rating in user_ratings.items()]
     
     return movie_rating_list
 
-# Save ratings to JSON file
+#Save ratings to json file
 def save_ratings(ratings):
     with open(RATINGS_FILE, "w") as file:
         json.dump(ratings, file, indent=4)
 
-# Add or update a user's rating for a movie
+
+#update a user's rating for a movie
 def add_rating(username, movie, rating):
     ratings = load_ratings()
     if username not in ratings:
@@ -213,11 +214,6 @@ def search_movie(query):
     #Searches for movie titles fitting the input(query) and returns the movies with their data
     movieswtitle = search.movies(query)
     return movieswtitle
-
-def get_connection():
-    return sqlite3.connect("users.db", check_same_thread=False)
-
-
 
     
 
