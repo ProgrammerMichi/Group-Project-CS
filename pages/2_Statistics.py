@@ -7,7 +7,7 @@ import plotly.graph_objects as go
 # Tab Title, Title and Intro
 st.set_page_config(page_title="Statistics", page_icon="📊", layout="wide")
 st.title("Your Statistics")
-st.write("""Here you can find diverse charts ...""")
+st.write("Here you can find diverse charts visualising all of your rated movies.")
 
 
 # Load the dataset
