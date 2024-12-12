@@ -2,7 +2,7 @@
 import streamlit as st
 import requests
 from tmdbv3api import TMDb, Movie, Genre, Discover, Person, Search
-
+import sqlite3
 
 
 
@@ -173,6 +173,26 @@ def search_movie(query):
     return movieswtitle
 
 
+con = sqlite3.connect("userratings.db", check_same_thread=False)
+cursor = con.cursor()
+cursor.execute("""
+CREATE TABLE IF NOT EXISTS userratings (
+    ratingId INTEGER PRIMARY KEY AUTOINCREMENT,  
+    userId INTEGER,                              
+    username TEXT,                               
+    movietitle TEXT,                            
+    rating REAL                          
+)
+""")
+con.commit()
+
+def get_user_id():
+    return st.session_state.get("userId", None)
+
+def save_rating(user_id, username, movietitle, rating):
+    cursor.execute("INSERT INTO userratings (userId, username, movietitle, rating) VALUES (?, ?, ?, ?)", 
+                    (user_id, username, movietitle, rating))
+    
 
 def movielist(returnmovies):
     #Checks whether list has been created, whether there is anything in it and then makes a list of the movies, if there are any
@@ -268,6 +288,12 @@ def movielist(returnmovies):
                     st.text("")
                     st.text("")
                     
-                    movierating = st.slider("**Your Personal Rating**",min_value=1, max_value=10, key = movie_id)
-                    st.button("Save Rating", key = "Rating for" + movie_id)
+                    if st.session_state["logged_in"]:
+                        movierating = st.slider("**Your Personal Rating**",min_value=0.5, max_value=5, key = movie_id)
+                        if st.button("Save Rating", key = "Rating for" + movie_id):
+                            save_rating(get_user_id, st.session_state["username"], details.title, movierating)
+                            if save_rating:
+                                st.write("Rating Saved!")
+
+                        
                     
