@@ -3,7 +3,7 @@ import streamlit as st
 import requests
 from tmdbv3api import TMDb, Movie, Genre, Discover, Person, Search
 import sqlite3
-
+from Your_Ratings import save_ratings
 
 
 
@@ -173,9 +173,7 @@ def get_connection():
     return sqlite3.connect("users.db", check_same_thread=False)
 
 
-def save_rating(user_id, username, movietitle, rating):
-    cursor.execute("INSERT INTO userratings (userId, username, movietitle, rating) VALUES (?, ?, ?, ?)", 
-                    (user_id, username, movietitle, rating))
+
     
 
 def movielist(returnmovies):
@@ -277,8 +275,8 @@ def movielist(returnmovies):
                     if st.session_state.get("logged_in", False):
                         movierating = st.slider("**Your Personal Rating**",min_value=0.5, max_value=5.0, key = movie_id, step= 0.1),
                         if st.button("Save Rating", key = "Rating for" + movie_id):
-                            save_rating(get_user_id(), st.session_state["username"], details.title, movierating[0])
-                            if save_rating:
+                            save_ratings(movierating[0])
+                            if save_ratings:
                                 st.write("Rating Saved!")
                     
                     else:
