@@ -174,8 +174,8 @@ def search_movie(query):
 
 def get_connection():
     return sqlite3.connect("users.db", check_same_thread=False)
-    
-con = get_connection
+
+con = sqlite3.connect("userratings.db", check_same_thread=False)
 cursor = con.cursor()
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS userratings (
