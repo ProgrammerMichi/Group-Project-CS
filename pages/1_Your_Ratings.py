@@ -43,5 +43,5 @@ def add_rating(username, movie, rating):
 
 if st.session_state.get("logged_in"):
     st.write("Logged in as:", st.session_state.get("username"))
-    st.write("User ID:", st.session_state.get("userID"))
+
     
