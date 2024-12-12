@@ -4,7 +4,7 @@ import streamlit as st
 # Database setup
 conn = sqlite3.connect("users.db", check_same_thread=False)
 cursor = conn.cursor()
-cursor.execute("DROP TABLE IF EXISTS users")
+
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS users (
     userId INTEGER PRIMARY KEY,
@@ -59,7 +59,7 @@ def login():
         new_password = st.text_input("Password", type="password", key="register_password")
 
     # Only attempt registration if fields are non-empty and the button is clicked
-    if st.button("Register", key ="blabla"):
+    if st.sidebar.button("Register", key ="blabla"):
         if new_username.strip() and new_password.strip():
             try:
                 register_user(new_username, new_password)
