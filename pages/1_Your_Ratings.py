@@ -33,7 +33,7 @@ if st.session_state.get("logged_in"):
     st.write("User ID:", st.session_state.get("userID"))
     
 if st.session_state.get("logged_in"):
-    user_ratings = get_personal_ratings()
+    user_ratings = get_personal_ratings(st.session_state["userId"])
     if isinstance(user_ratings, str):  # Handle error messages
         st.write(user_ratings)
     elif user_ratings:
