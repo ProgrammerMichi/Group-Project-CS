@@ -1,5 +1,6 @@
 import requests
 import pandas as pd
+import streamlit as st
 
 # Define your TMDB API key and endpoint
 api_key = 'your_tmdb_api_key'
@@ -13,6 +14,7 @@ params = {
 }
 response = requests.get(endpoint, params=params)
 data = response.json()
+
 
 # Extract relevant data
 movies = []
@@ -29,8 +31,9 @@ for movie in data['results']:
 df_global = pd.DataFrame(movies)
 
 # Save to CSV for future use
-df_global.to_csv('global_ratings.csv', index=False)
+RATINGS_FILE = "global_ratings.csv"
+df_global.to_csv('RATINGS_FILE.csv', index=False)
 
 # Display the DataFrame
-print(df_global.head())
+st.dataframe(df_global)
 
