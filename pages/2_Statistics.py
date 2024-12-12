@@ -97,22 +97,22 @@ st.write(f"You have mostly watched movies released in {most_watched_year}.")
 col5, col6 = st.columns([1, 1])
 
 with col5:
-# Top-rated movies by the user
-top_rated = df_ratings.sort_values('rating', ascending=False).head(10)
-fig6 = px.bar(top_rated, x='rating', y='title', orientation='h',
-             title="Top-Rated Movies",
-             labels={'title': 'Movie', 'rating': 'Rating'},
-             category_orders={'title': top_rated['title'].tolist()})
-st.plotly_chart(fig6)
+    # Top-rated movies by the user
+    top_rated = df_ratings.sort_values('rating', ascending=False).head(10)
+    fig6 = px.bar(top_rated, x='rating', y='title', orientation='h',
+                title="Top-Rated Movies",
+                labels={'title': 'Movie', 'rating': 'Rating'},
+                category_orders={'title': top_rated['title'].tolist()})
+    st.plotly_chart(fig6)
 
 with col6:
-# Worst-rated movies by the user
-worst_rated = df_ratings.sort_values('rating', ascending=True).head(10)
-fig7 = px.bar(worst_rated, x='rating', y='title', orientation='h',
-             title="Worst-Rated Movies",
-             labels={'title': 'Movie', 'rating': 'Rating'},
-             category_orders={'title': worst_rated['title'].tolist()})
-st.plotly_chart(fig7)
+    # Worst-rated movies by the user
+    worst_rated = df_ratings.sort_values('rating', ascending=True).head(10)
+    fig7 = px.bar(worst_rated, x='rating', y='title', orientation='h',
+                title="Worst-Rated Movies",
+                labels={'title': 'Movie', 'rating': 'Rating'},
+                category_orders={'title': worst_rated['title'].tolist()})
+    st.plotly_chart(fig7)
 
 
 # User ratings vs global ratings??
