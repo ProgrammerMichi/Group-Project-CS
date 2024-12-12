@@ -23,15 +23,3 @@ def get_personal_ratings():
     conn.close()
     return ratings
 
-# Connect to the unified database
-conn = sqlite3.connect("database.db")
-cursor = conn.cursor()
-
-# Delete all accounts from the 'users' table
-cursor.execute("DELETE FROM users")
-conn.commit()
-
-print("All user accounts have been deleted.")
-
-# Close the connection
-conn.close()
