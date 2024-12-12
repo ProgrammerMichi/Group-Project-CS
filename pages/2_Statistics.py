@@ -37,7 +37,8 @@ fig6.update_layout(
     polar=dict(
         radialaxis=dict(
             visible=True,
-            range=[0, 10]
+            range=[0, 10],
+            tickfont=dict(color='black')
         )),
     showlegend=False,
     title='Radar Chart for Average Ratings by Genre'
