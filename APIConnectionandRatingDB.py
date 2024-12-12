@@ -23,7 +23,7 @@ search = Search()
 def fetch_poster(movie_id):
     #Fetch the movie poster for the respective movie 
     movie_details = movie.details(movie_id)
-    poster_path = movie_details.get('poster_path', None)
+    poster_path = movie_details.get('poster_path')
     full_path = "https://image.tmdb.org/t/p/w500/" + poster_path
     return full_path
 
@@ -254,7 +254,6 @@ def movielist(returnmovies):
                        
 
 
-                    
                 with lc3:
                     #Lists first 7 listed actors, if available
                     st.write("**Lead Actors:**")
