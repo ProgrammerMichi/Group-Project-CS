@@ -85,8 +85,6 @@ st.dataframe(df_ratings)
 
 
 
-import requests
-import pandas as pd
 
 # Define your TMDB API key and endpoint
 api_key = 'your_tmdb_api_key'
@@ -107,8 +105,9 @@ movies = [{
 } for movie in data['results']]
 
 # Create a DataFrame and save to CSV
+RATINGS_FILE = "global_ratings.csv"
 df_global = pd.DataFrame(movies)
 df_global.to_csv('global_ratings.csv', index=False)
 
 # Display the DataFrame
-print(df_global.head())
+st.dataframe(df_global)
