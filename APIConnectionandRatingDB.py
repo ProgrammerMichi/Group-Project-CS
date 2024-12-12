@@ -174,8 +174,7 @@ def get_connection():
 
 con = sqlite3.connect("userratings.db", check_same_thread=False)
 cursor = con.cursor()
-cursor.execute("DROP TABLE IF IT EXISTS users")
-cursor.execute("DROP TABLE IF IT EXISTS userratings")
+
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS userratings (
     ratingId INTEGER PRIMARY KEY AUTOINCREMENT,  
