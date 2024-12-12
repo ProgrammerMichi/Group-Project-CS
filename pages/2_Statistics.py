@@ -104,8 +104,7 @@ avg_rating_by_genre.columns = ['genres', 'avg_rating_by_genre']
 global_avg_ratings = df_global.groupby('genres')['rating'].mean().reset_index()
 global_avg_ratings.columns = ['genres', 'global_avg_rating']
 # Merge the two DataFrames on 'genres'
-comparison_df = pd.merge(user_avg_ratings, global_avg_ratings, on='genres')
-
+comparison_df = pd.merge(avg_rating_by_genre, global_avg_ratings, on='genres')
 # Create a bar chart to compare the ratings
 fig7 = px.bar(comparison_df, x='genres', y=['user_avg_rating', 'global_avg_rating'],
              title='Comparison of User Rating Patterns Against Global Averages',
