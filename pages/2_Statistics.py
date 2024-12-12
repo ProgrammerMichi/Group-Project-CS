@@ -6,9 +6,9 @@ import os
 
 
 # Tab Title, Title and Intro
-st.set_page_config(page_title="Statistics", page_icon="📊", layout="wide")
+st.set_page_config(page_title="Your Statistics", page_icon="📊", layout="wide")
 st.title("Your Statistics")
-st.write("Here you can find diverse charts visualising all of your rated movies.")
+st.write("Here you can find diverse charts visualising all of your rated movies. These can give you some insights on your preferences!")
 
 
 # Load the dataset
