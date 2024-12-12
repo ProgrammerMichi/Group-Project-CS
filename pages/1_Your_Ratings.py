@@ -3,7 +3,7 @@ import sqlite3
 import authentication
 
 # Tab Title, Titles and Intro
-st.set_page_config(page_title="Ratings", page_icon="📋", layout="wide")
+
 st.title("Your Movie Ratings")
 st.write("Here you can find all the movies you have previously rated.")
 
