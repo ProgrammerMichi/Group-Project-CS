@@ -56,7 +56,7 @@ with col3:
     # Bar Chart showing the total movie runtime for each genre
     genre_runtime = df_genres.groupby('genres')['length'].sum().reset_index()
     fig7 = px.bar(genre_runtime, x='genres', y='length', title='Total Movie Runtime for Each Genre')
-    fig7.update_layout(width=900,
+    fig7.update_layout(
         xaxis_title="Genres",
         yaxis_title="Total Runtime (minutes)")
     st.plotly_chart(fig7)
@@ -70,8 +70,11 @@ with col4:
     genre_counts = df_genres['genres'].value_counts().reset_index()
     genre_counts.columns = ['genres', 'count']
     fig5 = px.pie(genre_counts, names='genres', values='count', title='Distribution of Genres')
-    fig5.update_layout(width=900)
     st.plotly_chart(fig5)
+    # Determine and display the genre with the most movies
+    most_movies_genre = genre_counts.iloc[0]
+    st.write(f"The genre with the most movies is '{most_movies_genre['genres']}' with {most_movies_genre['count']} movies.")
+
 
 
 # Bar chart showing the number of movies rated by release year
