@@ -30,7 +30,7 @@ with col1:
     st.write(f"Your best-rated genre is '{best_rated_genre['genres']}' with an average rating of {best_rated_genre['rating']}.")
 
 with col2:
-    # Radar chart for average ratings by genre
+    # Radar chart for average rating by genre
     genre_ratings = df_genres.groupby('genres')['rating'].mean().reset_index()
     fig6 = go.Figure()
     fig6.add_trace(go.Scatterpolar(
@@ -49,6 +49,7 @@ with col2:
         title='Average Rating by Genre'
     )
     st.plotly_chart(fig6)
+
 
 col3, col4 = st.columns([1, 1])
 
