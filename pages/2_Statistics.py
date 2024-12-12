@@ -35,18 +35,18 @@ fig4.show()
 df_genres = df_ratings.assign(genres=df_ratings['genres'].str.split(', ')).explode('genres')
 genre_counts = df_genres['genres'].value_counts().reset_index()
 genre_counts.columns = ['genres', 'count']
-fig1 = px.pie(genre_counts, names='genres', values='count', title='Distribution of Genres')
-fig1.show()
+fig5 = px.pie(genre_counts, names='genres', values='count', title='Distribution of Genres')
+fig5.show()
 
 # Radar chart for similarities (example using average rating by genre)
 genre_ratings = df_genres.groupby('genres')['rating'].mean().reset_index()
-fig2 = go.Figure()
-fig2.add_trace(go.Scatterpolar(
+fig6 = go.Figure()
+fig6.add_trace(go.Scatterpolar(
     r=genre_ratings['rating'],
     theta=genre_ratings['genres'],
     fill='toself'
 ))
-fig2.update_layout(
+fig6.update_layout(
     polar=dict(
         radialaxis=dict(
             visible=True,
@@ -55,9 +55,9 @@ fig2.update_layout(
     showlegend=False,
     title='Radar Chart for Average Ratings by Genre'
 )
-fig2.show()
+fig6.show()
 
 # Total movie runtime for each genre
 genre_runtime = df_genres.groupby('genres')['length'].sum().reset_index()
-fig4 = px.bar(genre_runtime, x='genres', y='length', title='Total Movie Runtime for Each Genre')
-fig4.show()
+fig7 = px.bar(genre_runtime, x='genres', y='length', title='Total Movie Runtime for Each Genre')
+fig7.show()
