@@ -42,4 +42,3 @@ if st.session_state.get("logged_in"):
             st.write(rating)
     else:
         st.write("You haven't rated any movies yet.")
-
