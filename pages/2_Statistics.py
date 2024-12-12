@@ -108,7 +108,7 @@ with col5:
     fig6 = px.bar(top_rated, x='rating', y='title', orientation='h',
                 title="Your Top-Rated Movies",
                 labels={'short_title': 'Movie', 'rating': 'Rating'},
-                category_orders={'short_title': top_rated['short_title'].tolist()})
+                category_orders={'short_title': top_rated['short_title'].tolist()[::-1]})
     st.plotly_chart(fig6)
 
 with col6:
