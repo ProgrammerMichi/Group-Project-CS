@@ -4,7 +4,7 @@ import streamlit as st
 # Database setup
 conn = sqlite3.connect("users.db", check_same_thread=False)
 cursor = conn.cursor()
-cursor.execute("DROP TABLE IF EXISTS users")
+
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS users (
     userId INTEGER PRIMARY KEY,
@@ -76,12 +76,6 @@ def login():
         else:
             st.error("Username and password cannot be empty!")
 
-        if st.button("Register", key = "mefme"):
-            try:
-                register_user(new_username, new_password)
-                st.success("User successfully registered! Please log in.")
-            except sqlite3.IntegrityError:
-                st.error("Username already exists!")
 
     with log_in:
         st.subheader("Login")
