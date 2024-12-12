@@ -5,7 +5,14 @@ import streamlit as st
 conn = sqlite3.connect("database.db", check_same_thread=False)
 cursor = conn.cursor()
 
-
+cursor.execute("""
+CREATE TABLE IF NOT EXISTS users (
+    userId INTEGER PRIMARY KEY,
+    username TEXT UNIQUE,
+    password TEXT
+)
+""")
+conn.commit()
 
 
 # Get the next user ID starting from 611
