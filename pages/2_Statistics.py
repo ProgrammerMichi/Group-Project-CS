@@ -131,7 +131,7 @@ with col8:
     year_rating = df_ratings.groupby('release_year')['rating'].mean().reset_index()
     fig9 = px.imshow(year_rating.pivot(index='release_year', columns='rating', values='rating'),
                         title="Release Year vs. Average Rating")
-    fig4.update_layout(width=400)
+    fig4.update_layout(width=1000)
     st.plotly_chart(fig9)
 
 
