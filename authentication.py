@@ -1,7 +1,11 @@
 import sqlite3
 import streamlit as st
 
-# Database setup
+
+#This module enables for users to register and log in and handles their respective data
+
+
+#Usernames and passwords are stored in the session state
 conn = sqlite3.connect("users.db", check_same_thread=False)
 cursor = conn.cursor()
 
@@ -14,19 +18,24 @@ CREATE TABLE IF NOT EXISTS users (
 """)
 conn.commit()
 
-
+#The Idea here was to combine ratings from our site with the dataset of MovieLens. There, the highest user ID was 610
+#The idea was to "append" the dataset with own data to enable continous machine learning.
+# Unfortunately the userID always resulted in None
 # Get the next user ID starting from 611
 def get_next_user_id():
     cursor.execute("SELECT MAX(userId) FROM users")
     max_id = cursor.fetchone()[0]
     return max_id + 1 if max_id else 611
 
+
 def register_user(username, password):
-    # Validate input
+    #Avoiding empty textinputs for name and password
+    
     if not username.strip() or not password.strip():
         st.error("Username and password cannot be empty!")
         return
-
+    
+    # Asserting whether Input is already taken or free, or other errors happen during registration
     try:
         user_id = get_next_user_id()
         cursor.execute("INSERT INTO users (userId, username, password) VALUES (?, ?, ?)", (user_id, username, password))
@@ -48,13 +57,9 @@ def authenticate_user(username, password):
         return True
     return False
 
-def initialize_session():
-    if "logged_in" not in st.session_state:
-        st.session_state["logged_in"] = False
-    if "userId" not in st.session_state:
-        st.session_state["userId"] = None
-    if "username" not in st.session_state:
-        st.session_state["username"] = None
+
+
+
 
 # Streamlit UI
 def login():
