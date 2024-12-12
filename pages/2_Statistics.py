@@ -16,11 +16,6 @@ df_ratings = pd.read_csv("ratings_with_genres_and_details_sample.csv")
 
 global_ratings_path = "global_ratings.csv"
 
-if os.path.exists(global_ratings_path):
-    df_global = pd.read_csv(global_ratings_path)
-    st.write("Global Ratings Data")
-    st.dataframe(df_global.head())
-
 
 col1, col2 = st.columns([1, 1])
 
@@ -107,14 +102,42 @@ fig6 = px.bar(top_rated, x='rating', y='title', orientation='h',
 st.plotly_chart(fig6)
 
 
-avg_rating_by_genre.columns = ['genres', 'avg_rating_by_genre']
-global_avg_ratings = df_global.groupby('genres')['rating'].mean().reset_index()
-global_avg_ratings.columns = ['genres', 'global_avg_rating']
-# Merge the two DataFrames on 'genres'
-comparison_df = pd.merge(avg_rating_by_genre, global_avg_ratings, on='genres')
-# Create a bar chart to compare the ratings
-fig7 = px.bar(comparison_df, x='genres', y=['user_avg_rating', 'global_avg_rating'],
-             title='Comparison of User Rating Patterns Against Global Averages',
-             labels={'value': 'Average Rating', 'variable': 'Rating Type'},
-             barmode='group')
-st.plotly_chart(fig7)
+if os.path.exists(global_ratings_path):
+    df_global = pd.read_csv(global_ratings_path)
+    st.write("Global Ratings Data")
+    st.dataframe(df_global.head())
+    
+    # Check if the necessary columns are present
+    if 'genres' in df_global.columns and 'rating' in df_global.columns:
+        # Generate and display the comparison chart
+        def generate_comparison_chart(df_user, df_global):
+            user_avg_ratings = df_user.groupby('genres')['rating'].mean().reset_index()
+            user_avg_ratings.columns = ['genres', 'user_avg_rating']
+
+            global_avg_ratings = df_global.groupby('genres')['rating'].mean().reset_index()
+            global_avg_ratings.columns = ['genres', 'global_avg_rating']
+
+            comparison_df = pd.merge(user_avg_ratings, global_avg_ratings, on='genres')
+
+            fig = px.bar(comparison_df, x='genres', y=['user_avg_rating', 'global_avg_rating'],
+                         title='Comparison of User Rating Patterns Against Global Averages',
+                         labels={'value': 'Average Rating', 'variable': 'Rating Type'},
+                         barmode='group')
+
+            fig.update_layout(
+                xaxis_title="Genres",
+                yaxis_title="Average Rating",
+                xaxis=dict(title_font=dict(size=18)),
+                yaxis=dict(title_font=dict(size=18)),
+                title=dict(font=dict(size=24))
+            )
+
+            return fig
+
+        # Generate and display the comparison chart
+        fig = generate_comparison_chart(df_ratings, df_global)
+        st.plotly_chart(fig)
+    else:
+        st.error("The 'global_ratings.csv' file does not contain the necessary columns 'genres' and 'rating'.")
+else:
+    st.error("The global ratings file 'global_ratings.csv' was not found. Please ensure it exists in the correct directory.")
