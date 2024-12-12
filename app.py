@@ -1,11 +1,5 @@
 import streamlit as st
-#import pandas
-#import numpy
-#import surprise
-#import os
 from APIConnectionandRatingDB import get_genres, findmovie, movielist, search_movie
-import pandas as pd
-import numpy as np
 import authentication
 # Tab Title
 st.set_page_config(page_title="Movie Recommender", page_icon="🎞️", layout="wide")
