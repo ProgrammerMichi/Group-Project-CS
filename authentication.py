@@ -2,22 +2,27 @@ import sqlite3
 import streamlit as st
 
 # Database setup
-conn = sqlite3.connect("users.db", check_same_thread=False)
+conn = sqlite3.connect("users.db")
 cursor = conn.cursor()
 
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS users (
-    username TEXT PRIMARY KEY,
+    userId INTEGER PRIMARY KEY,
+    username TEXT UNIQUE,
     password TEXT
 )
 """)
 conn.commit()
-username_to_delete = 'MichiMechi'
-cursor.execute("DELETE FROM users WHERE username = ?", (username_to_delete,))
-conn.commit()
+
+# Get the next user ID starting from 611
+def get_next_user_id():
+    cursor.execute("SELECT MAX(userId) FROM users")
+    max_id = cursor.fetchone()[0]
+    return max_id + 1 if max_id else 611
 
 def register_user(username, password):
-    cursor.execute("INSERT INTO users (username, password) VALUES (?, ?)", (username, password))
+    user_id = get_next_user_id()
+    cursor.execute("INSERT INTO users (userId, username, password) VALUES (?, ?, ?)", (user_id, username, password))
     conn.commit()
 
 def authenticate_user(username, password):
@@ -26,8 +31,8 @@ def authenticate_user(username, password):
 
 # Streamlit UI
 def login():
-    register = st.sidebar.popover("Register")
-    log_in = st.sidebar.popover("Log In")
+    register = st.sidebar.expander("Register")
+    log_in = st.sidebar.expander("Log In")
 
     with register:
         st.subheader("Register")
