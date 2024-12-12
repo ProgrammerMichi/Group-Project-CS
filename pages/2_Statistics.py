@@ -13,10 +13,6 @@ st.write("""Here you can find diverse charts ...""")
 # Load the dataset
 df_ratings = pd.read_csv("ratings_with_genres_and_details_sample.csv")
 
-# Distribution of Movie Ratings
-fig1 = px.histogram(df_ratings, x="rating", nbins=10, title="Distribution of Movie Ratings")
-fig1.update_layout(width=900)
-st.plotly_chart(fig1)
 
 # Average Rating by Genre
 # Split genres into multiple rows
