@@ -290,9 +290,8 @@ def movielist(returnmovies):
                     
                     if st.session_state.get("logged_in", False):
                         movierating = st.slider("**Your Personal Rating**",min_value=0.5, max_value=5.0, key = movie_id, step= 0.1),
-                        st.write(f"Debug: movierating = {movierating}, {movierating[0]}")
                         if st.button("Save Rating", key = "Rating for" + movie_id):
-                            save_rating(get_user_id(), st.session_state["username"], details.title, movierating)
+                            save_rating(get_user_id(), st.session_state["username"], details.title, movierating[0])
                             if save_rating:
                                 st.write("Rating Saved!")
                     
