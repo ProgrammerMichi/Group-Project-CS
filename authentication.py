@@ -25,7 +25,7 @@ def register_user(username, password):
     user_id = get_next_user_id()
     cursor.execute("INSERT INTO users (userId, username, password) VALUES (?, ?, ?)", (user_id, username, password))
     conn.commit()
-    st.session_state["userID"] = user_id
+    st.session_state["userId"] = user_id
 
 def authenticate_user(username, password):
     cursor.execute("SELECT * FROM users WHERE username = ? AND password = ?", (username, password))
