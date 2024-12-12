@@ -24,7 +24,7 @@ fig2.update_layout(width=900,
 st.plotly_chart(fig2)
 # Determine and display the best-rated genre
 best_rated_genre = avg_rating_by_genre.loc[avg_rating_by_genre['rating'].idxmax()]
-st.write(f"Your best-rated genre is '{best_rated_genre['genres']}' with an average rating of {best_rated_genre['rating']}")
+st.write(f"Your best-rated genre is '{best_rated_genre['genres']}' with an average rating of {best_rated_genre['rating']}.")
 
 
 # Radar chart for average ratings by genre
@@ -57,6 +57,9 @@ fig4.update_layout(
     xaxis_title="Release Year",
     yaxis_title="Number of Movies")
 st.plotly_chart(fig4)
+# Determine and display the year with the most movies
+most_watched_year = df_ratings['release_year'].value_counts().idxmax()
+st.write(f"You have mostly watches movies released in {most_watched_year}.")
 
 
 # Pie chart showing the portion of genres for all rated movies
@@ -75,3 +78,6 @@ fig7.update_layout(width=900,
     xaxis_title="Genres",
     yaxis_title="Total Runtime (minutes)")
 st.plotly_chart(fig7)
+# Determine and display the most watched genre
+most_watched_genre_runtime = df_genres.groupby('genres')['length'].sum().idxmax()
+st.write(f"Your most watched genre by total runtime is '{most_watched_genre_runtime}'.")
