@@ -95,7 +95,7 @@ st.write(f"You have mostly watched movies released in {most_watched_year}.")
 
 
 # Function to shorten movie titles
-def shorten_title(title, max_length=20):
+def shorten_title(title, max_length=15):
     return title if len(title) <= max_length else title[:max_length] + "..."
 
 col5, col6 = st.columns([1, 1])
