@@ -12,6 +12,9 @@ CREATE TABLE IF NOT EXISTS users (
 )
 """)
 conn.commit()
+username_to_delete = 'MichiMechi'
+cursor.execute("DELETE FROM users WHERE username = ?", (username_to_delete,))
+conn.commit()
 
 def register_user(username, password):
     cursor.execute("INSERT INTO users (username, password) VALUES (?, ?)", (username, password))
