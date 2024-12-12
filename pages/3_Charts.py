@@ -35,7 +35,7 @@ def fetch_movie_details(movie_id):
     return None, None
 
 # Fetch popular movies with details
-def fetch_popular_movies(pages=3):
+def fetch_popular_movies(pages=10):
     movies = []
     for page in range(1, pages + 1):
         response = requests.get(MOVIE_POPULAR_URL, params={'api_key': API_KEY, 'language': 'en-US', 'page': page})
