@@ -92,7 +92,7 @@ st.write(f"You have mostly watched movies released in {most_watched_year}.")
 
 
 # 5. Top-Rated Movies by the User
-top_rated = df_ratings.sort_values('rating', descending=False).head(10)
+top_rated = df_ratings.sort_values('rating', ascending=False).head(10)
 fig6 = px.bar(top_rated, x='rating', y='title', orientation='h',
              title="Top-Rated Movies",
              labels={'title': 'Movie', 'rating': 'Rating'})
