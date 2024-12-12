@@ -13,7 +13,8 @@ CREATE TABLE IF NOT EXISTS users (
 )
 """)
 conn.commit()
-
+if "userID" not in st.session_state:
+    st.session_state["userID"] = None
 
 # Get the next user ID starting from 611
 def get_next_user_id():
