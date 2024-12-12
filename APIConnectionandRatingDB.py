@@ -85,18 +85,21 @@ def get_keyword_id(term):
 RATINGS_FILE = os.path.join(os.path.dirname(__file__), "ratings.json")
 
 # Load ratings from JSON file
-def load_ratings():
+def load_ratings(username):
     if not os.path.exists(RATINGS_FILE):
-        return {}
-    with open(RATINGS_FILE, "r") as file:
-        return json.load(file)
-    
-    # Extract all unique movie titles from the ratings
-    movies = set()
-    for user_ratings in ratings.values():
-        movies.update(user_ratings.keys())
+        return []  # Return an empty list if the file does not exist
 
-    return list(movies), ratings  # Return movie titles and the ratings dictionary
+    with open(RATINGS_FILE, "r") as file:
+        try:
+            ratings = json.load(file)
+        except json.JSONDecodeError:
+            return []  # Return an empty list if the JSON file is corrupted or empty
+
+    # Get ratings for the specified user
+    user_ratings = ratings.get(username, {})
+    
+    # Format the ratings as "movie: rating"
+    return [f"{movie}: {rating}" for movie, rating in user_ratings.items()]
 
 def get_user_movie_ratings():
     if "username" not in st.session_state:

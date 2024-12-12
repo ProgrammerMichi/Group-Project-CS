@@ -18,7 +18,16 @@ if selected is not None:
     st.markdown(f"You selected {sentiment_mapping[selected]} star(s).")
 
 
-st.write(load_ratings())
+if "username" in st.session_state:
+    user_ratings = load_ratings(st.session_state["username"])
+    if user_ratings:
+        st.write("Your Ratings:")
+        for rating in user_ratings:
+            st.write(rating)
+    else:
+        st.write("You haven't rated any movies yet.")
+else:
+    st.warning("Please log in to see your ratings.")
 
 if st.session_state.get("logged_in"):
     st.write("Logged in as:", st.session_state.get("username"))
