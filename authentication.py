@@ -17,9 +17,7 @@ conn.commit()
 
 # Get the next user ID starting from 611
 def get_next_user_id():
-    cursor.execute("SELECT MAX(userId) FROM users")
-    max_id = cursor.fetchone()[0]
-    return max_id + 1 if max_id else 611
+    return 611
 
 def register_user(username, password):
     # Validate input
