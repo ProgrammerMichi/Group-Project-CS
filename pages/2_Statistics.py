@@ -120,4 +120,24 @@ with col6:
     st.plotly_chart(fig7)
 
 
+# Scatter Plot: Release Year vs. Rating
+fig8 = px.scatter(df_ratings, x='release_year', y='rating',
+                title="Release Year vs. Rating",
+                labels={'release_year': 'Release Year', 'rating': 'Rating'})
+st.plotly_chart(fig8)
+
+
+# Heatmap: Genre vs. Average Rating
+genre_rating = df_ratings.groupby('genres')['rating'].mean().reset_index()
+fig9 = px.imshow(genre_rating.pivot(index='genres', columns='rating', values='rating'),
+                title="Genre vs. Average Rating")
+st.plotly_chart(fig9)
+
+# Heatmap: Release Year vs. Average Rating
+year_rating = df_ratings.groupby('release_year')['rating'].mean().reset_index()
+fig10 = px.imshow(year_rating.pivot(index='release_year', columns='rating', values='rating'),
+                    title="Release Year vs. Average Rating")
+st.plotly_chart(fig10)
+
+
 # User ratings vs global ratings??
