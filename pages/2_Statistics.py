@@ -10,7 +10,6 @@ st.title("Your Statistics")
 st.write("""Here you can find diverse charts ...""")
 
 
-
 # Load the dataset
 df_ratings = pd.read_csv("ratings_with_genres_and_details_sample.csv")
 
@@ -25,9 +24,6 @@ avg_rating_by_genre = df_genres.groupby('genres')['rating'].mean().reset_index()
 fig2 = px.bar(avg_rating_by_genre, x="genres", y="rating", title="Average Rating by Genre")
 fig2.show()
 
-# Movie Length vs Rating
-fig3 = px.scatter(df_ratings, x="length", y="rating", title="Movie Length vs Rating", labels={"length": "Movie Length (minutes)"})
-fig3.show()
 
 # Number of Movies by Release Year
 movies_by_year = df_ratings.groupby('release_year').size().reset_index(name='count')
@@ -60,19 +56,6 @@ fig2.update_layout(
     title='Radar Chart for Average Ratings by Genre'
 )
 fig2.show()
-
-# List of top and worst rated movies
-top_rated_movies = df_ratings.sort_values(by='rating', ascending=False).head(10)
-worst_rated_movies = df_ratings.sort_values(by='rating').head(10)
-print("Top Rated Movies:")
-print(top_rated_movies[['title', 'rating']])
-print("Worst Rated Movies:")
-print(worst_rated_movies[['title', 'rating']])
-
-# Average rating by release date
-avg_rating_by_year = df_ratings.groupby('release_year')['rating'].mean().reset_index()
-fig3 = px.line(avg_rating_by_year, x='release_year', y='rating', title='Average Rating by Release Year')
-fig3.show()
 
 # Total movie runtime for each genre
 genre_runtime = df_genres.groupby('genres')['length'].sum().reset_index()
