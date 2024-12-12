@@ -20,12 +20,14 @@ search = Search()
 
 #List of all functions needed
 
+
 def fetch_poster(movie_id):
     #Fetch the movie poster for the respective movie 
     movie_details = movie.details(movie_id)
-    poster_path = movie_details.get('poster_path')
+    poster_path = movie_details.get('poster_path', None)
     full_path = "https://image.tmdb.org/t/p/w500/" + poster_path
     return full_path
+
 
 def fetch_movie_description(movie_id):
     #Fetch the movie description for the respective movie
