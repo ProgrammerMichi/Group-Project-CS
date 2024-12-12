@@ -11,6 +11,17 @@ st.write("Here you can find all the movies you have previously rated.")
 
 authentication.login()
 
+if st.session_state.get("logged_in", False):
+    user_ratings = get_user_ratings(st.session_state["userId"])
+    if user_ratings:
+        st.write("Your Ratings:")
+        for rating in user_ratings:
+            st.write(rating)
+    else:
+        st.write("You haven't rated any movies yet.")
+else:
+    st.write("Log in to view your ratings.")
+
 # stars for ratings
 sentiment_mapping = ["one", "two", "three", "four", "five"]
 selected = st.feedback("stars")
@@ -45,14 +56,3 @@ if st.session_state.get("logged_in"):
     else:
         st.write("You haven't rated any movies yet.")
 
-
-if st.session_state.get("logged_in", False):
-    user_ratings = get_user_ratings(st.session_state["userId"])
-    if user_ratings:
-        st.write("Your Ratings:")
-        for rating in user_ratings:
-            st.write(rating)
-    else:
-        st.write("You haven't rated any movies yet.")
-else:
-    st.write("Log in to view your ratings.")
