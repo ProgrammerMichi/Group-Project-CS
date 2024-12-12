@@ -169,8 +169,6 @@ def search_movie(query):
     movieswtitle = search.movies(query)
     return movieswtitle
 
-def get_connection():
-    return sqlite3.connect("users.db", check_same_thread=False)
 
 con = sqlite3.connect("userratings.db", check_same_thread=False)
 cursor = con.cursor()
