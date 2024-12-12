@@ -7,8 +7,7 @@ cursor = conn.cursor()
 
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS users (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    username TEXT UNIQUE,
+    username TEXT PRIMARY KEY,
     password TEXT
 )
 """)
@@ -19,9 +18,8 @@ def register_user(username, password):
     conn.commit()
 
 def authenticate_user(username, password):
-    cursor.execute("SELECT id, username FROM users WHERE username = ? AND password = ?", (username, password))
-    user = cursor.fetchone()
-    return user
+    cursor.execute("SELECT * FROM users WHERE username = ? AND password = ?", (username, password))
+    return cursor.fetchone() is not None
 
 # Streamlit UI
 def login():
