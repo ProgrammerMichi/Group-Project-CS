@@ -3,7 +3,7 @@ import streamlit as st
 #import numpy
 #import surprise
 #import os
-from APIConnection import get_genres, findmovie, movielist, search_movie
+from APIConnectionandRatingDB import get_genres, findmovie, movielist, search_movie
 import pandas as pd
 import numpy as np
 import authentication
