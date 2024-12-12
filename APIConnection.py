@@ -40,7 +40,7 @@ def fetch_movie_description(movie_id):
 
 
     
-def get_genres(x = None):
+def get_genres():
     #Get a list of all available genres for the dropdown menu
     genres = genre.movie_list()
     genre_names = [i["name"] for i in genres]
