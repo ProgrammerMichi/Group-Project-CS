@@ -122,13 +122,7 @@ with col7:
 if title_check == False:
     returnmovies = findmovie(selgen, actor_check, selactor, keyword_check, selkeywords, excl_check, exclkeywords, selorder, rating_check, selmin_rating, selmax_rating, selmin_votes, selmin_length, selmax_length, length_check, age_check, selage)
     movielist(returnmovies)
-    if st.session_state.get("logged_in", False):
-        movierating = st.slider("**Your Personal Rating**", min_value=0.5, max_value=5.0, key="movie_rating", step=0.1)
-        if st.button("Save Rating"):
-            save_rating(st.session_state["userId"], st.session_state["username"], seltitle, movierating)
-            st.write("Rating Saved!")
-    else:
-        st.write("Log in to rate movies!")
+
 
 #This makes sure that search by title and search by criteria do not interfere with each other and lets the user know if they do:
 if selgen == "None":
