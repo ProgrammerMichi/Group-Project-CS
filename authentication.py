@@ -4,6 +4,8 @@ import streamlit as st
 # Database setup
 conn = sqlite3.connect("users.db", check_same_thread=False)
 cursor = conn.cursor()
+cursor.execute("DROP TABLE IF IT EXISTS users")
+cursor.execute("DROP TABLE IF IT EXISTS userratings")
 cursor.execute("DROP TABLE IF EXISTS users")
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS users (
@@ -17,7 +19,7 @@ conn.commit()
 
 # Get the next user ID starting from 611
 def get_next_user_id():
-    return 611
+    return 1
 
 def register_user(username, password):
     # Validate input
