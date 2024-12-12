@@ -1,100 +1,81 @@
 import streamlit as st
-import os
 import pandas as pd
+import requests
+import random
 
-# Tab Title
+# Streamlit setup
 st.set_page_config(page_title="Charts", page_icon="📊", layout="wide")
-# Title & Intro
 st.title("Data Visualisation")
 st.write("...")
 
-
-import requests
-import random
-import pandas as pd
-
 # TMDB API setup
-API_KEY = "eb7ed2a4be7573ea9c99867e37d0a4ab"  # Replace with your TMDb API Key
+API_KEY = "eb7ed2a4be7573ea9c99867e37d0a4ab"
 BASE_URL = "https://api.themoviedb.org/3"
 MOVIE_POPULAR_URL = f"{BASE_URL}/movie/popular"
 GENRE_URL = f"{BASE_URL}/genre/movie/list"
+MOVIE_DETAILS_URL = f"{BASE_URL}/movie"
 
-# Function to fetch genres from TMDb
+# Fetch genres from TMDb
 def fetch_genres():
-    params = {
-        'api_key': API_KEY,
-        'language': 'en-US',
-    }
-    response = requests.get(GENRE_URL, params=params)
+    response = requests.get(GENRE_URL, params={'api_key': API_KEY, 'language': 'en-US'})
+    if response.status_code == 200:
+        return {genre["id"]: genre["name"] for genre in response.json().get("genres", [])}
+    print(f"Error fetching genres: {response.status_code}")
+    return {}
+
+# Fetch movie details (length and release year)
+def fetch_movie_details(movie_id):
+    response = requests.get(f"{MOVIE_DETAILS_URL}/{movie_id}", params={'api_key': API_KEY, 'language': 'en-US'})
     if response.status_code == 200:
         data = response.json()
-        genres = {genre["id"]: genre["name"] for genre in data["genres"]}
-        return genres
-    else:
-        print(f"Error fetching genres: {response.status_code}")
-        return {}
+        return data.get("runtime"), data.get("release_date", "")[:4]
+    print(f"Error fetching movie details for ID {movie_id}: {response.status_code}")
+    return None, None
 
-# Function to fetch popular movies and include genres
-def fetch_popular_movies():
-    for page in range(1, 3):
-        params = {
-            'api_key': API_KEY,
-            'language': 'en-US',
-            'page': page  # You can change the page number if you want more results
-    }
-    
-    response = requests.get(MOVIE_POPULAR_URL, params=params)
-    if response.status_code == 200:
-        data = response.json()
-        movies = data.get('results', [])
-        return movies
-    else:
-        print(f"Error fetching movies: {response.status_code}")
-        return []
+# Fetch popular movies with details
+def fetch_popular_movies(pages=3):
+    movies = []
+    for page in range(1, pages + 1):
+        response = requests.get(MOVIE_POPULAR_URL, params={'api_key': API_KEY, 'language': 'en-US', 'page': page})
+        if response.status_code == 200:
+            movies.extend(response.json().get('results', []))
+        else:
+            print(f"Error fetching movies: {response.status_code}")
+    return movies
 
-# Fetch genres and popular movies
+# Process movies and genres
 genres = fetch_genres()
-movies = fetch_popular_movies()
-
-# Limit to the first 20 movies (for the sample)
-movies = movies[:50]
-
-# Extract necessary movie details (e.g., ID, title, rating, genres)
+movies = fetch_popular_movies(pages=3)[:50]
 movie_data = []
 for movie in movies:
-    genre_names = [genres.get(genre_id) for genre_id in movie.get("genre_ids", [])]
+    runtime, release_year = fetch_movie_details(movie["id"])
     movie_data.append({
         "movieId": movie["id"],
         "title": movie["title"],
-        "rating": movie.get("vote_average", None),  # TMDb movie rating
-        "genres": ", ".join(genre_names)  # Concatenate genres into a string
+        "rating": movie.get("vote_average"),
+        "genres": ", ".join(genres.get(genre_id) for genre_id in movie.get("genre_ids", [])),
+        "length": runtime,
+        "release_year": release_year
     })
 
-# Create a DataFrame for the movie data
+# Create DataFrame
 df_movies = pd.DataFrame(movie_data)
 
-# Define sample user data and ratings
-user_data = []
-user_id = 1  # Single user ID
-for index, row in df_movies.iterrows():
-    # Randomly assign ratings between 1 and 10
-    user_data.append({
-        "userId": user_id,  # Only one user
-        "movieId": row["movieId"],
-        "rating": random.randint(1, 10),  # Random rating between 1 and 10
-        "title": row["title"],
-        "genres": row["genres"]
-    })
+# Generate random user ratings
+df_ratings = pd.DataFrame([{
+    "userId": 1,
+    "movieId": row["movieId"],
+    "rating": random.randint(1, 10),
+    "title": row["title"],
+    "genres": row["genres"],
+    "length": row["length"],
+    "release_year": row["release_year"]
+} for _, row in df_movies.iterrows()])
 
-# Create a DataFrame for user ratings with movie details
-df_ratings = pd.DataFrame(user_data)
-
-# Save the merged data to CSV
-RATINGS_FILE = "ratings_with_genres_sample.csv"
+# Save to CSV and display in Streamlit
+RATINGS_FILE = "ratings_with_genres_and_details_sample.csv"
 df_ratings.to_csv(RATINGS_FILE, index=False)
+print(f"Sample data with genres and details saved to {RATINGS_FILE}")
 
-print(f"Sample data with genres saved to {RATINGS_FILE}")
-
-# Display the CSV data as a table
-st.title("Movie Ratings with Genres")
+st.title("Movie Ratings with Genres and Details")
 st.dataframe(df_ratings)

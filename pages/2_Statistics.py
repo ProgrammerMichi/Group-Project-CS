@@ -28,6 +28,7 @@ st.plotly_chart(fig)
 # radar chart for similarities
 # list of top and worst rated movies
 # average rating by release date
+# total time for each genre
 
 
 # Display the CSV data as a table
