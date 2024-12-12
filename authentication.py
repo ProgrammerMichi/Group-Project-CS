@@ -42,12 +42,29 @@ def register_user(username, password):
 
 def authenticate_user(username, password):
     cursor.execute("SELECT * FROM users WHERE username = ? AND password = ?", (username, password))
-    return cursor.fetchone() is not None
+    result = cursor.fetchone()
+    if result:
+        st.session_state["userId"] = result[0]
+        return True
+    return False
+
+def initialize_session():
+    if "logged_in" not in st.session_state:
+        st.session_state["logged_in"] = False
+    if "userId" not in st.session_state:
+        st.session_state["userId"] = None
+    if "username" not in st.session_state:
+        st.session_state["username"] = None
 
 # Streamlit UI
 def login():
     # Initialize session state variables
-
+    if "logged_in" not in st.session_state:
+        st.session_state["logged_in"] = False
+    if "userId" not in st.session_state:
+        st.session_state["userId"] = None
+    if "username" not in st.session_state:
+        st.session_state["username"] = None
 
     register = st.sidebar.expander("Register")
     log_in = st.sidebar.expander("Log In")
@@ -58,7 +75,7 @@ def login():
         new_username = st.text_input("Username", key="register_username")
         new_password = st.text_input("Password", type="password", key="register_password")
 
-    # Only attempt registration if fields are non-empty and the button is clickedxwxw
+        # Only attempt registration if fields are non-empty and the button is clicked
         if st.button("Register"):
             if new_username.strip() and new_password.strip():
                 try:
@@ -68,27 +85,29 @@ def login():
             else:
                 st.error("Username and password cannot be empty!")
 
-
     with log_in:
         st.subheader("Login")
         username = st.text_input("Username", key="login_username")
         password = st.text_input("Password", type="password", key="login_password")
 
         if st.button("Login"):
-            if authenticate_user(username, password):
-                st.success(f"Welcome, {username}!")
+            cursor.execute("SELECT userId FROM users WHERE username = ? AND password = ?", (username, password))
+            result = cursor.fetchone()
+            if result:
+                user_id = result[0]
                 st.session_state["logged_in"] = True
                 st.session_state["username"] = username
+                st.session_state["userId"] = user_id
+                st.success(f"Welcome, {username}!")
             else:
                 st.error("Invalid username or password.")
 
     # Session management
-    if "logged_in" not in st.session_state:
-        st.session_state["logged_in"] = False
-
     if st.session_state["logged_in"]:
         st.sidebar.write(f"Logged in as: {st.session_state['username']}")
         if st.sidebar.button("Logout"):
             st.session_state["logged_in"] = False
             st.session_state["username"] = None
+            st.session_state["userId"] = None
             st.success("Successfully logged out!")
+
