@@ -3,7 +3,8 @@ import streamlit as st
 import requests
 from tmdbv3api import TMDb, Movie, Genre, Discover, Person, Search
 import sqlite3
-from 1_Your_Ratings import save_ratings
+import os
+import json
 
 
 
@@ -80,6 +81,28 @@ def get_keyword_id(term):
     if keywords:
         return keywords[0].id
 
+# File path for ratings.json
+RATINGS_FILE = os.path.join(os.path.dirname(__file__), "ratings.json")
+
+# Load ratings from JSON file
+def load_ratings():
+    if not os.path.exists(RATINGS_FILE):
+        return {}
+    with open(RATINGS_FILE, "r") as file:
+        return json.load(file)
+
+# Save ratings to JSON file
+def save_ratings(ratings):
+    with open(RATINGS_FILE, "w") as file:
+        json.dump(ratings, file, indent=4)
+
+# Add or update a user's rating for a movie
+def add_rating(username, movie, rating):
+    ratings = load_ratings()
+    if username not in ratings:
+        ratings[username] = {}
+    ratings[username][movie] = rating
+    save_ratings(ratings)
 
 
 def findmovie(selgen, actor_check, selactor, keyword_check, selkeywords, excl_check, exclkeywords, selorder, rating_check, 
