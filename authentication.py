@@ -7,22 +7,14 @@ cursor = conn.cursor()
 
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS users (
-    userId INTEGER PRIMARY KEY,
-    username TEXT UNIQUE,
+    username TEXT PRIMARY KEY,
     password TEXT
 )
 """)
 conn.commit()
 
-# Get the next user ID starting from 611
-def get_next_user_id():
-    cursor.execute("SELECT MAX(userId) FROM users")
-    max_id = cursor.fetchone()[0]
-    return max_id + 1 if max_id else 611
-
 def register_user(username, password):
-    user_id = get_next_user_id()
-    cursor.execute("INSERT INTO users (userId, username, password) VALUES (?, ?, ?)", (user_id, username, password))
+    cursor.execute("INSERT INTO users (username, password) VALUES (?, ?)", (username, password))
     conn.commit()
 
 def authenticate_user(username, password):
@@ -31,8 +23,8 @@ def authenticate_user(username, password):
 
 # Streamlit UI
 def login():
-    register = st.sidebar.expander("Register")
-    log_in = st.sidebar.expander("Log In")
+    register = st.sidebar.popover("Register")
+    log_in = st.sidebar.popover("Log In")
 
     with register:
         st.subheader("Register")
