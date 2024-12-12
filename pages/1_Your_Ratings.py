@@ -1,6 +1,8 @@
 import streamlit as st
 import sqlite3
 import authentication
+import os
+import json
 
 # Tab Title, Titles and Intro
 st.set_page_config(page_title="Ratings", page_icon="📋", layout="wide")
@@ -15,30 +17,31 @@ selected = st.feedback("stars")
 if selected is not None:
     st.markdown(f"You selected {sentiment_mapping[selected]} star(s).")
 
-def get_personal_ratings():
-    username = st.session_state.get("username")
-    if not username:
-        return "No username found. Please log in to view your ratings."
-    
-    conn = sqlite3.connect("userratings.db")
-    cursor = conn.cursor()
-    cursor.execute("SELECT * FROM userratings WHERE username = ?", (username,))
-    ratings = cursor.fetchall()
-    conn.close()
-    return ratings
+# File path for ratings.json
+RATINGS_FILE = os.path.join(os.path.dirname(__file__), "ratings.json")
+
+# Load ratings from JSON file
+def load_ratings():
+    if not os.path.exists(RATINGS_FILE):
+        return {}
+    with open(RATINGS_FILE, "r") as file:
+        return json.load(file)
+
+# Save ratings to JSON file
+def save_ratings(ratings):
+    with open(RATINGS_FILE, "w") as file:
+        json.dump(ratings, file, indent=4)
+
+# Add or update a user's rating for a movie
+def add_rating(username, movie, rating):
+    ratings = load_ratings()
+    if username not in ratings:
+        ratings[username] = {}
+    ratings[username][movie] = rating
+    save_ratings(ratings)
 
 
 if st.session_state.get("logged_in"):
     st.write("Logged in as:", st.session_state.get("username"))
     st.write("User ID:", st.session_state.get("userID"))
     
-if st.session_state.get("logged_in"):
-    user_ratings = get_personal_ratings()
-    if isinstance(user_ratings, str):  # Handle error messages
-        st.write(user_ratings)
-    elif user_ratings:
-        st.write("Your Ratings:")
-        for rating in user_ratings:
-            st.write(rating)
-    else:
-        st.write("You haven't rated any movies yet.")
