@@ -16,13 +16,13 @@ if selected is not None:
     st.markdown(f"You selected {sentiment_mapping[selected]} star(s).")
 
 def get_personal_ratings():
-    user_id = st.session_state.get("userId")
-    if not user_id:
-        return "No user ID found. Please log in to view your ratings."
+    username = st.session_state.get("username")
+    if not username:
+        return "No username found. Please log in to view your ratings."
     
     conn = sqlite3.connect("userratings.db")
     cursor = conn.cursor()
-    cursor.execute("SELECT * FROM userratings WHERE userId = ?", (user_id,))
+    cursor.execute("SELECT * FROM userratings WHERE username = ?", (username,))
     ratings = cursor.fetchall()
     conn.close()
     return ratings
