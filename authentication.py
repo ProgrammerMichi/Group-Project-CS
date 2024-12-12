@@ -59,14 +59,15 @@ def login():
         new_password = st.text_input("Password", type="password", key="register_password")
 
     # Only attempt registration if fields are non-empty and the button is clicked
-    if st.sidebar.button("Register", key ="blabla"):
-        if new_username.strip() and new_password.strip():
-            try:
-                register_user(new_username, new_password)
-            except sqlite3.IntegrityError:
-                st.error("Username already exists!")
-        else:
-            st.error("Username and password cannot be empty!")
+    with register:
+        if st.sidebar.button("Register", key ="blabla"):
+            if new_username.strip() and new_password.strip():
+                try:
+                    register_user(new_username, new_password)
+                except sqlite3.IntegrityError:
+                    st.error("Username already exists!")
+            else:
+                st.error("Username and password cannot be empty!")
 
 
     with log_in:
