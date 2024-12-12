@@ -100,7 +100,7 @@ with col5:
     # Top-rated movies by the user
     top_rated = df_ratings.sort_values('rating', ascending=False).head(10)
     fig6 = px.bar(top_rated, x='rating', y='title', orientation='h',
-                title="Top-Rated Movies",
+                title="Your Top-Rated Movies",
                 labels={'title': 'Movie', 'rating': 'Rating'},
                 category_orders={'title': top_rated['title'].tolist()})
     st.plotly_chart(fig6)
@@ -109,7 +109,7 @@ with col6:
     # Worst-rated movies by the user
     worst_rated = df_ratings.sort_values('rating', ascending=True).head(10)
     fig7 = px.bar(worst_rated, x='rating', y='title', orientation='h',
-                title="Worst-Rated Movies",
+                title="Your Worst-Rated Movies",
                 labels={'title': 'Movie', 'rating': 'Rating'},
                 category_orders={'title': worst_rated['title'].tolist()})
     st.plotly_chart(fig7)
