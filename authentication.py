@@ -67,7 +67,7 @@ def login():
         new_password = st.text_input("Password", type="password", key="register_password")
 
     # Only attempt registration if fields are non-empty and the button is clicked
-    if st.button("Register"):
+    if st.button("Register", key ="blabla"):
         if new_username.strip() and new_password.strip():
             try:
                 register_user(new_username, new_password)
@@ -76,7 +76,7 @@ def login():
         else:
             st.error("Username and password cannot be empty!")
 
-        if st.button("Register"):
+        if st.button("Register", key = "mefme"):
             try:
                 register_user(new_username, new_password)
                 st.success("User successfully registered! Please log in.")
