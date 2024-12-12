@@ -73,13 +73,13 @@ with col4:
     st.plotly_chart(fig5)
     # Determine and display the genre with the most movies
     most_movies_genre = genre_counts.iloc[0]
-    st.write(f"The genre with the most movies is '{most_movies_genre['genres']}' with {most_movies_genre['count']} movies.")
+    st.write(f"The genre that holds the most movies is '{most_movies_genre['genres']}' with {most_movies_genre['count']} movies.")
 
 
 
 # Bar chart showing the number of movies rated by release year
 movies_by_year = df_ratings.groupby('release_year').size().reset_index(name='count')
-fig4 = px.bar(movies_by_year, x="release_year", y="count", title="Number of Movies Rated by Release Year")
+fig4 = px.bar(movies_by_year, x="release_year", y="count", title="Number of Rated Movies by Release Year")
 fig4.update_layout(
     width=900,
     xaxis_title="Release Year",
