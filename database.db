@@ -1,7 +1,7 @@
 import sqlite3
 
 # Connect to a persistent file-based database
-conn = sqlite3.connect("users.db", check_same_thread=False)
+conn = sqlite3.connect("database.db", check_same_thread=False)
 cursor = conn.cursor()
 
 # Create the 'users' table if it doesn't exist
@@ -12,23 +12,17 @@ CREATE TABLE IF NOT EXISTS users (
     password TEXT
 )
 """)
-conn.commit()
-
-
-
-
-# Connect to a persistent file-based database
-rating_conn = sqlite3.connect("userratings.db", check_same_thread=False)
-rating_cursor = rating_conn.cursor()
 
 # Create the 'userratings' table if it doesn't exist
-rating_cursor.execute("""
+cursor.execute("""
 CREATE TABLE IF NOT EXISTS userratings (
     ratingId INTEGER PRIMARY KEY AUTOINCREMENT,  
     userId INTEGER,                              
     username TEXT,                               
-    movietitle TEXT,                            
-    rating REAL                          
+    movietitle TEXT,                             
+    rating REAL,
+    FOREIGN KEY(userId) REFERENCES users(userId) 
 )
 """)
-rating_conn.commit()
+conn.commit()
+conn.close()
