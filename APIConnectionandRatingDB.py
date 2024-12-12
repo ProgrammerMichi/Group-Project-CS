@@ -90,6 +90,13 @@ def load_ratings():
         return {}
     with open(RATINGS_FILE, "r") as file:
         return json.load(file)
+    
+    # Extract all unique movie titles from the ratings
+    movies = set()
+    for user_ratings in ratings.values():
+        movies.update(user_ratings.keys())
+
+    return list(movies), ratings  # Return movie titles and the ratings dictionary
 
 # Save ratings to JSON file
 def save_ratings(ratings):
