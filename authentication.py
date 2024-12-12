@@ -4,8 +4,7 @@ import streamlit as st
 # Database setup
 conn = sqlite3.connect("users.db", check_same_thread=False)
 cursor = conn.cursor()
-cursor.execute("DROP TABLE IF IT EXISTS users")
-cursor.execute("DROP TABLE IF IT EXISTS userratings")
+
 cursor.execute("DROP TABLE IF EXISTS users")
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS users (
