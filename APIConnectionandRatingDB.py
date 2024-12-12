@@ -249,7 +249,9 @@ def movielist(returnmovies):
                         else:
                             with st.popover("View Movie Description"):
                                 st.write(description)
-                    
+                    except Exception:
+                        st.write("No Description Available")
+                       
 
 
                     
