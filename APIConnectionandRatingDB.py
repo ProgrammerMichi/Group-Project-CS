@@ -98,6 +98,21 @@ def load_ratings():
 
     return list(movies), ratings  # Return movie titles and the ratings dictionary
 
+def get_user_movie_ratings():
+    if "username" not in st.session_state:
+        return []
+    
+    _, ratings = load_ratings()
+    
+    # Get the current user's ratings
+    current_user = st.session_state["username"]
+    user_ratings = ratings.get(current_user, {})
+    
+    # Create a list of "movie: rating" strings
+    movie_rating_list = [f"{movie}: {rating}" for movie, rating in user_ratings.items()]
+    
+    return movie_rating_list
+
 # Save ratings to JSON file
 def save_ratings(ratings):
     with open(RATINGS_FILE, "w") as file:
