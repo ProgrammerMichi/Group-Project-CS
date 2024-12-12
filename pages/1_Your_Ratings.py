@@ -1,18 +1,6 @@
 import streamlit as st
 import sqlite3
 import authentication
-from APIConnectionandRatingDB import get_user_ratings
-
-if st.session_state.get("logged_in", False):
-    user_ratings = get_user_ratings(st.session_state["userId"])
-    if user_ratings:
-        st.write("Your Ratings:")
-        for rating in user_ratings:
-            st.write(rating)
-    else:
-        st.write("You haven't rated any movies yet.")
-else:
-    st.write("Log in to view your ratings.")
 
 # Tab Title, Titles and Intro
 st.set_page_config(page_title="Ratings", page_icon="📋", layout="wide")
