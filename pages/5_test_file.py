@@ -1,93 +1,36 @@
-import streamlit as st
-from streamlit_option_menu import option_menu
-from tmdbv3api import TMDb, Movie, Genre, Discover, Person
-#import pandas
-#import numpy
-#import surprise
-#import os
-from APIConnection import TMDbAPIClient
+import requests
 import pandas as pd
-import numpy as np
-import requests  # To make API calls
 
+# Define your TMDB API key and endpoint
+api_key = 'your_tmdb_api_key'
+endpoint = 'https://api.themoviedb.org/3/movie/popular'
 
-# options to switch pages      
-# v1
-if st.button("Get started"):
-    st.switch_page("app.py")
-if st.button("Rate our Recommendations"):
-    st.switch_page("pages/1_Ratings.py")
-if st.button("See your statistics"):
-    st.switch_page("pages/2_Statistics.py")
+# Fetch data from TMDB API
+params = {
+    'api_key': api_key,
+    'language': 'en-US',
+    'page': 1  # You can loop through multiple pages if needed
+}
+response = requests.get(endpoint, params=params)
+data = response.json()
 
-# v2
-app_path = 'https://groupemichi.streamlit.app'
-page_file_path = 'pages/Ratings.py'
-page = page_file_path.split('/')[1][0:-3]  # get "1_Ratings.py"
-st.markdown(
-    "Rate our Recommendations " f'''<a href="{app_path}/{page}" target="_self">here</a>''',
-    unsafe_allow_html=True)
+# Extract relevant data
+movies = []
+for movie in data['results']:
+    movies.append({
+        'title': movie['title'],
+        'genres': ', '.join([genre['name'] for genre in movie['genre_ids']]),  # Join genres as comma-separated string
+        'rating': movie['vote_average'],
+        'release_year': movie['release_date'][:4],  # Extract year from release date
+        'length': movie.get('runtime', 0)  # Assuming runtime is included, default to 0 if not available
+    })
 
-# v3
-url = "https://groupemichi.streamlit.app"
-st.write("get started [here](%s)" % url)
+# Create a DataFrame
+df_global = pd.DataFrame(movies)
 
-API_KEY = 'eb7ed2a4be7573ea9c99867e37d0a4ab'
-BASE_URL = 'https://api.themoviedb.org/3'
+# Save to CSV for future use
+df_global.to_csv('global_ratings.csv', index=False)
 
-
-
-# Function to fetch movies and posters by genre
-def fetch_movies_by_genre(genre_id):
-    url = f"{BASE_URL}/discover/movie"
-    params = {
-        "api_key": API_KEY,
-        "with_genres": genre_id,
-        "sort_by": "popularity.desc",
-        "language": "en-US",
-        "page": 1,
-    }
-    response = requests.get(url, params=params)
-    if response.status_code == 200:
-        data = response.json()
-        return [
-            {
-                "title": movie["title"],
-                "poster_url": f"https://image.tmdb.org/t/p/w500{movie['poster_path']}"
-            }
-            for movie in data.get("results", [])
-            if movie.get("poster_path")  # Ensure the movie has a poster
-        ]
-    else:
-        return []
-
-# Streamlit UI
-col0, col1, col2, col3, col4, col5, col6, col7 = st.columns([2,2,2,2,2,2,3,3])
-
-with col0:
-    genre_check = st.checkbox("Genre")
-    if genre_check:
-        # Fetch genres dynamically from TMDb API
-        genrelist = [{"id": 0, "name": "Select"}]
-        genres = requests.get(f"{BASE_URL}/genre/movie/list", params={"api_key": API_KEY}).json()
-        if genres.get("genres"):
-            genrelist.extend(genres["genres"])  # Add TMDb genres to the list
-
-        # Display genre selection dropdown
-        selgen = st.selectbox("Choose Genre", options=[g["name"] for g in genrelist])
-
-        if selgen != "Select":
-            # Get selected genre ID
-            selected_genre_id = next(g["id"] for g in genrelist if g["name"] == selgen)
-
-            # Fetch movies and posters for the selected genre
-            movies = fetch_movies_by_genre(selected_genre_id)
-
-          # Display movies and poster with st.container():
-for movie in movies:
-    with st.container():
-        cols = st.columns(5)
-        st.write(f"**{movie['title']}**")
-        st.image(movie["poster_url"], width=150)
-
+# Display the DataFrame
+print(df_global.head())
 
