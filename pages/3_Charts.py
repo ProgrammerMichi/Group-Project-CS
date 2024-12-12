@@ -47,7 +47,7 @@ def fetch_popular_movies(pages=3):
 
 # Process movies and genres
 genres = fetch_genres()
-movies = fetch_popular_movies(pages=3)[:50]
+movies = fetch_popular_movies(pages=3)[:100]
 movie_data = []
 for movie in movies:
     runtime, release_year = fetch_movie_details(movie["id"])
