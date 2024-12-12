@@ -19,6 +19,7 @@ def get_personal_ratings():
     conn = sqlite3.connect("userratings.db")
     cursor = conn.cursor
     cursor.execute("SELECT * FROM userratings WHERE userId = ?", (st.session_state.get("userId", None)))
+    return cursor.fetchall()
 
 
 if st.session_state.get("Logged in"):
