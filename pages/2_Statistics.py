@@ -94,50 +94,21 @@ most_watched_year = df_ratings['release_year'].value_counts().idxmax()
 st.write(f"You have mostly watched movies released in {most_watched_year}.")
 
 
-# 5. Top-Rated Movies by the User
-top_rated = df_ratings.sort_values('rating', ascending=False).head(10)
+# Top-rated movies by the user
+top_rated = df_ratings.sort_values('rating', ascending=True).head(10)
 fig6 = px.bar(top_rated, x='rating', y='title', orientation='h',
              title="Top-Rated Movies",
              labels={'title': 'Movie', 'rating': 'Rating'})
 st.plotly_chart(fig6)
 
 
-if os.path.exists(global_ratings_path):
-    df_global = pd.read_csv(global_ratings_path)
-    st.write("Global Ratings Data")
-    st.dataframe(df_global.head())
-    
-    # Check if the necessary columns are present
-    if 'genres' in df_global.columns and 'rating' in df_global.columns:
-        # Generate and display the comparison chart
-        def generate_comparison_chart(df_user, df_global):
-            user_avg_ratings = df_user.groupby('genres')['rating'].mean().reset_index()
-            user_avg_ratings.columns = ['genres', 'user_avg_rating']
+# Worst-rated movies by the user
+worst_rated = df_ratings.sort_values('rating', ascending=False).head(1)
+fig7 = px.bar(top_rated, x='rating', y='title', orientation='h',
+             title="Worst-Rated Movies",
+             labels={'title': 'Movie', 'rating': 'Rating'})
+st.plotly_chart(fig7)
 
-            global_avg_ratings = df_global.groupby('genres')['rating'].mean().reset_index()
-            global_avg_ratings.columns = ['genres', 'global_avg_rating']
 
-            comparison_df = pd.merge(user_avg_ratings, global_avg_ratings, on='genres')
 
-            fig = px.bar(comparison_df, x='genres', y=['user_avg_rating', 'global_avg_rating'],
-                         title='Comparison of User Rating Patterns Against Global Averages',
-                         labels={'value': 'Average Rating', 'variable': 'Rating Type'},
-                         barmode='group')
-
-            fig.update_layout(
-                xaxis_title="Genres",
-                yaxis_title="Average Rating",
-                xaxis=dict(title_font=dict(size=18)),
-                yaxis=dict(title_font=dict(size=18)),
-                title=dict(font=dict(size=24))
-            )
-
-            return fig
-
-        # Generate and display the comparison chart
-        fig = generate_comparison_chart(df_ratings, df_global)
-        st.plotly_chart(fig)
-    else:
-        st.error("The 'global_ratings.csv' file does not contain the necessary columns 'genres' and 'rating'.")
-else:
-    st.error("The global ratings file 'global_ratings.csv' was not found. Please ensure it exists in the correct directory.")
+# User ratings vs global ratings
