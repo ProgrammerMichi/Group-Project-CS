@@ -104,21 +104,19 @@ def shorten_title(title, max_length=15):
 with col5:
     # Top-rated movies by the user
     top_rated = df_ratings.sort_values('rating', ascending=False).head(10)
-    top_rated['short_title'] = top_rated['title'].apply(shorten_title)
     fig6 = px.bar(top_rated, x='rating', y='title', orientation='h',
                 title="Your Top-Rated Movies",
-                labels={'short_title': 'Movie', 'rating': 'Rating'},
-                category_orders={'short_title': top_rated['short_title'].tolist()[::-1]})
+                labels={'title': 'Movie', 'rating': 'Rating'},
+                category_orders={'title': top_rated['title'].tolist()[::-1]})
     st.plotly_chart(fig6)
 
 with col6:
     # Worst-rated movies by the user
     worst_rated = df_ratings.sort_values('rating', ascending=True).head(10)
-    worst_rated['short_title'] = worst_rated['title'].apply(shorten_title)
     fig7 = px.bar(worst_rated, x='rating', y='title', orientation='h',
                 title="Your Worst-Rated Movies",
-                labels={'short_title': 'Movie', 'rating': 'Rating'},
-                category_orders={'short_title': worst_rated['short_title'].tolist()})
+                labels={'title': 'Movie', 'rating': 'Rating'},
+                category_orders={'title': worst_rated['title'].tolist()})
     st.plotly_chart(fig7)
 
 
