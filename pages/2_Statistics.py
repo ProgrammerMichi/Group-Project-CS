@@ -120,19 +120,19 @@ with col6:
 col7, col8 = st.columns([1, 1])
 
 with col7:
-# Scatter Plot: Release Year vs. Rating
-fig8 = px.scatter(df_ratings, x='release_year', y='rating',
-                title="Release Year vs. Rating",
-                labels={'release_year': 'Release Year', 'rating': 'Rating'})
-st.plotly_chart(fig8)
+    # Scatter Plot: Release Year vs. Rating
+    fig8 = px.scatter(df_ratings, x='release_year', y='rating',
+                    title="Release Year vs. Rating",
+                    labels={'release_year': 'Release Year', 'rating': 'Rating'})
+    st.plotly_chart(fig8)
 
 with col8:
-# Heatmap: Release Year vs. Average Rating
-year_rating = df_ratings.groupby('release_year')['rating'].mean().reset_index()
-fig9 = px.imshow(year_rating.pivot(index='release_year', columns='rating', values='rating'),
-                    title="Release Year vs. Average Rating")
-fig4.update_layout(width=800)
-st.plotly_chart(fig9)
+    # Heatmap: Release Year vs. Average Rating
+    year_rating = df_ratings.groupby('release_year')['rating'].mean().reset_index()
+    fig9 = px.imshow(year_rating.pivot(index='release_year', columns='rating', values='rating'),
+                        title="Release Year vs. Average Rating")
+    fig4.update_layout(width=800)
+    st.plotly_chart(fig9)
 
 
 # User ratings vs global ratings??
