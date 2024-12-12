@@ -24,7 +24,7 @@ def get_personal_ratings():
     return ratings
 
 
-if st.session_state.get("Logged in"):
+if st.session_state.get("logged_in"):
     user_ratings = get_personal_ratings()
     if isinstance(user_ratings, str):  # Handle error messages
         st.write(user_ratings)
