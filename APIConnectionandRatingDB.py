@@ -308,8 +308,3 @@ def store_rating(userId, movieId, rating):
     cursor.execute("INSERT INTO ratings (userId, movieId, rating) VALUES (?, ?, ?)", (userId, movieId, rating))
     conn.commit()
     conn.close()
-
-
-def get_user_ratings(user_id):
-    cursor.execute("SELECT * FROM userratings WHERE userId = ?", (user_id,))
-    return cursor.fetchall()
