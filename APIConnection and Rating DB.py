@@ -294,6 +294,9 @@ def movielist(returnmovies):
                             save_rating(get_user_id, st.session_state["username"], details.title, movierating)
                             if save_rating:
                                 st.write("Rating Saved!")
+                    
+                    else:
+                        st.write("")
 
                         
                     
