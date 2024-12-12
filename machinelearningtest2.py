@@ -73,3 +73,7 @@ top_n_movies_titles = movies_df[movies_df['movieId'].isin(recommendations)]['tit
 print(f"Top 5 Recommendations for User {user_id}:")
 for i, title in enumerate(top_n_movies_titles, 1):
   print(f"{i}.{title}")
+
+
+#The goal now was be to translate the ratings on our site to this dataset to be able to use the recommendation function.
+#We had problems finding the correct way to store data which took up a lot of time and then it was too late
