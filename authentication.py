@@ -47,14 +47,6 @@ def authenticate_user(username, password):
 # Streamlit UI
 def login():
     # Initialize session state variables
-    if "userId" not in st.session_state:
-        st.session_state["userId"] = None
-
-    if "logged_in" not in st.session_state:
-        st.session_state["logged_in"] = False
-
-    if "username" not in st.session_state:
-        st.session_state["username"] = None
 
 
     register = st.sidebar.expander("Register")
