@@ -49,9 +49,7 @@ fig6.update_layout(width=900)
 st.plotly_chart(fig6)
 
 
-# Determine and display the year with the most movies
-most_watched_year = df_ratings['release_year'].value_counts().idxmax()
-st.write(f"You have mostly watched movies released in {most_watched_year}.")
+
 # Bar chart showing the number of movies rated by release year
 movies_by_year = df_ratings.groupby('release_year').size().reset_index(name='count')
 fig4 = px.bar(movies_by_year, x="release_year", y="count", title="Number of Movies Rated by Release Year")
