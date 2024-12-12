@@ -3,7 +3,7 @@ import pandas as pd
 import streamlit as st
 
 # Define your TMDB API key and endpoint
-api_key = 'your_tmdb_api_key'
+api_key = 'eb7ed2a4be7573ea9c99867e37d0a4ab'
 endpoint = 'https://api.themoviedb.org/3/movie/popular'
 
 # Fetch data from TMDB API
@@ -35,5 +35,6 @@ RATINGS_FILE = "global_ratings.csv"
 df_global.to_csv('RATINGS_FILE.csv', index=False)
 
 # Display the DataFrame
+st.write("Global Ratings Data")
 st.dataframe(df_global)
 
