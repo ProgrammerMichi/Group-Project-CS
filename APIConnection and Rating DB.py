@@ -296,7 +296,7 @@ def movielist(returnmovies):
                                 st.write("Rating Saved!")
                     
                     else:
-                        st.write("")
+                        st.write("Log in to rate movies!")
 
                         
                     
