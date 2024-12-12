@@ -173,10 +173,6 @@ def get_connection():
     return sqlite3.connect("users.db", check_same_thread=False)
 
 
-
-def get_user_id():
-    return st.session_state.get("userId", None)
-
 def save_rating(user_id, username, movietitle, rating):
     cursor.execute("INSERT INTO userratings (userId, username, movietitle, rating) VALUES (?, ?, ?, ?)", 
                     (user_id, username, movietitle, rating))
