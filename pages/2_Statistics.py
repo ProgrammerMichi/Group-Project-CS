@@ -104,7 +104,7 @@ st.plotly_chart(fig6)
 
 
 # Worst-rated movies by the user
-worst_rated = df_ratings.sort_values('rating', ascending=True).head(1)
+worst_rated = df_ratings.sort_values('rating', ascending=True).head(10)
 fig7 = px.bar(worst_rated, x='rating', y='title', orientation='h',
              title="Worst-Rated Movies",
              labels={'title': 'Movie', 'rating': 'Rating'})
