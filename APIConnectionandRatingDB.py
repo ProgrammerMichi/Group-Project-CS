@@ -96,7 +96,7 @@ def load_ratings(username):
             return []  # Return an empty list if the JSON file is corrupted or empty
 
     # Get ratings for the specified user
-    user_ratings = ratings.get(username)
+    user_ratings = ratings.get(username, {})
     
     # Format the ratings as "movie: rating"
     return [f"{movie}: {rating}" for movie, rating in user_ratings.items()]
