@@ -27,7 +27,8 @@ def login():
     log_in = st.sidebar.popover("Log In")
 
     with register:
-        st.markdown("Register")
+        st.subheader("Register")
+        st.write("WARNING: Do NOT use passwords you use elsewhere! This is a course project!")
         new_username = st.text_input("Username", key="register_username")
         new_password = st.text_input("Password", type="password", key="register_password")
 
