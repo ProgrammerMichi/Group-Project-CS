@@ -25,25 +25,7 @@ fig2.update_layout(width=900,
 st.plotly_chart(fig2)
 
 
-# Number of Movies by Release Year
-movies_by_year = df_ratings.groupby('release_year').size().reset_index(name='count')
-fig4 = px.bar(movies_by_year, x="release_year", y="count", title="Number of Movies by Release Year")
-fig4.update_layout(
-    width=900,
-    xaxis_title="Release Year",
-    yaxis_title="Average Rating")
-st.plotly_chart(fig4)
-
-
-# Pie chart with genres
-df_genres = df_ratings.assign(genres=df_ratings['genres'].str.split(', ')).explode('genres')
-genre_counts = df_genres['genres'].value_counts().reset_index()
-genre_counts.columns = ['genres', 'count']
-fig5 = px.pie(genre_counts, names='genres', values='count', title='Distribution of Genres')
-fig5.update_layout(width=900)
-st.plotly_chart(fig5)
-
-# Radar chart for similarities (example using average rating by genre)
+# Radar chart for average ratings by genre)
 genre_ratings = df_genres.groupby('genres')['rating'].mean().reset_index()
 fig6 = go.Figure()
 fig6.add_trace(go.Scatterpolar(
@@ -62,6 +44,26 @@ fig6.update_layout(
 )
 fig6.update_layout(width=900)
 st.plotly_chart(fig6)
+
+
+# Number of Movies by Release Year
+movies_by_year = df_ratings.groupby('release_year').size().reset_index(name='count')
+fig4 = px.bar(movies_by_year, x="release_year", y="count", title="Number of Movies Rated by Release Year")
+fig4.update_layout(
+    width=900,
+    xaxis_title="Release Year",
+    yaxis_title="Number of Movies")
+st.plotly_chart(fig4)
+
+
+# Pie chart with genres
+df_genres = df_ratings.assign(genres=df_ratings['genres'].str.split(', ')).explode('genres')
+genre_counts = df_genres['genres'].value_counts().reset_index()
+genre_counts.columns = ['genres', 'count']
+fig5 = px.pie(genre_counts, names='genres', values='count', title='Distribution of Genres')
+fig5.update_layout(width=900)
+st.plotly_chart(fig5)
+
 
 # Total movie runtime for each genre
 genre_runtime = df_genres.groupby('genres')['length'].sum().reset_index()
