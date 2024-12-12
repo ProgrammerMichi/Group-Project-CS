@@ -22,13 +22,13 @@ search = Search()
 
 def fetch_poster(movie_id):
     #Fetch the movie poster for the respective movie 
-    url = "https://api.themoviedb.org/3/movie/" + movie_id + "?api_key=eb7ed2a4be7573ea9c99867e37d0a4ab&language=en-US"
-    data = requests.get(url)
-    data = data.json()
-    poster_path = data['poster_path']
-    full_path = "https://image.tmdb.org/t/p/w500/" + poster_path
+    movie_details = movie.details(movie_id)
+    poster_path = movie_details.get('poster_path', None)
+    if poster_path:
+        full_path = f"https://image.tmdb.org/t/p/w500/{poster_path}"
+    else:
+        full_path = "No poster available."
     return full_path
-
 
 def fetch_movie_description(movie_id):
     #Fetch the movie description for the respective movie
