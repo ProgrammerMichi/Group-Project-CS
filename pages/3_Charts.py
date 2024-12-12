@@ -51,7 +51,8 @@ movies = fetch_popular_movies(pages=3)[:50]
 movie_data = []
 for movie in movies:
     runtime, release_year = fetch_movie_details(movie["id"])
-    movie_data.append({
+    if release_year and int(release_year) <= 2024:
+        movie_data.append({
         "movieId": movie["id"],
         "title": movie["title"],
         "rating": movie.get("vote_average"),
