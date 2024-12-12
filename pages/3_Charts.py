@@ -82,3 +82,33 @@ print(f"Sample data with genres and details saved to {RATINGS_FILE}")
 
 st.title("Movie Ratings with Genres and Details")
 st.dataframe(df_ratings)
+
+
+
+import requests
+import pandas as pd
+
+# Define your TMDB API key and endpoint
+api_key = 'your_tmdb_api_key'
+endpoint = 'https://api.themoviedb.org/3/movie/popular'
+
+# Fetch data from TMDB API
+params = {'api_key': api_key, 'language': 'en-US', 'page': 1}
+response = requests.get(endpoint, params=params)
+data = response.json()
+
+# Extract relevant data
+movies = [{
+    'title': movie['title'],
+    'genres': ', '.join([genre['name'] for genre in movie['genre_ids']]),
+    'rating': movie['vote_average'],
+    'release_year': movie['release_date'][:4],  # Extract year from release date
+    'length': movie.get('runtime', 0)  # Default to 0 if runtime is not available
+} for movie in data['results']]
+
+# Create a DataFrame and save to CSV
+df_global = pd.DataFrame(movies)
+df_global.to_csv('global_ratings.csv', index=False)
+
+# Display the DataFrame
+print(df_global.head())

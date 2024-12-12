@@ -12,6 +12,7 @@ st.write("Here you can find diverse charts visualising all of your rated movies.
 
 # Load the dataset
 df_ratings = pd.read_csv("ratings_with_genres_and_details_sample.csv")
+df_global = pd.read_csv('path_to_global_ratings.csv')
 
 
 col1, col2 = st.columns([1, 1])
@@ -98,13 +99,16 @@ fig6 = px.bar(top_rated, x='rating', y='title', orientation='h',
              labels={'title': 'Movie', 'rating': 'Rating'})
 st.plotly_chart(fig6)
 
-# 6. Comparison of Average Ratings by Genre
-# Compare user ratings to some hypothetical global ratings
-global_avg = df_ratings_exploded.groupby('genres')['rating'].mean().reset_index()
-global_avg.columns = ['genres', 'global_rating']
-comparison_df = pd.merge(global_avg, genre_avg_ratings, on='genres', suffixes=('_global', '_user'))
-fig7 = px.bar(comparison_df, x='genres', y=['global_rating', 'rating'],
-             title="User vs Global Average Ratings by Genre",
-             labels={'genres': 'Genre', 'value': 'Average Rating'},
+
+avg_rating_by_genre.columns = ['genres', 'avg_rating_by_genre']
+global_avg_ratings = df_global.groupby('genres')['rating'].mean().reset_index()
+global_avg_ratings.columns = ['genres', 'global_avg_rating']
+# Merge the two DataFrames on 'genres'
+comparison_df = pd.merge(user_avg_ratings, global_avg_ratings, on='genres')
+
+# Create a bar chart to compare the ratings
+fig7 = px.bar(comparison_df, x='genres', y=['user_avg_rating', 'global_avg_rating'],
+             title='Comparison of User Rating Patterns Against Global Averages',
+             labels={'value': 'Average Rating', 'variable': 'Rating Type'},
              barmode='group')
 st.plotly_chart(fig7)
