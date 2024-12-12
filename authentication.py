@@ -5,25 +5,6 @@ import streamlit as st
 conn = sqlite3.connect("database.db", check_same_thread=False)
 cursor = conn.cursor()
 
-# Create tables if they don't exist
-cursor.execute("""
-CREATE TABLE IF NOT EXISTS users (
-    userId INTEGER PRIMARY KEY,
-    username TEXT UNIQUE,
-    password TEXT
-)
-""")
-cursor.execute("""
-CREATE TABLE IF NOT EXISTS userratings (
-    ratingId INTEGER PRIMARY KEY AUTOINCREMENT,
-    userId INTEGER,
-    username TEXT,
-    movietitle TEXT,
-    rating REAL
-)
-""")
-conn.commit()
-
 # Initialize session state variables
 if "userID" not in st.session_state:
     st.session_state["userID"] = None
@@ -112,4 +93,5 @@ def login():
 
 # Main
 login()
+
 
