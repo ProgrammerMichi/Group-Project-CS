@@ -94,11 +94,12 @@ most_watched_year = df_ratings['release_year'].value_counts().idxmax()
 st.write(f"You have mostly watched movies released in {most_watched_year}.")
 
 
+
+col5, col6 = st.columns([1, 1])
+
 # Function to shorten movie titles
 def shorten_title(title, max_length=15):
     return title if len(title) <= max_length else title[:max_length] + "..."
-
-col5, col6 = st.columns([1, 1])
 
 with col5:
     # Top-rated movies by the user
@@ -112,7 +113,7 @@ with col5:
 
 with col6:
     # Worst-rated movies by the user
-    worst_rated = df_ratings.sort_values('rating').head(10)
+    worst_rated = df_ratings.sort_values('rating', ascending=True).head(10)
     worst_rated['short_title'] = worst_rated['title'].apply(shorten_title)
     fig7 = px.bar(worst_rated, x='rating', y='title', orientation='h',
                 title="Your Worst-Rated Movies",
