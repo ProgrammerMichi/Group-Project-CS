@@ -23,4 +23,4 @@ def get_personal_ratings():
 
 
 if st.session_state.get("Logged in"):
-    get_personal_ratings()
+    st.write(get_personal_ratings())
