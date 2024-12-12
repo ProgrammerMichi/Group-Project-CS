@@ -1,40 +1,37 @@
 import requests
 import pandas as pd
-import streamlit as st
 
-# Define your TMDB API key and endpoint
-api_key = 'eb7ed2a4be7573ea9c99867e37d0a4ab'
-endpoint = 'https://api.themoviedb.org/3/movie/popular'
+# Define your TMDB API key
+api_key = 'your_tmdb_api_key'
 
-# Fetch data from TMDB API
-params = {
-    'api_key': api_key,
-    'language': 'en-US',
-    'page': 1  # You can loop through multiple pages if needed
-}
-response = requests.get(endpoint, params=params)
-data = response.json()
+def fetch_movies(endpoint, params, max_pages=5):
+    movies = []
+    for page in range(1, max_pages + 1):
+        params['page'] = page
+        response = requests.get(endpoint, params=params)
+        data = response.json()
+        for movie in data['results']:
+            movies.append({
+                'title': movie['title'],
+                'genres': ', '.join([genre['name'] for genre in movie['genre_ids']]),
+                'rating': movie['vote_average'],
+                'release_year': movie['release_date'][:4],
+                'length': movie.get('runtime', 0)
+            })
+    return movies
 
+def get_all_movies():
+    popular_endpoint = 'https://api.themoviedb.org/3/movie/popular'
+    popular_params = {'api_key': api_key, 'language': 'en-US'}
+    popular_movies = fetch_movies(popular_endpoint, popular_params)
 
-# Extract relevant data
-movies = []
-for movie in data['results']:
-    movies.append({
-        'title': movie['title'],
-        'genres': ', '.join([genre['name'] for genre in movie['genre_ids']]),  # Join genres as comma-separated string
-        'rating': movie['vote_average'],
-        'release_year': movie['release_date'][:4],  # Extract year from release date
-        'length': movie.get('runtime', 0)  # Assuming runtime is included, default to 0 if not available
-    })
+    top_rated_endpoint = 'https://api.themoviedb.org/3/movie/top_rated'
+    top_rated_params = {'api_key': api_key, 'language': 'en-US'}
+    top_rated_movies = fetch_movies(top_rated_endpoint, top_rated_params)
 
-# Create a DataFrame
-df_global = pd.DataFrame(movies)
+    return popular_movies + top_rated_movies
 
-# Save to CSV for future use
-RATINGS_FILE = "global_ratings.csv"
-df_global.to_csv('RATINGS_FILE.csv', index=False)
-
-# Display the DataFrame
-st.write("Global Ratings Data")
-st.dataframe(df_global.head())
-
+def save_global_ratings_to_csv():
+    all_movies = get_all_movies()
+    df_global = pd.DataFrame(all_movies)
+    df_global.to_csv('global_ratings.csv', index=False)
