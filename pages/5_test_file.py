@@ -36,5 +36,5 @@ df_global.to_csv('RATINGS_FILE.csv', index=False)
 
 # Display the DataFrame
 st.write("Global Ratings Data")
-st.dataframe(df_global)
+st.dataframe(df_global.head())
 
