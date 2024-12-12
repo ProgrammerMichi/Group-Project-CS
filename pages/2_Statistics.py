@@ -24,6 +24,12 @@ fig.update_layout(width=900)
 st.plotly_chart(fig)
 
 
+# pie chart with genres
+# radar chart for similarities
+# list of top and worst rated movies
+# average rating by release date
+
+
 # Display the CSV data as a table
 st.title("Movie Ratings with Genres")
 st.dataframe(ratings_df)
