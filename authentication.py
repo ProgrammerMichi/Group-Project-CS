@@ -60,7 +60,8 @@ def login():
 
     # Only attempt registration if fields are non-empty and the button is clicked
     with register:
-        if st.sidebar.button("Register", key ="blabla"):
+        st.subheader("Register")
+        if st.button("Register"):
             if new_username.strip() and new_password.strip():
                 try:
                     register_user(new_username, new_password)
