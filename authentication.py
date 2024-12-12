@@ -23,10 +23,11 @@ def authenticate_user(username, password):
 
 # Streamlit UI
 def login():
-    menu = st.sidebar.selectbox("Options", ["Login", "Register"])
+    register = st.sidebar.popover("Register")
+    log_in = st.sidebar.popover("Log In")
 
-    if menu == "Register":
-        st.subheader("Register")
+    with register:
+        st.markdown("Register")
         new_username = st.text_input("Username", key="register_username")
         new_password = st.text_input("Password", type="password", key="register_password")
 
@@ -37,7 +38,7 @@ def login():
             except sqlite3.IntegrityError:
                 st.error("Username already exists!")
 
-    elif menu == "Login":
+    with log_in:
         st.subheader("Login")
         username = st.text_input("Username", key="login_username")
         password = st.text_input("Password", type="password", key="login_password")
