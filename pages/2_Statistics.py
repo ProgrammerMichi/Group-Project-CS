@@ -118,9 +118,8 @@ with col6:
     fig7 = px.bar(worst_rated, x='rating', y='title', orientation='h',
                 title="Your Worst-Rated Movies",
                 labels={'short_title': 'Movie', 'rating': 'Rating'},
-                category_orders={'short_title': worst_rated['short_title'].tolist()[::-1]})
+                category_orders={'short_title': worst_rated['short_title'].tolist()})
     st.plotly_chart(fig7)
-
 
 
 # User ratings vs global ratings??
