@@ -49,17 +49,6 @@ def register_user(username, password):
         st.error("An error occurred during registration.")
         st.write(f"Error details: {e}")
 
-def authenticate_user(username, password):
-    cursor.execute("SELECT * FROM users WHERE username = ? AND password = ?", (username, password))
-    result = cursor.fetchone()
-    if result:
-        st.session_state["userId"] = result[0]
-        return True
-    return False
-
-
-
-
 
 # Streamlit UI
 def login():
