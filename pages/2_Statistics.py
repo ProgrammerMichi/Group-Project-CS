@@ -95,10 +95,11 @@ st.write(f"You have mostly watched movies released in {most_watched_year}.")
 
 
 # Top-rated movies by the user
-top_rated = df_ratings.sort_values('rating', ascending=True).head(10)
+top_rated = df_ratings.sort_values('rating', ascending=False).head(10)
 fig6 = px.bar(top_rated, x='rating', y='title', orientation='h',
              title="Top-Rated Movies",
-             labels={'title': 'Movie', 'rating': 'Rating'})
+             labels={'title': 'Movie', 'rating': 'Rating'},
+             category_orders={'title': top_rated['title'].tolist()})
 st.plotly_chart(fig6)
 
 
@@ -109,6 +110,12 @@ fig7 = px.bar(top_rated, x='rating', y='title', orientation='h',
              labels={'title': 'Movie', 'rating': 'Rating'})
 st.plotly_chart(fig7)
 
+
+# ...
+fig8 = px.box(df_ratings, x='genres', y='rating',
+              title="Distribution of Movie Ratings by Genres",
+              labels={'genres': 'Genres', 'rating': 'Rating'})
+st.plotly_chart(fig8)
 
 
 # User ratings vs global ratings
