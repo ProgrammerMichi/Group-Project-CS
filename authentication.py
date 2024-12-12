@@ -5,7 +5,6 @@ import streamlit as st
 conn = sqlite3.connect("users.db", check_same_thread=False)
 cursor = conn.cursor()
 
-cursor.execute("DROP TABLE IF EXISTS users")
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS users (
     userId INTEGER PRIMARY KEY,
@@ -18,7 +17,9 @@ conn.commit()
 
 # Get the next user ID starting from 611
 def get_next_user_id():
-    return 1
+    cursor.execute("SELECT MAX(userId) FROM users")
+    max_id = cursor.fetchone()[0]
+    return max_id + 1 if max_id else 611
 
 def register_user(username, password):
     # Validate input
@@ -28,7 +29,7 @@ def register_user(username, password):
 
     try:
         user_id = get_next_user_id()
-        cursor.execute("INSERT INTO users (userId, username, password) VALUES (?, ?, ?)", (str(user_id), username, password))
+        cursor.execute("INSERT INTO users (userId, username, password) VALUES (?, ?, ?)", (user_id, username, password))
         conn.commit()
         st.session_state["userId"] = user_id
         st.success("User successfully registered!")
