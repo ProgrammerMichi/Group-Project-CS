@@ -97,10 +97,6 @@ st.write(f"You have mostly watched movies released in {most_watched_year}.")
 
 col5, col6 = st.columns([1, 1])
 
-# Function to shorten movie titles
-def shorten_title(title, max_length=15):
-    return title if len(title) <= max_length else title[:max_length] + "..."
-
 with col5:
     # Top-rated movies by the user
     top_rated = df_ratings.sort_values('rating', ascending=False).head(10)
@@ -120,24 +116,23 @@ with col6:
     st.plotly_chart(fig7)
 
 
+
+col7, col8 = st.columns([1, 1])
+
+with col7:
 # Scatter Plot: Release Year vs. Rating
 fig8 = px.scatter(df_ratings, x='release_year', y='rating',
                 title="Release Year vs. Rating",
                 labels={'release_year': 'Release Year', 'rating': 'Rating'})
 st.plotly_chart(fig8)
 
-
-# Heatmap: Genre vs. Average Rating
-genre_rating = df_ratings.groupby('genres')['rating'].mean().reset_index()
-fig9 = px.imshow(genre_rating.pivot(index='genres', columns='rating', values='rating'),
-                title="Genre vs. Average Rating")
-st.plotly_chart(fig9)
-
+with col8:
 # Heatmap: Release Year vs. Average Rating
 year_rating = df_ratings.groupby('release_year')['rating'].mean().reset_index()
-fig10 = px.imshow(year_rating.pivot(index='release_year', columns='rating', values='rating'),
+fig9 = px.imshow(year_rating.pivot(index='release_year', columns='rating', values='rating'),
                     title="Release Year vs. Average Rating")
-st.plotly_chart(fig10)
+fig4.update_layout(width=800)
+st.plotly_chart(fig9)
 
 
 # User ratings vs global ratings??
