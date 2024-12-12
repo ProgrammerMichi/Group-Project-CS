@@ -21,5 +21,5 @@ def get_personal_ratings():
     cursor.execute("SELECT * FROM userratings WHERE userId = ?", (st.session_state.get("userId", None)))
 
 
-if st.session_state.get("Logged in", False):
+if st.session_state.get("Logged in"):
     get_personal_ratings()
