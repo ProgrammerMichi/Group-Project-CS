@@ -22,10 +22,23 @@ def get_next_user_id():
     return max_id + 1 if max_id else 611
 
 def register_user(username, password):
-    user_id = get_next_user_id()
-    cursor.execute("INSERT INTO users (userId, username, password) VALUES (?, ?, ?)", (user_id, username, password))
-    conn.commit()
-    st.session_state["userId"] = user_id
+    # Validate input
+    if not username.strip() or not password.strip():
+        st.error("Username and password cannot be empty!")
+        return
+
+    try:
+        user_id = get_next_user_id()
+        cursor.execute("INSERT INTO users (userId, username, password) VALUES (?, ?, ?)", (user_id, username, password))
+        conn.commit()
+        st.session_state["userId"] = user_id
+        st.success("User successfully registered!")
+    except sqlite3.IntegrityError as e:
+        st.error("Username already exists!")
+        st.write(f"Error details: {e}")
+    except Exception as e:
+        st.error("An error occurred during registration.")
+        st.write(f"Error details: {e}")
 
 def authenticate_user(username, password):
     cursor.execute("SELECT * FROM users WHERE username = ? AND password = ?", (username, password))
@@ -33,6 +46,17 @@ def authenticate_user(username, password):
 
 # Streamlit UI
 def login():
+    # Initialize session state variables
+    if "userId" not in st.session_state:
+        st.session_state["userId"] = None
+
+    if "logged_in" not in st.session_state:
+        st.session_state["logged_in"] = False
+
+    if "username" not in st.session_state:
+        st.session_state["username"] = None
+
+
     register = st.sidebar.expander("Register")
     log_in = st.sidebar.expander("Log In")
 
@@ -41,6 +65,16 @@ def login():
         st.write("WARNING: Do NOT use passwords you use elsewhere! This is a course project!")
         new_username = st.text_input("Username", key="register_username")
         new_password = st.text_input("Password", type="password", key="register_password")
+
+    # Only attempt registration if fields are non-empty and the button is clicked
+    if st.button("Register"):
+        if new_username.strip() and new_password.strip():
+            try:
+                register_user(new_username, new_password)
+            except sqlite3.IntegrityError:
+                st.error("Username already exists!")
+        else:
+            st.error("Username and password cannot be empty!")
 
         if st.button("Register"):
             try:
