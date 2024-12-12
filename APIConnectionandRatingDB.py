@@ -32,10 +32,8 @@ def fetch_poster(movie_id):
 
 def fetch_movie_description(movie_id):
     #Fetch the movie description for the respective movie
-    url = f"https://api.themoviedb.org/3/movie/{str(movie_id)}?api_key=eb7ed2a4be7573ea9c99867e37d0a4ab&language=en-US"
-    data = requests.get(url)
-    data = data.json()
-    overview = data.get('overview', "No description available.")
+    movie_details = movie.details(movie_id)
+    overview = movie_details.get('overview', "No description available.")
     return overview
 
 
