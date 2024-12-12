@@ -244,8 +244,8 @@ def movielist(returnmovies):
                     st.write(f"**{details.title}**")
                     try:
                         description = fetch_movie_description(movie_id)
-                    except Exception:
-                        st.write(st.write("No Description Available"))
+                    except Exception as e:
+                        st.write("No Description Available")
                     else:
                         with st.popover("View Movie Description"):
                             st.write(description)
