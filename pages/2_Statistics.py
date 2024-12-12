@@ -21,7 +21,7 @@ with col1:
     df_genres = df_ratings.assign(genres=df_ratings['genres'].str.split(', ')).explode('genres')
     avg_rating_by_genre = df_genres.groupby('genres')['rating'].mean().reset_index()
     fig2 = px.bar(avg_rating_by_genre, x="genres", y="rating", title="Average Rating by Genre")
-    fig2.update_layout(width=900, 
+    fig2.update_layout(
         xaxis_title="Genres",
         yaxis_title="Average Rating")
     st.plotly_chart(fig2)
@@ -48,7 +48,6 @@ with col2:
         showlegend=False,
         title='Radar Chart for Average Ratings by Genre'
     )
-    fig6.update_layout(width=900)
     st.plotly_chart(fig6)
 
 
