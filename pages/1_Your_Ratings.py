@@ -17,7 +17,6 @@ if selected is not None:
 
 def get_personal_ratings():
     username = st.session_state.get("username")
-    st.write(username)
     if not username:
         return "No username found. Please log in to view your ratings."
     
