@@ -66,7 +66,7 @@ def login():
         password = st.text_input("Password", type="password", key="login_password")
 
         if st.button("Login"):
-            cursor.execute("SELECT FROM users WHERE username = ? AND password = ?", (username, password))
+            cursor.execute("SELECT userId FROM users WHERE username = ? AND password = ?", (username, password))
             result = cursor.fetchone()
             if result:
                 st.session_state["logged_in"] = True
