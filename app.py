@@ -6,7 +6,7 @@ import streamlit as st
 from APIConnection import get_genres, findmovie, movielist, search_movie
 import pandas as pd
 import numpy as np
-from authentication import login
+import authentication
 # Tab Title
 st.set_page_config(page_title="Movie Recommender", page_icon="🎞️", layout="wide")
 
@@ -22,7 +22,7 @@ col1, col2, col3, col4, col5, col6, col7 = st.columns([2,2,2,2,3.2,3,3])
 #Checkboxes coming up take input on whether to enable/disable the respective criteria in the search function
 #All inputs (checkboxes and search criteria) are stored in variables, which are later used in the search function
 
-login()
+authentication.login()
 
 with col1:
     #Dropdown menu with all available genres as options, chosen genre is saved in a variable
