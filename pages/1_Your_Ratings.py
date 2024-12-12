@@ -17,10 +17,20 @@ if selected is not None:
 
 def get_personal_ratings():
     conn = sqlite3.connect("userratings.db")
-    cursor = conn.cursor
-    cursor.execute("SELECT * FROM userratings WHERE userId = ?", (st.session_state.get("userId")))
-    return cursor.fetchall()
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM userratings WHERE userId = ?", (st.session_state.get("userID"),))
+    ratings = cursor.fetchall()
+    conn.close()
+    return ratings
 
 
 if st.session_state.get("Logged in"):
-    st.write(get_personal_ratings())
+    user_ratings = get_personal_ratings()
+    if isinstance(user_ratings, str):  # Handle error messages
+        st.write(user_ratings)
+    elif user_ratings:
+        st.write("Your Ratings:")
+        for rating in user_ratings:
+            st.write(rating)
+    else:
+        st.write("You haven't rated any movies yet.")
