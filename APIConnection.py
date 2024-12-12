@@ -269,3 +269,4 @@ def movielist(returnmovies):
                     st.text("")
                     
                     st.slider("**Your Personal Rating**",min_value=1, max_value=10, key = movie_id)
+                    st.button("Save Rating", key = movie_id)
