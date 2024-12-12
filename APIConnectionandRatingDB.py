@@ -3,7 +3,7 @@ import streamlit as st
 import requests
 from tmdbv3api import TMDb, Movie, Genre, Discover, Person, Search
 import sqlite3
-from Your_Ratings import save_ratings
+from 1_Your_Ratings import save_ratings
 
 
 
