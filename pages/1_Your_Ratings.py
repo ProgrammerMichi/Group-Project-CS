@@ -1,7 +1,9 @@
 import streamlit as st
 import sqlite3
 import authentication
-from APIConnectionandRatingDB import load_ratings
+from APIConnectionandRatingDB import load_ratings, get_user_movie_ratings
+
+get_user_movie_ratings()
 
 
 # Tab Title, Titles and Intro
