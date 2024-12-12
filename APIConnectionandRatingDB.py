@@ -173,21 +173,27 @@ def search_movie(query):
     return movieswtitle
 
 def get_connection():
-    return sqlite3.connect("database.db", check_same_thread=False)
-
+    return sqlite3.connect("users.db", check_same_thread=False)
+    
+con = get_connection
+cursor = con.cursor()
+cursor.execute("""
+CREATE TABLE IF NOT EXISTS userratings (
+    ratingId INTEGER PRIMARY KEY AUTOINCREMENT,  
+    userId INTEGER,                              
+    username TEXT,                               
+    movietitle TEXT,                            
+    rating REAL                          
+)
+""")
+con.commit()
 
 def get_user_id():
     return st.session_state.get("userId", None)
 
 def save_rating(user_id, username, movietitle, rating):
-    conn = get_connection()
-    cursor = conn.cursor()
-    cursor.execute("""
-        INSERT INTO userratings (userId, username, movietitle, rating) 
-        VALUES (?, ?, ?, ?)
-    """, (user_id, username, movietitle, rating))
-    conn.commit()
-    conn.close()
+    cursor.execute("INSERT INTO userratings (userId, username, movietitle, rating) VALUES (?, ?, ?, ?)", 
+                    (user_id, username, movietitle, rating))
     
 
 def movielist(returnmovies):
